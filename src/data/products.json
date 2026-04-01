@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "title": "Casio FX-991EX Scientific Calculator",
+    "category": "Electronics",
+    "condition": "Like New",
+    "ownerName": "Ali H.",
+    "price": 200,
+    "rateType": "day",
+    "image": ""
+  },
+  {
+    "id": "2",
+    "title": "Calculus: Early Transcendentals 8th Ed",
+    "category": "Textbooks",
+    "condition": "Good",
+    "ownerName": "Fatima S.",
+    "price": 500,
+    "rateType": "week",
+    "image": ""
+  },
+  {
+    "id": "3",
+    "title": "Arduino Uno Starter Kit Pro",
+    "category": "Kits",
+    "condition": "New",
+    "ownerName": "Zain M.",
+    "price": 1000,
+    "rateType": "week",
+    "image": ""
+  },
+  {
+    "id": "4",
+    "title": "Adjustable Drafting Table",
+    "category": "Furniture",
+    "condition": "Fair",
+    "ownerName": "Sara R.",
+    "price": 300,
+    "rateType": "day",
+    "image": ""
+  }
+]
