@@ -14,6 +14,8 @@ const BrutalButton = ({
   const variants = {
     primary: 'bg-primary text-black',
     secondary: 'bg-secondary text-black',
+    outline: 'bg-white text-black hover:bg-surface',
+    ghost: 'border-transparent bg-transparent hover:border-black text-black',
   };
 
   return (
@@ -29,7 +31,7 @@ const BrutalButton = ({
 
 BrutalButton.propTypes = {
   children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(['primary', 'secondary']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'ghost']),
   className: PropTypes.string,
   disabled: PropTypes.bool,
 };
