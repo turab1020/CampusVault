@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import BrutalCard from '../components/ui/BrutalCard'
+import ProductCard from '../components/ui/ProductCard'
+import productsData from '../data/products.json'
 
 const CATEGORIES = [
     "All",
@@ -35,7 +37,16 @@ const Marketplace = () => {
                 ))}
             </div>
             
-            {/* Grid will go here */}
+            {/* Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                {productsData
+                    .filter(item => selectedCategory === 'All' || item.category === selectedCategory)
+                    .map((item) => (
+                        <div key={item.id}>
+                            <ProductCard product={item} />
+                        </div>
+                    ))}
+            </div>
         </div>
     )
 }
