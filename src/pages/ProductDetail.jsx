@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import { Shield } from 'lucide-react'
 import BrutalCard from '../components/ui/BrutalCard'
 import Badge from '../components/ui/Badge'
+import BrutalButton from '../components/ui/BrutalButton'
+import NbInput from '../components/ui/NbInput'
 import productsData from '../data/products.json'
 
 const ProductDetail = () => {
@@ -73,8 +75,38 @@ const ProductDetail = () => {
                         </div>
                     </BrutalCard>
                     
-                    {/* Booking Card scaffold */}
-                    <div>Booking Card Scaffold</div>
+                    {/* Booking Card */}
+                    <BrutalCard className="bg-white text-black border-4 mt-auto p-6">
+                        <div className="flex justify-between items-end mb-6 border-b-4 border-black pb-4">
+                            <span className="font-heading font-black text-5xl tracking-tighter text-primary">
+                                Rs {product.price}
+                            </span>
+                            <span className="font-sans font-bold text-neutral-gray mb-1 uppercase">per {product.rateType}</span>
+                        </div>
+
+                        <form className="flex flex-col gap-4">
+                            <div className="grid grid-cols-2 gap-4">
+                                <NbInput
+                                    label="Start Date"
+                                    type="date"
+                                    name="startDate"
+                                    required
+                                />
+                                <NbInput
+                                    label="End Date"
+                                    type="date"
+                                    name="endDate"
+                                    required
+                                />
+                            </div>
+                            <BrutalButton type="button" variant="primary" size="lg" className="w-full mt-4">
+                                Request Booking
+                            </BrutalButton>
+                            <p className="font-sans text-xs text-center font-bold text-neutral-gray mt-2 uppercase">
+                                You won't be charged yet. Host must approve.
+                            </p>
+                        </form>
+                    </BrutalCard>
                 </div>
             </div>
         </div>
