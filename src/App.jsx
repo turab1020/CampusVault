@@ -1,9 +1,11 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/layout/Navbar'
 
 function App() {
   return (
     <div className="min-h-screen bg-bg-main text-white flex flex-col">
+      <Navbar />
       <main className="flex-grow flex items-center justify-center">
         <Routes>
           <Route 
