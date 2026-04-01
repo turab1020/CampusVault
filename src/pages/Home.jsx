@@ -1,9 +1,10 @@
 import React from 'react'
+import Hero from '../components/home/Hero'
 
 const Home = () => {
   return (
     <div className="flex flex-col w-full">
-      {/* Home page components will be structurally layered here */}
+      <Hero />
     </div>
   )
 }
