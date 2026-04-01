@@ -9,7 +9,7 @@ const BrutalButton = ({
   ...props
 }) => {
   const baseClasses =
-    'inline-flex items-center justify-center font-heading uppercase tracking-wide border-4 border-black rounded-brutal transition-all duration-150 focus:outline-none px-6 py-3 text-base';
+    'inline-flex items-center justify-center font-heading uppercase tracking-wide border-4 border-black rounded-brutal transition-all duration-150 focus:outline-none px-6 py-3 text-base shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-hover active:translate-x-[4px] active:translate-y-[4px] active:shadow-none';
 
   const variants = {
     primary: 'bg-primary text-black',
