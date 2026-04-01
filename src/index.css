@@ -8,4 +8,20 @@
   body {
     @apply bg-bg-main text-white font-sans antialiased;
   }
+
+  /* Custom Neobrutalist Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #2C2A29;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #FF6F20;
+    border: 3px solid #2C2A29;
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #F6A02D;
+  }
 }
