@@ -10,7 +10,22 @@ const About = () => {
             >
                 About <span className="text-primary">CampusVault</span>
             </h1>
-            {/* Mission Content Below */}
+            <BrutalCard className="bg-white border-4 mb-12 p-8">
+                <h2 className="font-heading text-3xl uppercase mb-6 text-black tracking-tighter">
+                    The Mission
+                </h2>
+                <p className="font-sans text-xl font-bold text-black leading-relaxed mb-6">
+                    CampusVault was built to solve a simple problem: <span className="bg-secondary px-2 border-2 border-black text-black">Engineering gear is expensive.</span>
+                </p>
+                <p className="font-sans text-lg text-black font-bold leading-relaxed mb-6">
+                    Why buy a $500 oscilloscope for one semester? Why let your DSLR gather dust?
+                    We believe in a decentralized campus economy where resources circulate freely,
+                    trust is currency, and brutal efficiency wins.
+                </p>
+                <p className="font-sans text-lg text-black font-bold leading-relaxed">
+                    No middlemen. No hidden fees. Just peer-to-peer rental power.
+                </p>
+            </BrutalCard>
         </div>
     )
 }
