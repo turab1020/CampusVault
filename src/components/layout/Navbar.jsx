@@ -25,7 +25,7 @@ function Navbar() {
         </div>
 
         {/* Desktop Icons */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4 text-black">
           <button className="p-2 hover:bg-surface border-2 border-transparent hover:border-black rounded-brutal transition-all">
             <Search size={20} strokeWidth={2.5} />
           </button>
@@ -39,7 +39,7 @@ function Navbar() {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex items-center text-black">
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="p-2 border-2 border-black rounded-brutal hover:bg-surface transition-all"
@@ -58,7 +58,7 @@ function Navbar() {
           <Link to="/about" className="font-sans font-bold text-base text-black uppercase hover:text-primary transition-colors w-full text-center">
             About
           </Link>
-          <div className="flex justify-center gap-6 pt-4 border-t-2 border-black">
+          <div className="flex justify-center gap-6 pt-4 border-t-2 border-black text-black">
             <button className="p-2"><Search size={24} strokeWidth={2.5} /></button>
             <button className="p-2"><ShoppingCart size={24} strokeWidth={2.5} /></button>
             <Link to="/login" className="p-2"><User size={24} strokeWidth={2.5} /></Link>

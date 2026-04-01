@@ -2,6 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
+import Home from './pages/Home'
 
 function App() {
   return (
@@ -11,16 +12,7 @@ function App() {
         <Routes>
           <Route 
             path="/" 
-            element={
-              <div className="text-center p-8 border-4 border-black shadow-brutal rounded-brutal bg-surface mx-4">
-                <h1 className="font-heading text-4xl text-primary uppercase tracking-tighter">
-                  CampusVault
-                </h1>
-                <p className="font-sans font-bold text-neutral-gray mt-2 text-sm">
-                  Blank Canvas Initialized.
-                </p>
-              </div>
-            } 
+            element={<Home />} 
           />
           <Route path="/marketplace" element={<div>Marketplace</div>} />
           <Route path="/product/:id" element={<div>Product Detail</div>} />
