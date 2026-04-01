@@ -1,9 +1,30 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#FF6F20",
+        secondary: "#F6A02D",
+        "bg-main": "#2C2A29",
+        surface: "#E1E1E1",
+        "neutral-gray": "#7D7F7D",
+      },
+      fontFamily: {
+        sans: ["DM Sans", "sans-serif"],
+        heading: ["Archivo Black", "sans-serif"],
+      },
+      boxShadow: {
+        brutal: "4px 4px 0px 0px rgba(0,0,0,1)",
+        "brutal-hover": "2px 2px 0px 0px rgba(0,0,0,1)",
+      },
+      borderRadius: {
+        brutal: "32px",
+      },
+    },
   },
   plugins: [],
 }
-
