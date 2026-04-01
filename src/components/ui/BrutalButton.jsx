@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const BrutalButton = ({
   children,
+  variant = 'primary',
   className = '',
   disabled = false,
   ...props
@@ -10,9 +11,14 @@ const BrutalButton = ({
   const baseClasses =
     'inline-flex items-center justify-center font-heading uppercase tracking-wide border-4 border-black rounded-brutal transition-all duration-150 focus:outline-none px-6 py-3 text-base';
 
+  const variants = {
+    primary: 'bg-primary text-black',
+    secondary: 'bg-secondary text-black',
+  };
+
   return (
     <button
-      className={`${baseClasses} ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
+      className={`${baseClasses} ${variants[variant]} ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
       disabled={disabled}
       {...props}
     >
@@ -23,6 +29,7 @@ const BrutalButton = ({
 
 BrutalButton.propTypes = {
   children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['primary', 'secondary']),
   className: PropTypes.string,
   disabled: PropTypes.bool,
 };
