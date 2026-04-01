@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { Shield } from 'lucide-react'
 import BrutalCard from '../components/ui/BrutalCard'
 import Badge from '../components/ui/Badge'
 import productsData from '../data/products.json'
@@ -34,8 +35,47 @@ const ProductDetail = () => {
                     </div>
                 </div>
                 
-                {/* Right Pane will go here */}
-                <div>Right Pane Scaffold</div>
+                {/* Right Pane */}
+                <div className="flex flex-col gap-8 text-black">
+                    <div>
+                        <h4 className="text-primary font-bold uppercase mb-2 tracking-widest">{product.category}</h4>
+                        <h1 className="font-heading text-5xl md:text-6xl uppercase leading-none mb-6 tracking-tighter" style={{ textShadow: '4px 4px 0px #000' }}>
+                            {product.title}
+                        </h1>
+                        <div className="flex items-center gap-4">
+                            <Badge variant="primary">Condition: {product.condition}</Badge>
+                            <div className="flex items-center gap-2 text-black font-bold">
+                                <Shield size={18} className="text-primary" />
+                                <span>Verified Host</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Host Profile Card */}
+                    <BrutalCard className="bg-white text-black border-4 p-6">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-16 h-16 rounded-full border-4 border-black overflow-hidden bg-surface relative flex items-center justify-center">
+                                <span className="font-heading text-2xl tracking-tighter">{product.ownerName.charAt(0)}</span>
+                            </div>
+                            <div>
+                                <h3 className="font-heading text-2xl uppercase leading-none">{product.ownerName}</h3>
+                                <div className="flex items-center gap-2 text-sm font-bold text-neutral-gray mt-1">
+                                    <Shield size={16} className="text-secondary" />
+                                    <span>Verified Host</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4">
+                            <button className="flex-1 font-bold px-4 py-2 border-2 border-black bg-white hover:bg-surface shadow-[4px_4px_0px_0px_#000] uppercase transition-all duration-200 active:translate-y-1 active:shadow-[0px_0px_0px_0px_#000]">
+                                Open Profile
+                            </button>
+                        </div>
+                    </BrutalCard>
+                    
+                    {/* Booking Card scaffold */}
+                    <div>Booking Card Scaffold</div>
+                </div>
             </div>
         </div>
     )
