@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
+import Marketplace from './pages/Marketplace'
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
             path="/" 
             element={<Home />} 
           />
-          <Route path="/marketplace" element={<div>Marketplace</div>} />
+          <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/about" element={<About />} />
           <Route path="/product/:id" element={<div>Product Detail</div>} />
           <Route path="/dashboard" element={<div>Dashboard</div>} />
