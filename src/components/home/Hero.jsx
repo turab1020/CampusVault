@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Star } from 'lucide-react'
+import BrutalCard from '../components/ui/BrutalCard'
 import BrutalButton from '../components/ui/BrutalButton'
 import Badge from '../components/ui/Badge'
 
@@ -31,8 +33,17 @@ const Hero = () => {
             </div>
         </div>
         
-        {/* Abstract Graphic will go here block */}
-        <div className="hidden md:block"></div>
+        {/* Abstract Graphic block */}
+        <div className="relative hidden md:block w-full h-full min-h-[500px]">
+            <div className="absolute top-0 right-0 w-full h-full bg-primary border-4 border-black translate-x-4 translate-y-4 shadow-[4px_4px_0px_#000]"></div>
+            <div className="relative bg-surface p-0 overflow-hidden w-full h-full min-h-[500px] flex items-center justify-center border-4 border-black z-10">
+                <div className="text-center p-8">
+                    <Star className="w-24 h-24 text-black mx-auto mb-4" />
+                    <h2 className="font-heading text-black text-4xl uppercase mb-2 tracking-tighter">CampusVault</h2>
+                    <p className="font-sans text-black font-bold text-2xl bg-secondary inline-block px-2 border-2 border-black transform -rotate-2 shadow-brutal">EST. 2026</p>
+                </div>
+            </div>
+        </div>
       </div>
     </section>
   )
