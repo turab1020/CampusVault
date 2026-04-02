@@ -6,9 +6,12 @@ import productsData from '../data/products.json'
 const CATEGORIES = [
     "All",
     "Electronics",
+    "Engineering Kits",
+    "Media Equipment",
+    "Event Gear",
     "Textbooks",
-    "Kits",
-    "Furniture",
+    "Computing",
+    "Presentation Tools",
 ];
 
 const Marketplace = () => {
@@ -24,7 +27,7 @@ const Marketplace = () => {
 
     return (
         <div className="flex flex-col gap-8 max-w-7xl mx-auto py-12 px-6 w-full">
-            <BrutalCard className="flex flex-col md:flex-row justify-between items-center bg-secondary text-black p-8 border-4 border-black shadow-brutal rounded-brutal">
+            <div className="flex flex-col md:flex-row justify-between items-center bg-secondary text-black p-8 border-4 border-black shadow-brutal rounded-brutal">
                 <div>
                     <h1 className="font-heading text-4xl uppercase mb-2 tracking-tighter">Marketplace</h1>
                     <p className="font-sans font-bold">Find the gear you need.</p>
@@ -38,7 +41,7 @@ const Marketplace = () => {
                         className="px-4 py-3 font-bold border-2 border-black rounded-lg outline-none focus:ring-4 focus:ring-primary focus:border-black transition-all max-w-xs w-full"
                     />
                 </div>
-            </BrutalCard>
+            </div>
             
             {/* Filters */}
             <div className="flex flex-wrap gap-4 overflow-x-auto pb-4">
