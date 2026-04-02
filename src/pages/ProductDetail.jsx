@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Shield } from 'lucide-react'
+import { Shield, CheckCircle } from 'lucide-react'
 import BrutalCard from '../components/ui/BrutalCard'
 import Badge from '../components/ui/Badge'
 import BrutalButton from '../components/ui/BrutalButton'
@@ -10,6 +10,7 @@ import productsData from '../data/products.json'
 const ProductDetail = () => {
     const { id } = useParams()
     const product = productsData.find(item => String(item.id) === id)
+    const [bookingSuccess, setBookingSuccess] = React.useState(false)
 
     if (!product) {
         return <div className="text-white text-center py-20 font-heading text-4xl uppercase">Product Not Found</div>
@@ -54,14 +55,18 @@ const ProductDetail = () => {
                     </div>
 
                     {/* Host Profile Card */}
-                    <BrutalCard className="bg-white text-black border-4 p-6">
+                    <div className="bg-white text-black border-4 border-black rounded-brutal p-6 shadow-brutal">
                         <div className="flex items-center gap-4 mb-6">
-                            <div className="w-16 h-16 rounded-full border-4 border-black overflow-hidden bg-surface relative flex items-center justify-center">
-                                <span className="font-heading text-2xl tracking-tighter">{product.ownerName.charAt(0)}</span>
+                            <div className="w-16 h-16 rounded-full border-4 border-black overflow-hidden bg-gray-200">
+                                <img
+                                    src={`https://ui-avatars.com/api/?name=${product.ownerName}&background=random`}
+                                    alt={product.ownerName}
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                             <div>
-                                <h3 className="font-heading text-2xl uppercase leading-none">{product.ownerName}</h3>
-                                <div className="flex items-center gap-2 text-sm font-bold text-neutral-gray mt-1">
+                                <h3 className="text-2xl font-black uppercase leading-none">{product.ownerName}</h3>
+                                <div className="flex items-center gap-2 text-sm font-bold text-gray-500 mt-1">
                                     <Shield size={16} className="text-secondary" />
                                     <span>Verified Host</span>
                                 </div>
@@ -69,44 +74,60 @@ const ProductDetail = () => {
                         </div>
 
                         <div className="flex gap-4">
-                            <button className="flex-1 font-bold px-4 py-2 border-2 border-black bg-white hover:bg-surface shadow-[4px_4px_0px_0px_#000] uppercase transition-all duration-200 active:translate-y-1 active:shadow-[0px_0px_0px_0px_#000]">
+                            <BrutalButton variant="outline" size="sm" className="flex-1 font-bold">
                                 Open Profile
-                            </button>
+                            </BrutalButton>
+                            <BrutalButton variant="secondary" size="sm" className="flex-1 font-bold text-black border-2 border-black shadow-[4px_4px_0px_#000]">
+                                Show More
+                            </BrutalButton>
                         </div>
-                    </BrutalCard>
+                    </div>
                     
                     {/* Booking Card */}
-                    <BrutalCard className="bg-white text-black border-4 mt-auto p-6">
-                        <div className="flex justify-between items-end mb-6 border-b-4 border-black pb-4">
-                            <span className="font-heading font-black text-5xl tracking-tighter text-primary">
-                                Rs {product.price}
-                            </span>
-                            <span className="font-sans font-bold text-neutral-gray mb-1 uppercase">per {product.rateType}</span>
-                        </div>
+                    <div className="bg-white text-black border-4 border-black p-6 rounded-brutal shadow-brutal mt-auto">
+                        {!bookingSuccess ? (
+                            <>
+                                <div className="flex justify-between items-end mb-6 border-b-2 border-black pb-4">
+                                    <span className="font-heading font-black text-4xl tracking-tighter">
+                                        Rs {product.price}
+                                    </span>
+                                    <span className="font-sans font-bold text-gray-500 mb-1 uppercase">per {product.rateType}</span>
+                                </div>
 
-                        <form className="flex flex-col gap-4">
-                            <div className="grid grid-cols-2 gap-4">
-                                <NbInput
-                                    label="Start Date"
-                                    type="date"
-                                    name="startDate"
-                                    required
-                                />
-                                <NbInput
-                                    label="End Date"
-                                    type="date"
-                                    name="endDate"
-                                    required
-                                />
+                                <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); setBookingSuccess(true); }}>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <NbInput
+                                            label="Start"
+                                            type="date"
+                                            name="startDate"
+                                            required
+                                        />
+                                        <NbInput
+                                            label="End"
+                                            type="date"
+                                            name="endDate"
+                                            required
+                                        />
+                                    </div>
+                                    <BrutalButton type="submit" variant="primary" size="lg" className="w-full text-lg mt-4">
+                                        Request Booking
+                                    </BrutalButton>
+                                    <p className="font-sans text-xs text-center font-bold text-gray-400 mt-2 uppercase">
+                                        You won't be charged yet. Host must approve.
+                                    </p>
+                                </form>
+                            </>
+                        ) : (
+                            <div className="text-center py-8">
+                                <CheckCircle size={64} className="text-success mx-auto mb-4" />
+                                <h3 className="font-heading text-2xl uppercase mb-2">Request Sent!</h3>
+                                <p className="font-sans font-bold text-gray-600 mb-6">Host has been notified.</p>
+                                <BrutalButton onClick={() => setBookingSuccess(false)} variant="outline">
+                                    Go to Dashboard
+                                </BrutalButton>
                             </div>
-                            <BrutalButton type="button" variant="primary" size="lg" className="w-full mt-4">
-                                Request Booking
-                            </BrutalButton>
-                            <p className="font-sans text-xs text-center font-bold text-neutral-gray mt-2 uppercase">
-                                You won't be charged yet. Host must approve.
-                            </p>
-                        </form>
-                    </BrutalCard>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
