@@ -7,7 +7,7 @@
     "ownerName": "Ali H.",
     "price": 200,
     "rateType": "day",
-    "image": ""
+    "image": "/images/leica_disto_d2.png"
   },
   {
     "id": "2",
@@ -17,7 +17,7 @@
     "ownerName": "Fatima S.",
     "price": 500,
     "rateType": "week",
-    "image": ""
+    "image": "/images/rotring_pencil_set.png"
   },
   {
     "id": "3",
@@ -27,7 +27,7 @@
     "ownerName": "Zain M.",
     "price": 1000,
     "rateType": "week",
-    "image": ""
+    "image": "/images/arduino_mega_kit.png"
   },
   {
     "id": "4",
@@ -37,6 +37,6 @@
     "ownerName": "Sara R.",
     "price": 300,
     "rateType": "day",
-    "image": ""
+    "image": "/images/drafting_table.png"
   }
 ]
