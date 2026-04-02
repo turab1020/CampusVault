@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import BrutalCard from '../components/ui/BrutalCard'
+import { Search } from 'lucide-react'
 import ProductCard from '../components/ui/ProductCard'
 import productsData from '../data/products.json'
 
@@ -33,13 +33,16 @@ const Marketplace = () => {
                     <p className="font-sans font-bold">Find the gear you need.</p>
                 </div>
                 <div className="w-full md:w-auto flex flex-col gap-4 mt-6 md:mt-0">
-                    <input
-                        type="text"
-                        placeholder="Search gear..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="px-4 py-3 font-bold border-2 border-black rounded-lg outline-none focus:ring-4 focus:ring-primary focus:border-black transition-all max-w-xs w-full"
-                    />
+                    <div className="relative">
+                        <input
+                            type="text"
+                            placeholder="Search gear..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="bg-white px-4 py-3 pl-12 font-bold border-2 border-black rounded-lg outline-none focus:ring-4 focus:ring-primary focus:border-black transition-all md:w-[300px] w-full"
+                        />
+                        <Search className="absolute left-4 top-3.5 text-black" size={20} />
+                    </div>
                 </div>
             </div>
             
@@ -49,8 +52,8 @@ const Marketplace = () => {
                     <button
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
-                        className={`px-4 py-2 font-bold uppercase border-2 border-black transition-all text-black 
-                        ${selectedCategory === cat ? 'bg-primary shadow-[4px_4px_0px_0px_#000]' : 'bg-white hover:bg-surface'}`}
+                        className={`px-4 py-2 font-bold uppercase border-2 border-black rounded-full transition-all text-black 
+                        ${selectedCategory === cat ? 'bg-primary shadow-[2px_2px_0px_0px_#000]' : 'bg-white hover:bg-surface'}`}
                     >
                         {cat}
                     </button>
