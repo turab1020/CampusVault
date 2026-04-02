@@ -32,22 +32,22 @@ const ProductDetail = () => {
                             Available
                         </Badge>
                     </BrutalCard>
-                    <div className="bg-surface border-2 border-dashed border-black p-6 font-bold text-black leading-relaxed text-lg shadow-brutal">
+                    <div className="bg-[#2C2A29] border-2 border-dashed border-gray-600 rounded-lg p-6 font-bold text-gray-300 leading-relaxed text-lg">
                         High-quality {product.category.toLowerCase()} gear strictly reserved for campus exchange. Must present active student card during meetup. Maintained in {product.condition.toLowerCase()} condition.
                     </div>
                 </div>
                 
                 {/* Right Pane */}
-                <div className="flex flex-col gap-8 text-black">
+                <div className="flex flex-col gap-8 text-white">
                     <div>
-                        <h4 className="text-primary font-bold uppercase mb-2 tracking-widest">{product.category}</h4>
-                        <h1 className="font-heading text-5xl md:text-6xl uppercase leading-none mb-6 tracking-tighter" style={{ textShadow: '4px 4px 0px #000' }}>
+                        <h4 className="text-secondary font-bold uppercase mb-2 tracking-widest">{product.category}</h4>
+                        <h1 className="font-heading text-5xl md:text-6xl uppercase leading-none mb-6 tracking-tighter text-white">
                             {product.title}
                         </h1>
                         <div className="flex items-center gap-4">
                             <Badge variant="primary">Condition: {product.condition}</Badge>
-                            <div className="flex items-center gap-2 text-black font-bold">
-                                <Shield size={18} className="text-primary" />
+                            <div className="flex items-center gap-2 text-gray-400 font-bold">
+                                <Shield size={18} className="text-secondary" />
                                 <span>Verified Host</span>
                             </div>
                         </div>
