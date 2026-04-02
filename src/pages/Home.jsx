@@ -1,7 +1,6 @@
 import React from 'react'
 import Hero from '../components/home/Hero'
 import Marquee from '../components/home/Marquee'
-import FAQSection from '../components/home/FAQSection'
 import ProductCard from '../components/ui/ProductCard'
 import BrutalButton from '../components/ui/BrutalButton'
 import { Link } from 'react-router-dom'
@@ -34,7 +33,6 @@ const Home = () => {
         </Link>
       </section>
 
-      <FAQSection />
     </div>
   )
 }

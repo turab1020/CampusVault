@@ -1,7 +1,7 @@
 import React from 'react'
-import Accordion from '../ui/Accordion'
+import Accordion from '../components/ui/Accordion'
 
-const faqData = [
+const faqs = [
   {
     title: 'How does CampusVault work?',
     content: 'Its simple. FAST students can list gear they no longer need (textbooks, calculators, electronics) for rent or sale. Other students can browse the marketplace and request to buy or rent them safely on campus.'
@@ -20,17 +20,17 @@ const faqData = [
   }
 ]
 
-const FAQSection = () => {
-  return (
-    <section className="w-full bg-white border-b-4 border-black py-20 px-6">
-      <div className="max-w-4xl mx-auto flex flex-col items-center">
-        <h2 className="font-heading text-4xl md:text-6xl uppercase tracking-tighter text-black mb-12" style={{ textShadow: '4px 4px 0px #FF6F20' }}>
-          Frequently Asked
-        </h2>
-        <Accordion items={faqData} />
-      </div>
-    </section>
-  )
+const FAQPage = () => {
+    return (
+        <div className="max-w-4xl mx-auto py-12 px-6">
+            <h1 className="font-heading text-5xl text-black uppercase tracking-tighter mb-8" style={{ textShadow: '2px 2px 0px #FF6F20' }}>
+                Frequently Asked Questions
+            </h1>
+            <div className="flex flex-col gap-4">
+                <Accordion items={faqs} />
+            </div>
+        </div>
+    )
 }
 
-export default FAQSection
+export default FAQPage
