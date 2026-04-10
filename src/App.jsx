@@ -6,6 +6,8 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Marketplace from './pages/Marketplace'
 import ProductDetail from './pages/ProductDetail'
+import FAQPage from './pages/FAQPage'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -20,9 +22,11 @@ function App() {
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/about" element={<About />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/faq" element={<FAQPage />} />
           <Route path="/dashboard" element={<div>Dashboard</div>} />
           <Route path="/login" element={<div>Login</div>} />
           <Route path="/register" element={<div>Register</div>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
