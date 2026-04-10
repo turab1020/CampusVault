@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Shield, CheckCircle } from 'lucide-react'
 import BrutalCard from '../components/ui/BrutalCard'
+import ProductCard from '../components/ui/ProductCard'
 import Badge from '../components/ui/Badge'
 import BrutalButton from '../components/ui/BrutalButton'
 import NbInput from '../components/ui/NbInput'
@@ -11,6 +12,8 @@ const ProductDetail = () => {
     const { id } = useParams()
     const product = productsData.find(item => String(item.id) === id)
     const [bookingSuccess, setBookingSuccess] = React.useState(false)
+
+    const recommendations = productsData.filter(item => String(item.id) !== id).slice(0, 3)
 
     if (!product) {
         return <div className="text-white text-center py-20 font-heading text-4xl uppercase">Product Not Found</div>
@@ -128,6 +131,18 @@ const ProductDetail = () => {
                             </div>
                         )}
                     </div>
+                </div>
+            </div>
+
+            {/* Recommendations Section */}
+            <div className="col-span-1 lg:col-span-2 mt-12 border-t-4 border-black pt-12 text-black">
+                <h2 className="font-heading text-4xl font-black uppercase mb-8 text-white tracking-tighter">Recommended Gear</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {recommendations.map((item) => (
+                        <div key={item.id}>
+                            <ProductCard product={item} />
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
