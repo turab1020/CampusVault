@@ -8,6 +8,8 @@ import Marketplace from './pages/Marketplace'
 import ProductDetail from './pages/ProductDetail'
 import FAQPage from './pages/FAQPage'
 import NotFound from './pages/NotFound'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 function App() {
   return (
@@ -24,8 +26,8 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/dashboard" element={<div>Dashboard</div>} />
-          <Route path="/login" element={<div>Login</div>} />
-          <Route path="/register" element={<div>Register</div>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
