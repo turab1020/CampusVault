@@ -66,10 +66,10 @@ function Navbar() {
       {/* Mobile Navigation Dropdown */}
       {isMobileMenuOpen && (
         <div className="md:hidden mt-4 pt-4 border-t-4 border-black flex flex-col gap-4">
-          <Link to="/marketplace" className="font-sans font-bold text-base text-black uppercase hover:text-primary transition-colors w-full text-center">
+          <Link to="/marketplace" onClick={() => setIsMobileMenuOpen(false)} className="font-sans font-bold text-base text-black uppercase hover:text-primary transition-colors w-full text-center">
             Marketplace
           </Link>
-          <Link to="/about" className="font-sans font-bold text-base text-black uppercase hover:text-primary transition-colors w-full text-center">
+          <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="font-sans font-bold text-base text-black uppercase hover:text-primary transition-colors w-full text-center">
             About
           </Link>
           <div className="flex justify-center items-center gap-6 pt-4 border-t-2 border-black text-black">
@@ -77,15 +77,15 @@ function Navbar() {
             <button className="p-2"><ShoppingCart size={24} strokeWidth={2.5} /></button>
             {user ? (
               <>
-                <Link to={user.role === 'ADMIN' ? '/admin' : '/dashboard'} className="p-2 text-primary">
+                <Link to={user.role === 'ADMIN' ? '/admin' : '/dashboard'} onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-primary">
                   <User size={24} strokeWidth={2.5} />
                 </Link>
-                <button onClick={logout} className="p-2 text-danger">
+                <button onClick={() => { logout(); setIsMobileMenuOpen(false); }} className="p-2 text-danger">
                   <LogOut size={24} strokeWidth={2.5} />
                 </button>
               </>
             ) : (
-              <Link to="/login" className="p-2"><User size={24} strokeWidth={2.5} /></Link>
+              <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="p-2"><User size={24} strokeWidth={2.5} /></Link>
             )}
           </div>
         </div>
