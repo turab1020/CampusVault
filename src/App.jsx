@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Admin from './pages/Admin'
+import { ProtectedRoute, AdminRoute } from './components/auth/ProtectedRoute'
 
 function App() {
   return (
@@ -27,8 +28,16 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/faq" element={<FAQPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin" element={
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          } />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
