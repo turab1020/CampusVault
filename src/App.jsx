@@ -10,6 +10,7 @@ import FAQPage from './pages/FAQPage'
 import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/faq" element={<FAQPage />} />
-          <Route path="/dashboard" element={<div>Dashboard</div>} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
