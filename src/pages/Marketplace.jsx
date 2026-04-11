@@ -17,6 +17,14 @@ const CATEGORIES = [
 const Marketplace = () => {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 800);
+        return () => clearTimeout(timer);
+    }, []);
     
     // Filter logic
     const filteredProducts = productsData.filter(item => {
@@ -62,18 +70,32 @@ const Marketplace = () => {
             
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                {filteredProducts.map((item) => (
-                    <div key={item.id}>
-                        <ProductCard product={item} />
-                    </div>
-                ))}
-                
-                {filteredProducts.length === 0 && (
-                    <div className="col-span-full py-20 text-center border-4 border-dashed border-black shadow-brutal bg-white p-8">
-                        <span className="font-heading text-2xl uppercase tracking-tighter text-black">
-                            No gear found matching your specs.
-                        </span>
-                    </div>
+                {isLoading ? (
+                    Array(8).fill(0).map((_, index) => (
+                        <div key={index} className="w-full h-80 bg-gray-200 border-4 border-black animate-pulse shadow-brutal flex flex-col justify-between p-4">
+                            <div className="w-full h-40 bg-gray-300 border-2 border-black"></div>
+                            <div className="flex flex-col gap-2 mt-4">
+                                <div className="h-6 w-3/4 bg-gray-300"></div>
+                                <div className="h-4 w-1/2 bg-gray-300"></div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <>
+                        {filteredProducts.map((item) => (
+                            <div key={item.id}>
+                                <ProductCard product={item} />
+                            </div>
+                        ))}
+                        
+                        {filteredProducts.length === 0 && (
+                            <div className="col-span-full py-20 text-center border-4 border-dashed border-black shadow-brutal bg-white p-8">
+                                <span className="font-heading text-2xl uppercase tracking-tighter text-black">
+                                    No gear found matching your specs.
+                                </span>
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
         </div>
