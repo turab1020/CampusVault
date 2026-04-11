@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Menu, X, Search, User, ShoppingCart } from 'lucide-react'
+import { Menu, X, Search, User, ShoppingCart, LogOut } from 'lucide-react'
+import { useAuth } from '../../context/AuthContext'
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { user, logout } = useAuth()
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-white border-b-4 border-black px-6 py-4">
@@ -33,9 +35,21 @@ function Navbar() {
             <ShoppingCart size={20} strokeWidth={2.5} />
             <span className="absolute top-0 right-0 w-3 h-3 bg-primary border-2 border-black rounded-full"></span>
           </button>
-          <Link to="/login" className="p-2 hover:bg-surface border-2 border-transparent hover:border-black rounded-brutal transition-all">
-            <User size={20} strokeWidth={2.5} />
-          </Link>
+          {user ? (
+            <>
+              <Link to={user.role === 'ADMIN' ? '/admin' : '/dashboard'} className="font-sans font-bold text-sm text-black uppercase hover:text-primary transition-colors flex items-center gap-2">
+                <User size={20} strokeWidth={2.5} />
+                {user.role === 'ADMIN' ? 'Admin' : 'Vault'}
+              </Link>
+              <button onClick={logout} className="p-2 text-danger hover:bg-danger hover:text-white border-2 border-transparent hover:border-black rounded-brutal transition-all">
+                <LogOut size={20} strokeWidth={2.5} />
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className="p-2 hover:bg-surface border-2 border-transparent hover:border-black rounded-brutal transition-all">
+              <User size={20} strokeWidth={2.5} />
+            </Link>
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -58,10 +72,21 @@ function Navbar() {
           <Link to="/about" className="font-sans font-bold text-base text-black uppercase hover:text-primary transition-colors w-full text-center">
             About
           </Link>
-          <div className="flex justify-center gap-6 pt-4 border-t-2 border-black text-black">
+          <div className="flex justify-center items-center gap-6 pt-4 border-t-2 border-black text-black">
             <button className="p-2"><Search size={24} strokeWidth={2.5} /></button>
             <button className="p-2"><ShoppingCart size={24} strokeWidth={2.5} /></button>
-            <Link to="/login" className="p-2"><User size={24} strokeWidth={2.5} /></Link>
+            {user ? (
+              <>
+                <Link to={user.role === 'ADMIN' ? '/admin' : '/dashboard'} className="p-2 text-primary">
+                  <User size={24} strokeWidth={2.5} />
+                </Link>
+                <button onClick={logout} className="p-2 text-danger">
+                  <LogOut size={24} strokeWidth={2.5} />
+                </button>
+              </>
+            ) : (
+              <Link to="/login" className="p-2"><User size={24} strokeWidth={2.5} /></Link>
+            )}
           </div>
         </div>
       )}
