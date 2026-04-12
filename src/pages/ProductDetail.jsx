@@ -171,7 +171,7 @@ const ProductDetail = () => {
                     {!bookingSuccess ? (
                         <>
                             <div className="flex justify-between items-end mb-6 border-b-2 border-black pb-4">
-                                <span className="font-display font-black text-4xl">${listing.dailyRate}</span>
+                                <span className="font-display font-black text-4xl">Rs. {listing.dailyRate}</span>
                                 <span className="font-bold text-gray-500 mb-1">per day</span>
                             </div>
 
@@ -243,7 +243,7 @@ const ProductDetail = () => {
 
                                     <div className="mt-auto flex justify-between items-center border-t-2 border-dashed border-gray-300 pt-4">
                                         <div>
-                                            <span className="text-primary font-black text-2xl">${item.dailyRate}</span>
+                                            <span className="text-primary font-black text-2xl">Rs. {item.dailyRate}</span>
                                             <span className="text-xs font-bold text-gray-400">/DAY</span>
                                         </div>
                                         <Button size="sm" variant="secondary" className="px-4 py-1 whitespace-nowrap min-w-[100px] flex justify-center items-center">

@@ -99,7 +99,7 @@ const Dashboard = () => {
                                         </Badge>
                                     </td>
                                     <td className="p-4 text-right font-display text-lg">
-                                        ${booking.totalPrice}
+                                        Rs. {booking.totalPrice}
                                     </td>
                                 </tr>
                             ))}

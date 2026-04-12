@@ -17,7 +17,7 @@ const About = () => {
                     CampusVault was built to solve a simple problem: <span className="bg-secondary px-1 border-2 border-black text-black">Engineering gear is expensive.</span>
                 </p>
                 <p className="text-lg text-gray-700 font-bold leading-relaxed mb-6">
-                    Why buy a $500 oscilloscope for one semester? Why let your DSLR gather dust?
+                    Why buy a Rs. 500 oscilloscope for one semester? Why let your DSLR gather dust?
                     We believe in a decentralized campus economy where resources circulate freely,
                     trust is currency, and brutal efficiency wins.
                 </p>
