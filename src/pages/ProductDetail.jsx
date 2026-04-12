@@ -99,7 +99,13 @@ const ProductDetail = () => {
             <div className="flex flex-col gap-4">
                 <Card className="p-0 border-4 border-black overflow-hidden bg-white aspect-square relative">
                     <img
-                        src={listing.images[0] || 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image'}
+                        src={(() => {
+                            const img = listing.images && listing.images[0];
+                            if (!img) return 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';
+                            if (img.startsWith('http')) return img;
+                            const filename = img.split('/').pop();
+                            return `/images/${filename}`;
+                        })()}
                         alt={listing.title}
                         className="w-full h-full object-cover"
                         onError={(e) => { e.target.src = 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image' }}

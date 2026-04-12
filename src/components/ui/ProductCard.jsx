@@ -14,10 +14,8 @@ const ProductCard = ({ item }) => {
                             const img = item.images && item.images[0];
                             if (!img) return 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';
                             if (img.startsWith('http')) return img;
-                            // FORCE ABSOLUTE PATH: Extract filename and prepend backend URL
                             const filename = img.split('/').pop();
-                            const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5001/api').replace('/api', '');
-                            return `${baseUrl}/images/${filename}`;
+                            return `/images/${filename}`;
                         })()}
                         alt={item.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"

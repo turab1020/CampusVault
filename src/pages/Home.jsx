@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import api from '../services/api'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
+import Badge from '../components/ui/Badge'
 import ProductCard from '../components/ui/ProductCard'
-import { Star } from 'lucide-react'
+import { Star, ArrowRight } from 'lucide-react'
 
 const Home = () => {
     const [featured, setFeatured] = useState([])
