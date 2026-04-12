@@ -2,41 +2,133 @@
   {
     "id": "1",
     "title": "Casio FX-991EX Scientific Calculator",
+    "description": "Advanced scientific calculator with natural display. Perfect for engineering calculus and statistics courses. Over 550 functions including spreadsheet mode.",
     "category": "Electronics",
     "condition": "Like New",
-    "ownerName": "Ali H.",
-    "price": 200,
-    "rateType": "day",
-    "image": "/images/leica_disto_d2.png"
+    "dailyRate": 200,
+    "status": "ACTIVE",
+    "hostId": "usr-1",
+    "images": ["/images/leica_disto_d2.png"]
   },
   {
     "id": "2",
     "title": "Calculus: Early Transcendentals 8th Ed",
+    "description": "James Stewart's comprehensive calculus textbook. Covers single-variable and multivariable calculus. Clean pages with minimal highlighting.",
     "category": "Textbooks",
     "condition": "Good",
-    "ownerName": "Fatima S.",
-    "price": 500,
-    "rateType": "week",
-    "image": "/images/rotring_pencil_set.png"
+    "dailyRate": 500,
+    "status": "ACTIVE",
+    "hostId": "usr-2",
+    "images": ["/images/rotring_pencil_set.png"]
   },
   {
     "id": "3",
-    "title": "Arduino Uno Starter Kit Pro",
-    "category": "Kits",
+    "title": "Arduino Mega Starter Kit Pro",
+    "description": "Complete Arduino Mega 2560 kit with sensors, LEDs, breadboard, jumper wires, and documentation. Great for embedded systems coursework.",
+    "category": "Engineering Kits",
     "condition": "New",
-    "ownerName": "Zain M.",
-    "price": 1000,
-    "rateType": "week",
-    "image": "/images/arduino_mega_kit.png"
+    "dailyRate": 1000,
+    "status": "ACTIVE",
+    "hostId": "usr-1",
+    "images": ["/images/arduino_mega_kit.png"]
   },
   {
     "id": "4",
     "title": "Adjustable Drafting Table",
-    "category": "Furniture",
+    "description": "Professional-grade adjustable drafting table with parallel ruler. Ideal for architecture and design studio work.",
+    "category": "Event Gear",
     "condition": "Fair",
-    "ownerName": "Sara R.",
-    "price": 300,
-    "rateType": "day",
-    "image": "/images/drafting_table.png"
+    "dailyRate": 300,
+    "status": "ACTIVE",
+    "hostId": "usr-3",
+    "images": ["/images/drafting_table.png"]
+  },
+  {
+    "id": "5",
+    "title": "Canon EOS R6 Mirrorless Camera",
+    "description": "Full-frame mirrorless camera body with 20.1MP sensor. Excellent for media production and photography courses.",
+    "category": "Media Equipment",
+    "condition": "Like New",
+    "dailyRate": 2500,
+    "status": "ACTIVE",
+    "hostId": "usr-2",
+    "images": ["/images/canon_eos_r6.png"]
+  },
+  {
+    "id": "6",
+    "title": "Rigol DS1054Z Oscilloscope",
+    "description": "50MHz digital oscilloscope with 4 channels. Industry standard for electronics lab work and signal analysis.",
+    "category": "Electronics",
+    "condition": "Good",
+    "dailyRate": 800,
+    "status": "ACTIVE",
+    "hostId": "usr-1",
+    "images": ["/images/rigol_oscilloscope.png"]
+  },
+  {
+    "id": "7",
+    "title": "Raspberry Pi 5 Complete Kit",
+    "description": "Latest Raspberry Pi 5 with 8GB RAM, official case, power supply, and 64GB SD card. Ready to boot.",
+    "category": "Computing",
+    "condition": "New",
+    "dailyRate": 600,
+    "status": "ACTIVE",
+    "hostId": "usr-3",
+    "images": ["/images/raspberry_pi_5.png"]
+  },
+  {
+    "id": "8",
+    "title": "Neewer Professional Lighting Kit",
+    "description": "Three-point lighting kit with softboxes, stands, and carrying bag. Studio-quality lighting for video production.",
+    "category": "Media Equipment",
+    "condition": "Good",
+    "dailyRate": 400,
+    "status": "ACTIVE",
+    "hostId": "usr-2",
+    "images": ["/images/neewer_lighting_kit.png"]
+  },
+  {
+    "id": "9",
+    "title": "Keychron K8 Mechanical Keyboard",
+    "description": "Wireless mechanical keyboard with hot-swappable Gateron switches. Bluetooth and USB-C connectivity.",
+    "category": "Computing",
+    "condition": "Like New",
+    "dailyRate": 350,
+    "status": "ACTIVE",
+    "hostId": "usr-1",
+    "images": ["/images/keychron_keyboard.png"]
+  },
+  {
+    "id": "10",
+    "title": "NVIDIA Jetson Orin Nano",
+    "description": "AI computing module for edge applications. Perfect for deep learning, computer vision, and robotics coursework.",
+    "category": "Engineering Kits",
+    "condition": "New",
+    "dailyRate": 1500,
+    "status": "ACTIVE",
+    "hostId": "usr-3",
+    "images": ["/images/nvidia_jetson_orin.png"]
+  },
+  {
+    "id": "11",
+    "title": "DJI RS3 Camera Gimbal",
+    "description": "3-axis camera stabilizer rated for cameras up to 3kg. Essential for smooth cinematic footage.",
+    "category": "Media Equipment",
+    "condition": "Good",
+    "dailyRate": 700,
+    "status": "ACTIVE",
+    "hostId": "usr-2",
+    "images": ["/images/dji_rs3_gimbal.png"]
+  },
+  {
+    "id": "12",
+    "title": "Rode NTG5 Shotgun Microphone",
+    "description": "Broadcast-quality shotgun mic with ultra-low noise. Includes shock mount and windshield kit.",
+    "category": "Media Equipment",
+    "condition": "Like New",
+    "dailyRate": 550,
+    "status": "ACTIVE",
+    "hostId": "usr-1",
+    "images": ["/images/rode_ntg5_mic.png"]
   }
 ]

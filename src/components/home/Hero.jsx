@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Star } from 'lucide-react'
-import BrutalCard from '../components/ui/BrutalCard'
-import BrutalButton from '../components/ui/BrutalButton'
-import Badge from '../components/ui/Badge'
+import BrutalCard from '../ui/BrutalCard'
+import BrutalButton from '../ui/BrutalButton'
+import Badge from '../ui/Badge'
 
 const Hero = () => {
     return (

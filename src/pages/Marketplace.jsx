@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Search } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import api from '../services/api'
+import Input from '../components/ui/Input'
 import ProductCard from '../components/ui/ProductCard'
-import productsData from '../data/products.json'
+import { Search } from 'lucide-react'
 
 const CATEGORIES = [
     "All",
@@ -12,48 +14,64 @@ const CATEGORIES = [
     "Textbooks",
     "Computing",
     "Presentation Tools",
-];
+]
 
 const Marketplace = () => {
-    const [selectedCategory, setSelectedCategory] = useState('All');
-    const [searchQuery, setSearchQuery] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+    const [listings, setListings] = useState([])
+    const [filtered, setFiltered] = useState([])
+    const [search, setSearch] = useState('')
+    const [selectedCategory, setSelectedCategory] = useState('All')
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 800);
-        return () => clearTimeout(timer);
-    }, []);
-    
-    // Filter logic
-    const filteredProducts = productsData.filter(item => {
-        const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
-        const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
-    });
+        const fetchListings = async () => {
+            try {
+                const res = await api.get('/listings')
+                setListings(res.data)
+                setFiltered(res.data)
+            } catch (err) {
+                console.error("Failed to fetch listings", err)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchListings()
+    }, [])
+
+    useEffect(() => {
+        let result = listings
+
+        if (selectedCategory !== 'All') {
+            result = result.filter(l => l.category === selectedCategory)
+        }
+
+        if (search) {
+            result = result.filter(l => l.title.toLowerCase().includes(search.toLowerCase()))
+        }
+
+        setFiltered(result)
+    }, [search, selectedCategory, listings])
 
     return (
-        <div className="flex flex-col gap-8 max-w-7xl mx-auto py-12 px-6 w-full">
+        <div className="flex flex-col gap-8">
             <div className="flex flex-col md:flex-row justify-between items-center bg-secondary text-black p-8 border-4 border-black shadow-brutal rounded-brutal">
                 <div>
-                    <h1 className="font-heading text-4xl uppercase mb-2 tracking-tighter">Marketplace</h1>
-                    <p className="font-sans font-bold">Find the gear you need.</p>
+                    <h1 className="text-4xl uppercase mb-2">Marketplace</h1>
+                    <p className="font-bold">Find the gear you need.</p>
                 </div>
                 <div className="w-full md:w-auto flex flex-col gap-4 mt-6 md:mt-0">
                     <div className="relative">
-                        <input
-                            type="text"
+                        <Input
                             placeholder="Search gear..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="bg-white px-4 py-3 pl-12 font-bold border-2 border-black rounded-lg outline-none focus:ring-4 focus:ring-primary focus:border-black transition-all md:w-[300px] w-full"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="pl-12 bg-white"
                         />
-                        <Search className="absolute left-4 top-3.5 text-black" size={20} />
+                        <Search className="absolute left-4 top-4 text-gray-500" />
                     </div>
                 </div>
             </div>
-            
+
             {/* Filters */}
             <div className="flex flex-wrap gap-4 overflow-x-auto pb-4">
                 {CATEGORIES.map(cat => (
@@ -61,43 +79,30 @@ const Marketplace = () => {
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
                         className={`px-4 py-2 font-bold uppercase border-2 border-black rounded-full transition-all text-black 
-                        ${selectedCategory === cat ? 'bg-primary shadow-[2px_2px_0px_0px_#000]' : 'bg-white hover:bg-surface'}`}
+                        ${selectedCategory === cat ? 'bg-primary shadow-[2px_2px_0px_0px_#000]' : 'bg-white hover:bg-gray-100'}`}
                     >
                         {cat}
                     </button>
                 ))}
             </div>
-            
+
             {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                {isLoading ? (
-                    Array(8).fill(0).map((_, index) => (
-                        <div key={index} className="w-full h-80 bg-gray-200 border-4 border-black animate-pulse shadow-brutal flex flex-col justify-between p-4">
-                            <div className="w-full h-40 bg-gray-300 border-2 border-black"></div>
-                            <div className="flex flex-col gap-2 mt-4">
-                                <div className="h-6 w-3/4 bg-gray-300"></div>
-                                <div className="h-4 w-1/2 bg-gray-300"></div>
-                            </div>
+            {loading ? (
+                <div className="text-center p-20 text-white font-bold text-2xl animate-pulse">
+                    Loading Vault Inventory...
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                    {filtered.map((item) => (
+                        <ProductCard key={item.id || item._id} item={item} />
+                    ))}
+                    {filtered.length === 0 && (
+                        <div className="col-span-full py-20 text-center border-4 border-dashed border-gray-600 rounded-brutal text-gray-400 font-bold text-2xl">
+                            No gear found matching your specs.
                         </div>
-                    ))
-                ) : (
-                    <>
-                        {filteredProducts.map((item) => (
-                            <div key={item.id}>
-                                <ProductCard product={item} />
-                            </div>
-                        ))}
-                        
-                        {filteredProducts.length === 0 && (
-                            <div className="col-span-full py-20 text-center border-4 border-dashed border-black shadow-brutal bg-white p-8">
-                                <span className="font-heading text-2xl uppercase tracking-tighter text-black">
-                                    No gear found matching your specs.
-                                </span>
-                            </div>
-                        )}
-                    </>
-                )}
-            </div>
+                    )}
+                </div>
+            )}
         </div>
     )
 }

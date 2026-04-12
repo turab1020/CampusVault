@@ -15,14 +15,20 @@ export default {
         success: "#10B981",
         warning: "#F59E0B",
         danger: "#EF4444",
+        "accent-teal": "#14B8A6",
       },
       fontFamily: {
+        display: ["Archivo Black", "sans-serif"],
+        body: ["DM Sans", "sans-serif"],
         sans: ["DM Sans", "sans-serif"],
         heading: ["Archivo Black", "sans-serif"],
       },
       boxShadow: {
         brutal: "4px 4px 0px 0px rgba(0,0,0,1)",
         "brutal-hover": "2px 2px 0px 0px rgba(0,0,0,1)",
+      },
+      borderWidth: {
+        brutal: "4px",
       },
       borderRadius: {
         brutal: "32px",

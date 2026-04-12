@@ -5,7 +5,7 @@ function Footer() {
   return (
     <footer className="w-full bg-black text-white border-t-4 border-black px-6 py-12 mt-auto">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-        
+
         {/* Brand Column */}
         <div className="flex flex-col gap-4 md:col-span-1">
           <h2 className="font-heading text-2xl uppercase tracking-widest text-secondary">
@@ -39,7 +39,7 @@ function Footer() {
         </div>
 
       </div>
-      
+
       <div className="max-w-7xl mx-auto mt-12 pt-8 border-t-2 border-neutral-gray/30 text-center">
         <p className="font-sans text-xs text-neutral-gray">
           &copy; {new Date().getFullYear()} CampusVault. All rights reserved.
