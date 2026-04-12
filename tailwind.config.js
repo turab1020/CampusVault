@@ -12,6 +12,9 @@ export default {
         "bg-main": "#2C2A29",
         surface: "#E1E1E1",
         "neutral-gray": "#7D7F7D",
+        success: "#10B981",
+        warning: "#F59E0B",
+        danger: "#EF4444",
       },
       fontFamily: {
         sans: ["DM Sans", "sans-serif"],
