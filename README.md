@@ -1,16 +1,26 @@
-# React + Vite
+# CampusVault: Academic Deliverable
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Identity
+**Project**: CampusVault Marketplace Frontend
+**Stack**: React, Vite, Tailwind CSS (v3)
+**Design System**: Neobrutalist UI Architecture
+**Academic Delivery Track**: Core Engineering & Interface Design
 
-Currently, two official plugins are available:
+## System Architecture mapped decisions
+CampusVault deviates from traditional component systems by executing a strict structural **Neobrutalism UI framework**.
+### Structural Tokens
+- **Borders**: Forced `.border-4 .border-black` bounding variables.
+- **Shadows**: Hand-mapped dropshadow matrices `.shadow-[4px_4px_0px_#000]` simulating hard-painted layer extrusions instead of native box-shadows.
+- **Typography Matrix**: `Archivo Black` assigned universally for global display headers, while `DM Sans` processes readability data. Both are configured under Tailwind root `theme.fontFamily`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Subsystem Boundaries
+- **Router Layering**: React Router DOM (v6) binds protected execution wrappers isolating (`Admin.jsx` & `Dashboard.jsx`) behind a monolithic `<AuthProvider>` execution state parsing `localStorage` persistent JWT simulation tokens.
+- **Micro-interactions**: Hover events physically transform absolute coordinates (`-translate-y-1`) mapping the visual depth shifts to mimic raw 90s OS interface elasticity without rendering native smooth UI logic.
 
-## React Compiler
+## Execution Sequence
+1. **Repository Synchronization**: Clone core `dev` logic node.
+2. **Package Graphing**: Run `npm install` establishing exact dependency mapping.
+3. **Local Dev Container**: `npm run dev` bootstraps Vite HMR stream on port 5173.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Architectural Stabilization
+The core loop now enforces deterministic state bounds intercepting fatal unhandled exceptions (`ErrorBoundary`) transforming standard failure white-screens directly into stylized system crash alerts matching the Neobrutalist semantic identity entirely. Data operations utilize synthetic API boundaries validating payload streams.
