@@ -15,11 +15,22 @@ connectDB();
 const app = express();
 
 // Set up strict CORS for production
+const allowedOrigins = [
+  'https://campusvault-eight.vercel.app', // Your actual Vercel URL
+  'https://campusvault-sight.vercel.app', // Just in case this was an old URL you still use
+  'http://localhost:5173'                 // Local Vite development
+];
+
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://campusvault-sight.vercel.app' // Replace with your exact Vercel domain
-    : 'http://localhost:5173', // Local Vite development
-  credentials: true, // Needed if you plan to use cookies/sessions later
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, 
 };
 
 app.use(cors(corsOptions));
