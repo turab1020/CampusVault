@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusVault — Visual Design Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#FF6F20;--secondary:#F6A02D;--bg-main:#2C2A29;--surface:#E1E1E1;--neutral-gray:#7D7F7D;--black:#000;--white:#FFF}
+body{font-family:'DM Sans',sans-serif;background:#1a1918;color:#fff;padding:0}
+.guide-nav{position:sticky;top:0;z-index:100;background:#111;border-bottom:3px solid var(--primary);padding:12px 32px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.guide-nav a{color:var(--secondary);font-weight:700;text-decoration:none;font-size:13px;text-transform:uppercase;letter-spacing:1px}
+.guide-nav a:hover{color:var(--primary)}
+.guide-title{font-family:'Archivo Black',sans-serif;font-size:20px;color:var(--primary);margin-right:auto}
+section{max-width:1200px;margin:0 auto;padding:48px 32px}
+section h2{font-family:'Archivo Black',sans-serif;font-size:36px;text-transform:uppercase;margin-bottom:8px;color:var(--primary)}
+section .subtitle{font-size:14px;color:#999;margin-bottom:32px;font-weight:700}
+.spec{font-size:12px;color:#888;font-family:monospace;background:#222;padding:4px 8px;border-radius:4px;display:inline-block;margin:4px 0}
+.divider{border:none;border-top:3px solid #333;margin:0}
+
+/* Color Grid */
+.color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.color-card{border:2px solid #444;border-radius:12px;overflow:hidden;background:#222}
+.color-swatch{height:80px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.color-info{padding:12px}
+.color-info .name{font-weight:700;font-size:14px;margin-bottom:4px}
+.color-info .hex{font-family:monospace;font-size:13px;color:#aaa}
+.color-info .usage{font-size:11px;color:#777;margin-top:4px}
+
+/* Typography */
+.type-row{background:#222;border:2px solid #444;border-radius:12px;padding:24px;margin-bottom:16px}
+.type-row .meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+
+/* Buttons */
+.btn-grid{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:24px}
+
+/* Neo-brutalist base styles */
+.nb-btn{display:inline-flex;align-items:center;justify-content:center;font-family:'Archivo Black',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;border-radius:32px;border:3px solid #000;box-shadow:4px 4px 0px 0px #000;cursor:pointer;transition:all .2s}
+.nb-btn:hover{transform:translateY(-4px);box-shadow:2px 2px 0px 0px #000}
+.nb-btn:active{transform:translate(2px,2px);box-shadow:none}
+.nb-btn.primary{background:var(--primary);color:#fff;border-color:var(--bg-main)}
+.nb-btn.secondary{background:var(--secondary);color:#000;border-color:#000}
+.nb-btn.outline{background:transparent;color:#000;border-color:#000;background:#fff}
+.nb-btn.ghost{background:transparent;color:#000;border:3px solid transparent;box-shadow:none;background:#f3f4f6}
+.nb-btn.sm{padding:8px 16px;font-size:14px}
+.nb-btn.md{padding:12px 24px;font-size:16px}
+.nb-btn.lg{padding:16px 32px;font-size:18px}
+
+/* Cards */
+.nb-card{background:#fff;color:#000;border:3px solid #000;border-radius:32px;box-shadow:4px 4px 0px 0px #000;padding:24px}
+
+/* Badges */
+.nb-badge{display:inline-flex;align-items:center;padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;border:2px solid #000;box-shadow:2px 2px 0px 0px #000}
+
+/* Inputs */
+.nb-input-wrap{display:flex;flex-direction:column;gap:8px;max-width:400px}
+.nb-input-wrap label{font-family:'Archivo Black',sans-serif;font-weight:700;font-size:18px;text-transform:uppercase;color:#000}
+.nb-input{width:100%;padding:12px 16px;background:var(--surface);color:#000;border:3px solid #000;border-radius:8px;box-shadow:4px 4px 0px 0px #000;font-family:'DM Sans',sans-serif;font-size:16px}
+.nb-input::placeholder{color:#6b7280}
+.nb-input:focus{outline:none;box-shadow:4px 4px 0px 0px var(--primary);border-color:var(--primary)}
+
+/* Token table */
+.token-table{width:100%;border-collapse:collapse;margin-top:16px}
+.token-table th,.token-table td{text-align:left;padding:10px 16px;border-bottom:1px solid #333;font-size:13px}
+.token-table th{color:var(--secondary);font-size:12px;text-transform:uppercase;letter-spacing:1px}
+.token-table td:first-child{font-family:monospace;color:var(--primary)}
+
+/* Icon grid */
+.icon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.icon-card{background:#222;border:2px solid #444;border-radius:12px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.icon-card .icon-preview{color:var(--primary)}
+.icon-card .icon-name{font-weight:700;font-size:14px}
+.icon-card .icon-detail{font-size:11px;color:#888}
+a.icon-card{text-decoration:none;color:#fff;transition:all .2s}
+a.icon-card:hover{border-color:var(--primary);background:#2a2218;transform:translateY(-2px)}
+a.icon-card .icon-link-hint{font-size:10px;color:var(--primary);margin-top:4px;opacity:0;transition:opacity .2s}
+a.icon-card:hover .icon-link-hint{opacity:1}
+
+/* Page preview cards */
+.page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+.page-card{background:#222;border:2px solid #444;border-radius:16px;overflow:hidden}
+.page-card .page-preview{padding:24px;min-height:200px;display:flex;flex-direction:column;gap:12px}
+.page-card .page-meta{padding:16px;border-top:2px solid #444}
+.page-card .page-meta h4{font-family:'Archivo Black',sans-serif;font-size:16px;color:var(--secondary);text-transform:uppercase;margin-bottom:4px}
+.page-card .page-meta p{font-size:12px;color:#999;line-height:1.5}
+
+/* Shadow demos */
+.shadow-demo{display:flex;gap:32px;flex-wrap:wrap;margin-top:16px}
+.shadow-box{width:120px;height:80px;background:#fff;border:3px solid #000;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#000;text-align:center}
+
+/* Scrollbar styles */
+.scroll-demo{width:200px;height:100px;overflow-y:scroll;background:var(--bg-main);border:2px solid #444;border-radius:8px;padding:8px}
+.scroll-demo::-webkit-scrollbar{width:12px}
+.scroll-demo::-webkit-scrollbar-track{background:#2C2A29}
+.scroll-demo::-webkit-scrollbar-thumb{background:#FF6F20;border:3px solid #2C2A29;border-radius:6px}
+.scroll-demo::-webkit-scrollbar-thumb:hover{background:#F6A02D}
+
+/* Marquee */
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-strip{overflow:hidden;background:var(--secondary);border-top:4px solid #000;border-bottom:4px solid #000;padding:16px 0}
+.marquee-inner{display:flex;gap:48px;font-family:'Archivo Black',sans-serif;font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap;animation:marquee 15s linear infinite;color:#000}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="guide-nav">
+<span class="guide-title">CampusVault Design Guide</span>
+<a href="#colors">Colors</a>
+<a href="#typography">Typography</a>
+<a href="#buttons">Buttons</a>
+<a href="#cards">Cards</a>
+<a href="#badges">Badges</a>
+<a href="#inputs">Inputs</a>
+<a href="#icons">Icons</a>
+<a href="#tokens">Tokens</a>
+<a href="#pages">Pages</a>
+</nav>
+
+<!-- ==================== COLORS ==================== -->
+<section id="colors">
+<h2>Color Palette</h2>
+<p class="subtitle">Neo-Brutalist palette — Bold Concrete with Vibrant Neon Accents</p>
+<div class="color-grid">
+<div class="color-card"><div class="color-swatch" style="background:#FF6F20;color:#fff">Aa</div><div class="color-info"><div class="name">Primary</div><div class="hex">#FF6F20</div><div class="usage">CTA buttons, accent text, links, scrollbar</div></div></div>
+<div class="color-card"><div class="color-swatch" style="background:#F6A02D;color:#000">Aa</div><div class="color-info"><div class="name">Secondary</div><div class="hex">#F6A02D</div><div class="usage">Secondary buttons, marquee, warnings, highlights</div></div></div>
+<div class="color-card"><div class="color-swatch" style="background:#2C2A29;color:#fff">Aa</div><div class="color-info"><div class="name">Bg-Main</div><div class="hex">#2C2A29</div><div class="usage">Page background, scrollbar track</div></div></div>
+<div class="color-card"><div class="color-swatch" style="background:#E1E1E1;color:#000">Aa</div><div class="color-info"><div class="name">Surface</div><div class="hex">#E1E1E1</div><div class="usage">Input fields, Register card background</div></div></div>
+<div class="color-card"><div class="color-swatch" style="background:#7D7F7D;color:#fff">Aa</div><div class="color-info"><div class="name">Neutral Grey</div><div class="hex">#7D7F7D</div><div class="usage">Success badge background (accent-teal)</div></div></div>
+<div class="color-card"><div class="color-swatch" style="background:#000;color:#fff">Aa</div><div class="color-info"><div class="name">Black</div><div class="hex">#000000</div><div class="usage">Borders, shadows, text, table headers</div></div></div>
+<div class="color-card"><div class="color-swatch" style="background:#fff;color:#000;border-bottom:2px solid #ddd">Aa</div><div class="color-info"><div class="name">White</div><div class="hex">#FFFFFF</div><div class="usage">Navbar bg, card bg, text on dark</div></div></div>
+<div class="color-card"><div class="color-swatch" style="background:#DC2626;color:#fff">Aa</div><div class="color-info"><div class="name">Red-600</div><div class="hex">#DC2626</div><div class="usage">Primary button hover</div></div></div>
+<div class="color-card"><div class="color-swatch" style="background:#E63946;color:#fff">Aa</div><div class="color-info"><div class="name">Text Shadow Red</div><div class="hex">#E63946</div><div class="usage">Hero h1 text shadow accent</div></div></div>
+<div class="color-card"><div class="color-swatch" style="background:#FACC15;color:#000">Aa</div><div class="color-info"><div class="name">Yellow-400</div><div class="hex">#FACC15</div><div class="usage">Admin message banner</div></div></div>
+</div>
+</section>
+<hr class="divider">
+
+<!-- ==================== TYPOGRAPHY ==================== -->
+<section id="typography">
+<h2>Typography</h2>
+<p class="subtitle">Archivo Black (headings/display) + DM Sans (body) — Google Fonts</p>
+
+<div class="type-row">
+<div style="font-family:'Archivo Black',sans-serif;font-size:96px;text-transform:uppercase;color:#fff;line-height:0.9;text-shadow:4px 4px 0px #000,-2px -2px 0px #E63946">Rent Gear.</div>
+<div class="meta"><span class="spec">font: Archivo Black</span><span class="spec">96px (text-8xl)</span><span class="spec">uppercase</span><span class="spec">line-height: 0.9</span><span class="spec">text-shadow: 4px 4px 0px #000, -2px -2px 0px #E63946</span></div>
+</div>
+<div class="type-row">
+<div style="font-family:'Archivo Black',sans-serif;font-size:60px;text-transform:uppercase;color:#fff">Page Heading H1</div>
+<div class="meta"><span class="spec">Archivo Black</span><span class="spec">60px (text-6xl)</span><span class="spec">uppercase</span><span class="spec">Used: About, FAQ, Landing hero mobile</span></div>
+</div>
+<div class="type-row">
+<div style="font-family:'Archivo Black',sans-serif;font-size:48px;text-transform:uppercase;color:#fff">Section Heading</div>
+<div class="meta"><span class="spec">Archivo Black</span><span class="spec">48px (text-5xl)</span><span class="spec">uppercase</span><span class="spec">Used: Featured Drops, Product title</span></div>
+</div>
+<div class="type-row">
+<div style="font-family:'Archivo Black',sans-serif;font-size:36px;text-transform:uppercase;color:#fff">Page Title</div>
+<div class="meta"><span class="spec">Archivo Black</span><span class="spec">36px (text-4xl)</span><span class="spec">uppercase</span><span class="spec">Used: Login, Marketplace, Dashboard, Admin headers</span></div>
+</div>
+<div class="type-row">
+<div style="font-family:'Archivo Black',sans-serif;font-size:30px;text-transform:uppercase;color:#fff">Sub Section</div>
+<div class="meta"><span class="spec">Archivo Black</span><span class="spec">30px (text-3xl)</span><span class="spec">uppercase</span><span class="spec">Used: Recent Activity, About Mission, Moderation</span></div>
+</div>
+<div class="type-row">
+<div style="font-family:'Archivo Black',sans-serif;font-size:24px;text-transform:uppercase;color:#fff">Card Heading</div>
+<div class="meta"><span class="spec">Archivo Black</span><span class="spec">24px (text-2xl)</span><span class="spec">uppercase</span><span class="spec">Used: Navbar brand, card titles, admin sections, marquee</span></div>
+</div>
+<div class="type-row">
+<div style="font-family:'Archivo Black',sans-serif;font-size:20px;text-transform:uppercase;color:#fff">Item Title</div>
+<div class="meta"><span class="spec">Archivo Black</span><span class="spec">20px (text-xl)</span><span class="spec">uppercase</span><span class="spec">Used: Marketplace card titles, FAQ questions</span></div>
+</div>
+<div class="type-row">
+<div style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:#d1d5db">Peer-to-peer campus marketplace engineered for engineers.</div>
+<div class="meta"><span class="spec">DM Sans Bold</span><span class="spec">20px (text-xl)</span><span class="spec">color: gray-300</span><span class="spec">Used: Hero subtext</span></div>
+</div>
+<div class="type-row">
+<div style="font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:#374151">Body text large — readable descriptions and FAQ answers.</div>
+<div class="meta"><span class="spec">DM Sans Bold</span><span class="spec">18px (text-lg)</span><span class="spec">color: gray-700</span><span class="spec">Used: Descriptions, FAQ answers, About text</span></div>
+</div>
+<div class="type-row">
+<div style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#6b7280">Category label · Small secondary text</div>
+<div class="meta"><span class="spec">DM Sans Bold</span><span class="spec">14px (text-sm)</span><span class="spec">color: gray-500</span><span class="spec">Used: Category labels, table headers, sub-info</span></div>
+</div>
+<div class="type-row">
+<div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:#9ca3af">/DAY · You won't be charged yet</div>
+<div class="meta"><span class="spec">DM Sans Bold</span><span class="spec">12px (text-xs)</span><span class="spec">color: gray-400</span><span class="spec">Used: Price suffix, disclaimers, condition tags</span></div>
+</div>
+
+<div class="type-row" style="background:var(--bg-main)">
+<div style="font-family:'Archivo Black',sans-serif;font-size:24px;letter-spacing:-0.05em;text-transform:uppercase;color:#000;display:inline">
+<span style="color:#000">Campus</span><span style="color:var(--primary)">Vault</span>
+</div>
+<div style="margin-top:8px;display:flex;align-items:center;gap:8px">
+<div style="width:40px;height:40px;background:var(--primary);border:2px solid #000;display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 0px 0px #000">
+<i data-lucide="shopping-bag" style="width:24px;height:24px;color:#fff"></i>
+</div>
+<span style="font-family:'Archivo Black',sans-serif;font-size:24px;letter-spacing:-0.05em;text-transform:uppercase;color:#fff">Campus<span style="color:var(--primary)">Vault</span></span>
+</div>
+<div class="meta"><span class="spec">Logo: 40×40px icon box + Archivo Black 24px</span><span class="spec">tracking-tighter</span><span class="spec">"Vault" = #FF6F20</span></div>
+</div>
+</section>
+<hr class="divider">
+
+<!-- ==================== BUTTONS ==================== -->
+<section id="buttons">
+<h2>Buttons</h2>
+<p class="subtitle">4 variants × 3 sizes — font: Archivo Black, uppercase, tracking-wider, rounded: 32px</p>
+
+<h3 style="color:var(--secondary);font-size:14px;text-transform:uppercase;margin-bottom:12px;letter-spacing:2px">Primary Variant</h3>
+<div class="btn-grid">
+<button class="nb-btn primary sm">Small <span class="spec" style="margin-left:8px">px-4 py-2 14px</span></button>
+<button class="nb-btn primary md">Medium <span class="spec" style="margin-left:8px">px-6 py-3 16px</span></button>
+<button class="nb-btn primary lg">Large <span class="spec" style="margin-left:8px">px-8 py-4 18px</span></button>
+</div>
+<h3 style="color:var(--secondary);font-size:14px;text-transform:uppercase;margin-bottom:12px;letter-spacing:2px">Secondary Variant</h3>
+<div class="btn-grid">
+<button class="nb-btn secondary sm">Small</button>
+<button class="nb-btn secondary md">Medium</button>
+<button class="nb-btn secondary lg">Large</button>
+</div>
+<h3 style="color:var(--secondary);font-size:14px;text-transform:uppercase;margin-bottom:12px;letter-spacing:2px">Outline Variant</h3>
+<div class="btn-grid">
+<button class="nb-btn outline sm">Small</button>
+<button class="nb-btn outline md">Medium</button>
+<button class="nb-btn outline lg">Large</button>
+</div>
+<h3 style="color:var(--secondary);font-size:14px;text-transform:uppercase;margin-bottom:12px;letter-spacing:2px">Ghost Variant</h3>
+<div class="btn-grid">
+<button class="nb-btn ghost sm">Small</button>
+<button class="nb-btn ghost md">Medium</button>
+<button class="nb-btn ghost lg">Large</button>
+</div>
+
+<h3 style="color:var(--secondary);font-size:14px;text-transform:uppercase;margin:24px 0 12px;letter-spacing:2px">Contextual Button Usage</h3>
+<div class="btn-grid">
+<button class="nb-btn primary lg">Start Renting →</button>
+<button class="nb-btn secondary lg">List Item</button>
+<button class="nb-btn primary lg">Enter Vault</button>
+<button class="nb-btn secondary lg">Create Account</button>
+<button class="nb-btn outline md">View All</button>
+<button class="nb-btn primary lg">Request Booking</button>
+</div>
+<div class="btn-grid">
+<button class="nb-btn secondary sm">Dashboard</button>
+<button class="nb-btn outline sm">Login</button>
+<button class="nb-btn primary sm">Join Now</button>
+<button class="nb-btn ghost sm" style="border:2px solid #000;color:#000;background:#fff">⎋ Logout</button>
+<button class="nb-btn ghost sm" style="background:#000;color:#fff;border:2px solid #666">🛡 Admin</button>
+</div>
+<div class="meta" style="margin-top:8px">
+<span class="spec">active: translate(2px,2px) + shadow:none</span>
+<span class="spec">hover: translateY(-4px) + shadow: 2px 2px 0 0 #000</span>
+<span class="spec">disabled: opacity 50%</span>
+</div>
+</section>
+<hr class="divider">
+
+<!-- ==================== CARDS ==================== -->
+<section id="cards">
+<h2>Cards</h2>
+<p class="subtitle">border: 3px black, radius: 32px, shadow: 4px 4px 0px 0px #000, padding: 24px</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px">
+<div class="nb-card">
+<h3 style="font-family:'Archivo Black',sans-serif;font-size:24px;text-transform:uppercase;margin-bottom:8px">Default Card</h3>
+<p style="font-weight:700;color:#666">bg: white, text: black, p: 24px, border: 3px solid #000, radius: 32px, shadow: 4px 4px 0 0 #000</p>
+</div>
+<div class="nb-card" style="background:var(--secondary)">
+<h3 style="font-family:'Archivo Black',sans-serif;font-size:24px;text-transform:uppercase;margin-bottom:8px">Login Card</h3>
+<p style="font-weight:700">bg: #F6A02D (secondary), border-4 (4px), same shadow + radius</p>
+</div>
+<div class="nb-card" style="background:var(--surface)">
+<h3 style="font-family:'Archivo Black',sans-serif;font-size:24px;text-transform:uppercase;margin-bottom:8px">Register Card</h3>
+<p style="font-weight:700;color:#555">bg: #E1E1E1 (surface), border-4 (4px)</p>
+</div>
+<div class="nb-card" style="background:#000;color:#fff;border-color:#444">
+<h3 style="font-family:'Archivo Black',sans-serif;font-size:24px;text-transform:uppercase;margin-bottom:8px;color:var(--secondary)">Dark Card</h3>
+<p style="font-weight:700;color:#999">bg: black, used in Admin system stats</p>
+</div>
+<div class="nb-card" style="cursor:pointer;transition:all .2s" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='2px 2px 0px 0px #000'" onmouseout="this.style.transform='none';this.style.boxShadow='4px 4px 0px 0px #000'">
+<h3 style="font-family:'Archivo Black',sans-serif;font-size:24px;text-transform:uppercase;margin-bottom:8px">Hover Card ↕</h3>
+<p style="font-weight:700;color:#666">Hover me! translateY(-4px), shadow shrinks to 2px 2px</p>
+</div>
+</div>
+</section>
+<hr class="divider">
+
+<!-- ==================== BADGES ==================== -->
+<section id="badges">
+<h2>Badges</h2>
+<p class="subtitle">pill shape, border: 2px black, shadow: 2px 2px 0 0 #000, 12px uppercase bold</p>
+<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:16px">
+<span class="nb-badge" style="background:var(--primary);color:#fff">Primary</span>
+<span class="nb-badge" style="background:var(--secondary);color:#000">Secondary</span>
+<span class="nb-badge" style="background:transparent;color:#000">Outline</span>
+<span class="nb-badge" style="background:var(--neutral-gray);color:#fff">Success</span>
+<span class="nb-badge" style="background:var(--secondary);color:#000">Warning</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+<span class="nb-badge" style="background:var(--secondary);color:#000">Beta Access Live</span>
+<span class="nb-badge" style="background:var(--neutral-gray);color:#fff">Available</span>
+<span class="nb-badge" style="background:var(--neutral-gray);color:#fff">ACTIVE</span>
+<span class="nb-badge" style="background:var(--secondary);color:#000">PENDING</span>
+<span class="nb-badge" style="background:var(--primary);color:#fff">Condition: Like New</span>
+<span class="nb-badge" style="background:var(--secondary);color:#000">RENTER</span>
+</div>
+<div class="meta" style="margin-top:12px"><span class="spec">px: 12px, py: 4px</span><span class="spec">rounded-full (9999px)</span><span class="spec">border: 2px solid #000</span><span class="spec">shadow: 2px 2px 0 0 #000</span></div>
+</section>
+<hr class="divider">
+
+<!-- ==================== INPUTS ==================== -->
+<section id="inputs">
+<h2>Input Fields</h2>
+<p class="subtitle">bg: #E1E1E1, border: 3px black, radius: 8px, shadow: 4px 4px 0 0 #000</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:32px">
+<div class="nb-card">
+<div class="nb-input-wrap"><label>Campus Email</label><input class="nb-input" placeholder="student@campus.edu"></div>
+<div class="meta" style="margin-top:12px"><span class="spec">label: Archivo Black 18px uppercase</span><span class="spec">input: DM Sans 16px</span><span class="spec">px:16px py:12px</span></div>
+</div>
+<div class="nb-card">
+<div class="nb-input-wrap"><label>Password</label><input class="nb-input" type="password" placeholder="••••••••"></div>
+<div class="meta" style="margin-top:12px"><span class="spec">placeholder: #6B7280</span><span class="spec">focus ring: 2px #FF6F20</span></div>
+</div>
+<div class="nb-card">
+<div class="nb-input-wrap"><label>Full Name</label><input class="nb-input" placeholder="John Doe"></div>
+<div class="meta" style="margin-top:12px"><span class="spec">error: #FF6F20 Bold 14px text below</span></div>
+</div>
+</div>
+</section>
+<hr class="divider">
+
+<!-- ==================== ICONS ==================== -->
+<section id="icons">
+<h2>Icons — Lucide React</h2>
+<p class="subtitle">Library: lucide-react v0.564.0 — <a href="https://lucide.dev/" style="color:var(--primary)">https://lucide.dev/</a></p>
+<div class="icon-grid">
+<a class="icon-card" href="https://lucide.dev/icons/shopping-bag" target="_blank"><div class="icon-preview"><i data-lucide="shopping-bag" style="width:32px;height:32px"></i></div><div class="icon-name">ShoppingBag</div><div class="icon-detail">24×24 · Navbar logo · White on #FF6F20</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/user" target="_blank"><div class="icon-preview"><i data-lucide="user" style="width:32px;height:32px"></i></div><div class="icon-name">User</div><div class="icon-detail">18×18 · Dashboard nav button</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/log-out" target="_blank"><div class="icon-preview"><i data-lucide="log-out" style="width:32px;height:32px"></i></div><div class="icon-name">LogOut</div><div class="icon-detail">18×18 · Navbar logout · Black</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/shield" target="_blank"><div class="icon-preview"><i data-lucide="shield" style="width:32px;height:32px"></i></div><div class="icon-name">Shield</div><div class="icon-detail">18×18 · Admin button, Verified Host</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/arrow-right" target="_blank"><div class="icon-preview"><i data-lucide="arrow-right" style="width:32px;height:32px"></i></div><div class="icon-name">ArrowRight</div><div class="icon-detail">14-24px · CTAs, cards, rent buttons</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/star" target="_blank"><div class="icon-preview"><i data-lucide="star" style="width:32px;height:32px"></i></div><div class="icon-name">Star</div><div class="icon-detail">96×96 hero, 32×32 dashboard</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/search" target="_blank"><div class="icon-preview"><i data-lucide="search" style="width:32px;height:32px"></i></div><div class="icon-name">Search</div><div class="icon-detail">24×24 · Marketplace search overlay</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/circle-check" target="_blank"><div class="icon-preview"><i data-lucide="check-circle" style="width:32px;height:32px"></i></div><div class="icon-name">CheckCircle</div><div class="icon-detail">64×64 · Booking success</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/settings" target="_blank"><div class="icon-preview"><i data-lucide="settings" style="width:32px;height:32px"></i></div><div class="icon-name">Settings</div><div class="icon-detail">32×32 · Dashboard settings card</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/plus" target="_blank"><div class="icon-preview"><i data-lucide="plus" style="width:32px;height:32px"></i></div><div class="icon-name">Plus</div><div class="icon-detail">32×32 · Dashboard list item action</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/shield-alert" target="_blank"><div class="icon-preview"><i data-lucide="shield-alert" style="width:32px;height:32px"></i></div><div class="icon-name">ShieldAlert</div><div class="icon-detail">32×32 · Admin user suspension</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/flag" target="_blank"><div class="icon-preview"><i data-lucide="flag" style="width:32px;height:32px"></i></div><div class="icon-name">Flag</div><div class="icon-detail">14×14 · Admin listing flag button</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+<a class="icon-card" href="https://lucide.dev/icons/ban" target="_blank"><div class="icon-preview"><i data-lucide="ban" style="width:32px;height:32px"></i></div><div class="icon-name">Ban</div><div class="icon-detail">18×18 · Admin suspend button</div><div class="icon-link-hint">↗ Open on Lucide</div></a>
+</div>
+</section>
+<hr class="divider">
+
+<!-- ==================== TOKENS ==================== -->
+<section id="tokens">
+<h2>Design Tokens</h2>
+<p class="subtitle">Borders, shadows, radii, animations, scrollbar, and spacing values</p>
+
+<h3 style="color:var(--secondary);margin-bottom:8px">Shadows</h3>
+<div class="shadow-demo">
+<div class="shadow-box" style="box-shadow:4px 4px 0px 0px #000">brutal<br>4px 4px 0 0</div>
+<div class="shadow-box" style="box-shadow:2px 2px 0px 0px #000">brutal-hover<br>2px 2px 0 0</div>
+<div class="shadow-box" style="box-shadow:none">active<br>none</div>
+</div>
+
+<h3 style="color:var(--secondary);margin:24px 0 8px">Borders &amp; Radii</h3>
+<table class="token-table">
+<tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+<tr><td>border-brutal</td><td>3px solid</td><td>Default card/button/input border</td></tr>
+<tr><td>border-2</td><td>2px solid</td><td>Badge borders, sub-borders</td></tr>
+<tr><td>border-4</td><td>4px solid</td><td>Heavy card borders, hero graphic, marquee</td></tr>
+<tr><td>border-8</td><td>8px solid</td><td>Section heading left accent</td></tr>
+<tr><td>rounded-brutal</td><td>32px (2rem)</td><td>Cards, buttons</td></tr>
+<tr><td>rounded-lg</td><td>8px</td><td>Inputs, price tags</td></tr>
+<tr><td>rounded-full</td><td>9999px</td><td>Badges, avatars, filter pills</td></tr>
+</table>
+
+<h3 style="color:var(--secondary);margin:24px 0 8px">Marquee Animation</h3>
+<div class="marquee-strip" style="border-radius:12px;overflow:hidden">
+<div class="marquee-inner">
+<span>Electronics</span> ✦ <span>Engineering</span> ✦ <span>Media</span> ✦ <span>Computing</span> ✦ <span>Events</span> ✦ <span>Textbooks</span> ✦ <span>Electronics</span> ✦ <span>Engineering</span> ✦ <span>Media</span> ✦ <span>Computing</span> ✦ <span>Events</span> ✦ <span>Textbooks</span> ✦
+</div>
+</div>
+<div class="meta" style="margin-top:8px"><span class="spec">translateX(0→-50%)</span><span class="spec">15s linear infinite</span><span class="spec">bg: #F6A02D</span><span class="spec">border-y: 4px black</span><span class="spec">font: Archivo Black 24px uppercase tracking-widest</span></div>
+
+<h3 style="color:var(--secondary);margin:24px 0 8px">Custom Scrollbar</h3>
+<div style="display:flex;gap:24px;align-items:center">
+<div class="scroll-demo"><div style="height:300px;color:#888;font-size:12px;padding:4px">Scroll me to see custom scrollbar. Track: #2C2A29, Thumb: #FF6F20, Thumb hover: #F6A02D, Width: 12px, Thumb border: 3px solid #2C2A29, radius: 6px</div></div>
+</div>
+
+<h3 style="color:var(--secondary);margin:24px 0 8px">Layout &amp; Breakpoints</h3>
+<table class="token-table">
+<tr><th>Property</th><th>Value</th></tr>
+<tr><td>max-w-7xl</td><td>1280px (content wrapper)</td></tr>
+<tr><td>max-w-4xl</td><td>896px (About page)</td></tr>
+<tr><td>max-w-3xl</td><td>768px (FAQ page)</td></tr>
+<tr><td>max-w-md</td><td>448px (Login/Register cards)</td></tr>
+<tr><td>md breakpoint</td><td>768px</td></tr>
+<tr><td>lg breakpoint</td><td>1024px</td></tr>
+<tr><td>navbar</td><td>sticky top-0 z-50, px:24px py:16px, bg:white, border-b:3px black</td></tr>
+<tr><td>main padding</td><td>24px (p-6)</td></tr>
+<tr><td>footer</td><td>bg:black, py:48px px:24px, 4-col grid on md+</td></tr>
+<tr><td>selection</td><td>bg: #F6A02D, text: black</td></tr>
+</table>
+</section>
+<hr class="divider">
+
+<!-- ==================== PAGE PREVIEWS ==================== -->
+<section id="pages">
+<h2>Page Previews</h2>
+<p class="subtitle">Mini previews of each page's key visual elements with dimensions</p>
+<div class="page-grid">
+<!-- Navbar -->
+<div class="page-card">
+<div class="page-preview" style="background:#fff;padding:16px 24px">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div style="display:flex;align-items:center;gap:8px">
+<div style="width:40px;height:40px;background:var(--primary);border:2px solid #000;display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 0 0 #000"><i data-lucide="shopping-bag" style="width:24px;height:24px;color:#fff"></i></div>
+<span style="font-family:'Archivo Black',sans-serif;font-size:18px;letter-spacing:-0.05em;text-transform:uppercase;color:#000">Campus<span style="color:var(--primary)">Vault</span></span>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<span style="font-weight:700;color:#000;text-transform:uppercase;font-size:12px">Marketplace</span>
+<button class="nb-btn outline sm" style="font-size:11px;padding:4px 12px;border-radius:20px">Login</button>
+<button class="nb-btn primary sm" style="font-size:11px;padding:4px 12px;border-radius:20px">Join Now</button>
+</div>
+</div>
+</div>
+<div class="page-meta"><h4>Navbar</h4><p>sticky top-0, bg:white, border-b:3px black, max-w:1280px, px:24px py:16px, logo:40×40 + Archivo Black 24px</p></div>
+</div>
+
+<!-- Landing Hero -->
+<div class="page-card">
+<div class="page-preview" style="background:var(--bg-main)">
+<span class="nb-badge" style="background:var(--secondary);color:#000;font-size:10px;padding:2px 8px">Beta Access Live</span>
+<div style="font-family:'Archivo Black',sans-serif;font-size:32px;text-transform:uppercase;color:#fff;line-height:0.9;text-shadow:4px 4px 0px #000,-2px -2px 0px #E63946">Rent Gear.<br>Build Trust.<br><span style="color:var(--secondary)">No BS.</span></div>
+<p style="font-size:12px;font-weight:700;color:#d1d5db">Peer-to-peer campus marketplace</p>
+<div style="display:flex;gap:8px"><button class="nb-btn primary sm" style="font-size:10px;padding:4px 10px;border-radius:16px">Start Renting →</button><button class="nb-btn secondary sm" style="font-size:10px;padding:4px 10px;border-radius:16px">List Item</button></div>
+</div>
+<div class="page-meta"><h4>Landing — Hero</h4><p>2-col grid (md+), h1: 60px/96px, textShadow, subtext: DM Sans 20px gray-300, 2 CTA buttons lg</p></div>
+</div>
+
+<!-- Login -->
+<div class="page-card">
+<div class="page-preview" style="background:var(--bg-main);display:flex;justify-content:center;align-items:center">
+<div class="nb-card" style="background:var(--secondary);padding:20px;width:90%;max-width:280px;border-width:4px">
+<h3 style="font-family:'Archivo Black',sans-serif;font-size:20px;text-align:center;text-transform:uppercase;letter-spacing:-0.05em;margin-bottom:12px">Login</h3>
+<div style="margin-bottom:8px"><label style="font-family:'Archivo Black',sans-serif;font-size:10px;text-transform:uppercase;display:block;margin-bottom:4px">Campus Email</label><input class="nb-input" style="font-size:11px;padding:6px 10px;border-width:2px;box-shadow:2px 2px 0 0 #000" placeholder="student@campus.edu"></div>
+<button class="nb-btn primary sm" style="width:100%;font-size:10px;padding:6px;border-radius:16px;margin-top:8px">Enter Vault</button>
+<p style="text-align:center;font-size:10px;font-weight:700;margin-top:8px;color:#000">Need access? <u>Register here</u></p>
+</div>
+</div>
+<div class="page-meta"><h4>Login Page</h4><p>center aligned, Card bg:#F6A02D border-4, max-w:448px, h2:36px, form gap:24px, submit:Primary lg full-width</p></div>
+</div>
+
+<!-- Register -->
+<div class="page-card">
+<div class="page-preview" style="background:var(--bg-main);display:flex;justify-content:center;align-items:center">
+<div class="nb-card" style="background:var(--surface);padding:20px;width:90%;max-width:280px;border-width:4px">
+<h3 style="font-family:'Archivo Black',sans-serif;font-size:20px;text-align:center;text-transform:uppercase;letter-spacing:-0.05em;margin-bottom:12px;color:var(--primary)">Join the Vault</h3>
+<div style="margin-bottom:6px"><label style="font-family:'Archivo Black',sans-serif;font-size:10px;text-transform:uppercase;display:block;margin-bottom:4px">Full Name</label><input class="nb-input" style="font-size:11px;padding:6px 10px;border-width:2px;box-shadow:2px 2px 0 0 #000" placeholder="John Doe"></div>
+<button class="nb-btn secondary sm" style="width:100%;font-size:10px;padding:6px;border-radius:16px;margin-top:8px">Create Account</button>
+</div>
+</div>
+<div class="page-meta"><h4>Register Page</h4><p>Card bg:#E1E1E1 (surface), border-4, h2:36px in #FF6F20, 3 fields, submit:Secondary lg</p></div>
+</div>
+
+<!-- Dashboard -->
+<div class="page-card">
+<div class="page-preview" style="background:var(--bg-main)">
+<div class="nb-card" style="padding:12px;display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px;border-width:3px">
+<div><div style="font-family:'Archivo Black',sans-serif;font-size:18px;text-transform:uppercase">My Vault</div><span class="nb-badge" style="background:var(--secondary);color:#000;font-size:8px;padding:2px 6px">RENTER</span></div>
+<div style="text-align:right"><div style="font-family:'Archivo Black',sans-serif;font-size:28px;color:var(--primary);line-height:1">85</div><div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px">Trust Score</div></div>
+</div>
+<div style="display:flex;gap:6px">
+<div style="flex:1;background:#f3f4f6;border:2px dashed #000;border-radius:12px;padding:8px;text-align:center;font-size:10px;font-weight:700"><i data-lucide="plus" style="width:16px;height:16px"></i><br>List Item</div>
+<div class="nb-card" style="flex:1;background:var(--secondary);padding:8px;text-align:center;font-size:10px;border-width:2px"><i data-lucide="star" style="width:16px;height:16px"></i><br><span style="font-family:'Archivo Black',sans-serif;font-size:16px">3</span></div>
+</div>
+</div>
+<div class="page-meta"><h4>Dashboard Page</h4><p>Header card with trust score 60px, 3-col quick actions, activity table with badges, border-l:8px accent</p></div>
+</div>
+
+<!-- Admin -->
+<div class="page-card">
+<div class="page-preview" style="background:var(--bg-main)">
+<div style="background:var(--primary);color:#fff;padding:12px;border:4px solid #000;border-radius:32px;box-shadow:4px 4px 0 0 #000;margin-bottom:8px">
+<div style="font-family:'Archivo Black',sans-serif;font-size:18px;text-transform:uppercase">Admin Command Center</div>
+<p style="font-weight:700;font-size:11px">Moderate with absolute power.</p>
+</div>
+<div style="display:flex;gap:8px">
+<div class="nb-card" style="flex:1;padding:8px;border-width:2px"><div style="display:flex;gap:4px;align-items:center;margin-bottom:4px"><i data-lucide="shield-alert" style="width:14px;height:14px;color:var(--primary)"></i><span style="font-family:'Archivo Black',sans-serif;font-size:10px;text-transform:uppercase">Suspend</span></div><input class="nb-input" style="font-size:10px;padding:4px;border-width:2px;box-shadow:1px 1px 0 0 #000" placeholder="User ID..."></div>
+<div class="nb-card" style="flex:1;padding:8px;background:#000;color:#fff;border-color:#444;border-width:2px"><span style="font-family:'Archivo Black',sans-serif;font-size:10px;text-transform:uppercase;color:var(--secondary)">System Pulse</span><div style="margin-top:4px;font-family:'Archivo Black',sans-serif;font-size:20px;color:var(--primary)">12</div><span style="font-size:8px;color:#999">Total Listings</span></div>
+</div>
+</div>
+<div class="page-meta"><h4>Admin Page</h4><p>Header: bg:#FF6F20, 2-col grid, user suspension + system stats, moderation table</p></div>
+</div>
+
+<!-- Footer -->
+<div class="page-card">
+<div class="page-preview" style="background:#000;color:#fff;border-top:3px solid #000">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<div><h4 style="font-family:'Archivo Black',sans-serif;font-size:14px;color:var(--secondary);margin-bottom:4px">CampusVault</h4><p style="font-size:10px;color:#999;font-weight:700">The #1 brutalist marketplace for campus gear.</p></div>
+<div><h4 style="font-family:'Archivo Black',sans-serif;font-size:12px;color:var(--primary);margin-bottom:4px">Explore</h4><ul style="list-style:none;font-size:10px;color:#999;font-weight:700"><li>Marketplace</li><li>About</li><li>FAQ</li></ul></div>
+</div>
+<div style="border-top:2px solid #333;margin-top:12px;padding-top:8px;text-align:center;font-size:10px;font-weight:700;color:#6b7280">© 2026 CampusVault Inc. Engineered with <span style="color:var(--primary)">Fury</span>.</div>
+</div>
+<div class="page-meta"><h4>Footer</h4><p>bg:black, border-t:3px, py:48px, 4-col grid on md+, brand:24px, links:gray-400→white hover, social:40×40 boxes</p></div>
+</div>
+</div>
+</section>
+
+<div style="text-align:center;padding:48px;color:#555;font-size:13px;font-weight:700">
+— End of CampusVault Visual Design Guide —<br>
+<span style="color:var(--primary)">All elements above use the exact fonts, colors, and proportions from the codebase.</span>
+</div>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>
