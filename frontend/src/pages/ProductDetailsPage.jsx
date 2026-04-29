@@ -195,7 +195,7 @@ export const ProductDetailsPage = () => {
           !bookingSuccess ? /*#__PURE__*/
           _jsxs(_Fragment, { children: [/*#__PURE__*/
             _jsxs("div", { className: "flex justify-between items-end mb-6 border-b-2 border-black pb-4", children: [/*#__PURE__*/
-              _jsxs("span", { className: "font-display font-black text-4xl", children: ["$", listing.dailyRate] }), /*#__PURE__*/
+              _jsxs("span", { className: "font-display font-black text-4xl", children: ["Rs. ", listing.dailyRate] }), /*#__PURE__*/
               _jsx("span", { className: "font-bold text-gray-500 mb-1", children: "per day" })] }
             ),
 
@@ -274,7 +274,7 @@ export const ProductDetailsPage = () => {
 
                 _jsxs("div", { className: "mt-auto flex justify-between items-center border-t-2 border-dashed border-gray-300 pt-4", children: [/*#__PURE__*/
                   _jsxs("div", { children: [/*#__PURE__*/
-                    _jsxs("span", { className: "text-primary font-black text-2xl", children: ["$", item.dailyRate] }), /*#__PURE__*/
+                    _jsxs("span", { className: "text-primary font-black text-2xl", children: ["Rs. ", item.dailyRate] }), /*#__PURE__*/
                     _jsx("span", { className: "text-xs font-bold text-gray-400", children: "/DAY" })] }
                   ), /*#__PURE__*/
                   _jsxs(Button, { size: "sm", variant: "secondary", className: "px-4 py-1 whitespace-nowrap min-w-[100px] flex justify-center items-center", children: ["Rent ", /*#__PURE__*/

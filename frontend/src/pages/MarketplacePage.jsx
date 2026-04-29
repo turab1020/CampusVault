@@ -6,6 +6,7 @@ import { Card } from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
 import { Badge } from '../components/ui/Badge';
 import { Search, ArrowRight } from 'lucide-react';import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { ProductCard } from '../components/ui/ProductCard';
 
 
 
@@ -55,7 +56,7 @@ export const MarketplacePage = () => {
     let result = listings;
 
     if (selectedCategory !== 'All') {
-      result = result.filter((l) => l.category === selectedCategory);
+      result = result.filter((l) => l.category?.toLowerCase() === selectedCategory.toLowerCase());
     }
 
     if (search) {
@@ -107,46 +108,7 @@ export const MarketplacePage = () => {
 
       _jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8", children: [
         filtered.map((item) => /*#__PURE__*/
-        _jsx(Link, { to: `/listings/${item.id || item._id}`, children: /*#__PURE__*/
-          _jsxs(Card, { hoverEffect: true, className: "h-full flex flex-col p-0 overflow-hidden bg-white border-4 border-black", children: [/*#__PURE__*/
-            _jsxs("div", { className: "aspect-square overflow-hidden border-b-4 border-black bg-gray-100 relative group", children: [/*#__PURE__*/
-              _jsx("img", {
-                src: (() => {
-                  const img = item.images[0];
-                  if (!img) return 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';
-                  if (img.startsWith('http')) return img;
-                  // FORCE ABSOLUTE PATH: Extract filename and prepend backend URL
-                  const filename = img.split('/').pop();
-                  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5001/api').replace('/api', '');
-                  return `${baseUrl}/images/${filename}`;
-                })(),
-                alt: item.title,
-                className: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-110",
-                onError: (e) => {e.target.src = 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';} }
-              ), /*#__PURE__*/
-              _jsx(Badge, { variant: item.status === 'ACTIVE' ? 'success' : 'warning', className: "absolute top-4 left-4", children:
-                item.status }
-              ), /*#__PURE__*/
-              _jsx("div", { className: "absolute bottom-4 right-4 bg-white border-2 border-black px-2 font-bold uppercase text-xs", children:
-                item.condition }
-              )] }
-            ), /*#__PURE__*/
-            _jsxs("div", { className: "p-4 flex flex-col flex-grow bg-white", children: [/*#__PURE__*/
-              _jsx("h3", { className: "text-xl font-display font-bold mb-1 truncate uppercase", children: item.title }), /*#__PURE__*/
-              _jsx("p", { className: "text-sm text-gray-500 font-bold mb-4", children: item.category }), /*#__PURE__*/
-
-              _jsxs("div", { className: "mt-auto flex justify-between items-center border-t-2 border-dashed border-gray-300 pt-4", children: [/*#__PURE__*/
-                _jsxs("div", { children: [/*#__PURE__*/
-                  _jsxs("span", { className: "text-primary font-black text-2xl", children: ["$", item.dailyRate] }), /*#__PURE__*/
-                  _jsx("span", { className: "text-xs font-bold text-gray-400", children: "/DAY" })] }
-                ), /*#__PURE__*/
-                _jsxs(Button, { size: "sm", variant: "secondary", className: "px-4 py-1 whitespace-nowrap min-w-[100px] flex justify-center items-center", children: ["Rent ", /*#__PURE__*/
-                  _jsx(ArrowRight, { size: 14, className: "ml-1" })] }
-                )] }
-              )] }
-            )] }
-          ) }
-        )
+        _jsx(ProductCard, { item: item }, item.id || item._id)
         ),
         filtered.length === 0 && /*#__PURE__*/
         _jsx("div", { className: "col-span-full py-20 text-center border-4 border-dashed border-gray-600 rounded-brutal text-gray-400 font-bold text-2xl", children: "No gear found matching your specs." }

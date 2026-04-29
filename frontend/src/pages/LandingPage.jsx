@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { ArrowRight, Star } from 'lucide-react';import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-
+import { ProductCard } from '../components/ui/ProductCard';
 
 
 
@@ -93,33 +93,7 @@ export const LandingPage = () => {
 
         _jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-8", children: [
           featured.map((item) => /*#__PURE__*/
-          _jsx(Link, { to: `/listings/${item.id || item._id}`, children: /*#__PURE__*/
-            _jsxs(Card, { hoverEffect: true, className: "h-full flex flex-col p-0 overflow-hidden bg-white border-4", children: [/*#__PURE__*/
-              _jsxs("div", { className: "h-64 overflow-hidden border-b-4 border-black bg-gray-200 relative", children: [/*#__PURE__*/
-                _jsx("img", {
-                  src: (() => {
-                    const img = item.images[0];
-                    if (!img) return 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';
-                    if (img.startsWith('http')) return img;
-                    // FORCE ABSOLUTE PATH: Extract filename and prepend backend URL
-                    const filename = img.split('/').pop();
-                    return `http://localhost:5001/images/${filename}`;
-                  })(),
-                  alt: item.title,
-                  className: "w-full h-full object-cover",
-                  onError: (e) => {e.target.src = 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';} }
-                ), /*#__PURE__*/
-                _jsx(Badge, { variant: "success", className: "absolute top-4 right-4", children: "Available" })] }
-              ), /*#__PURE__*/
-              _jsxs("div", { className: "p-6 flex flex-col flex-grow", children: [/*#__PURE__*/
-                _jsx("h3", { className: "text-2xl mb-2 line-clamp-1", children: item.title }), /*#__PURE__*/
-                _jsxs("div", { className: "mt-auto flex justify-between items-center", children: [/*#__PURE__*/
-                  _jsxs("span", { className: "bg-black text-white px-3 py-1 font-bold rounded-lg text-lg", children: ["$", item.dailyRate, "/day"] }), /*#__PURE__*/
-                  _jsx(ArrowRight, { className: "text-black" })] }
-                )] }
-              )] }
-            ) }, item.id || item._id
-          )
+          _jsx(ProductCard, { item: item }, item.id || item._id)
           ),
           featured.length === 0 && /*#__PURE__*/
           _jsx("div", { className: "col-span-3 text-center text-gray-300 font-bold text-xl border-2 border-dashed border-gray-600 p-12 rounded-brutal", children: "Loading fresh gear..." }

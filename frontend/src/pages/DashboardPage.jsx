@@ -107,7 +107,7 @@ export const DashboardPage = () => {
                     booking.status }
                   ) }
                 ), /*#__PURE__*/
-                _jsxs("td", { className: "p-4 text-right font-display text-lg", children: ["$",
+                _jsxs("td", { className: "p-4 text-right font-display text-lg", children: ["Rs. ",
                   booking.totalPrice] }
                 )] }, booking.id || booking._id
               )
