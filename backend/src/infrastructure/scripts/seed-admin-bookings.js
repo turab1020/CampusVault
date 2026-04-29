@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { UserModel } from "../../adapters/repositories/schemas/UserSchema";
-import { ListingModel } from "../../adapters/repositories/schemas/ListingSchema";
-import { BookingModel } from "../../adapters/repositories/schemas/BookingSchema";
+import { UserModel } from "../../adapters/repositories/schemas/UserSchema.js";
+import { ListingModel } from "../../adapters/repositories/schemas/ListingSchema.js";
+import { BookingModel } from "../../adapters/repositories/schemas/BookingSchema.js";
 
 dotenv.config();
 

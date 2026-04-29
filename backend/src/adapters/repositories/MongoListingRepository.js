@@ -1,6 +1,6 @@
-import { Listing } from "../../domain/entities/Listing";
+import { Listing } from "../../domain/entities/Listing.js";
 
-import { ListingModel } from "./schemas/ListingSchema";
+import { ListingModel } from "./schemas/ListingSchema.js";
 
 export class MongoListingRepository {
   async save(listing) {

@@ -1,6 +1,6 @@
-import { Review } from "../../domain/entities/Review";
+import { Review } from "../../domain/entities/Review.js";
 
-import { ReviewModel } from "./schemas/ReviewSchema";
+import { ReviewModel } from "./schemas/ReviewSchema.js";
 
 export class MongoReviewRepository {
   async save(review) {

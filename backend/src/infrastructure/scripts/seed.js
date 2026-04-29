@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
-import { UserModel } from "../../adapters/repositories/schemas/UserSchema";
-import { ListingModel } from "../../adapters/repositories/schemas/ListingSchema";
-import { BookingModel } from "../../adapters/repositories/schemas/BookingSchema";
-import { ReviewModel } from "../../adapters/repositories/schemas/ReviewSchema";
-import { BCryptAuthService } from "../../adapters/services/BCryptAuthService";
+import { UserModel } from "../../adapters/repositories/schemas/UserSchema.js";
+import { ListingModel } from "../../adapters/repositories/schemas/ListingSchema.js";
+import { BookingModel } from "../../adapters/repositories/schemas/BookingSchema.js";
+import { ReviewModel } from "../../adapters/repositories/schemas/ReviewSchema.js";
+import { BCryptAuthService } from "../../adapters/services/BCryptAuthService.js";
 
 dotenv.config();
 

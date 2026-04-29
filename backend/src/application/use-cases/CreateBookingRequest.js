@@ -1,7 +1,7 @@
-import { Booking } from "../../domain/entities/Booking";
+import { Booking } from "../../domain/entities/Booking.js";
 
 
-import { DomainError } from "../../domain/errors/DomainError";
+import { DomainError } from "../../domain/errors/DomainError.js";
 
 export class CreateBookingRequest {
   constructor(

@@ -1,4 +1,4 @@
-import { DomainError } from "../errors/DomainError";
+import { DomainError } from "../errors/DomainError.js";
 
 // PENDING -> APPROVED/REJECTED
 // APPROVED -> ACTIVE (Date Reached) -> COMPLETED

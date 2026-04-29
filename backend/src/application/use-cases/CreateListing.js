@@ -1,4 +1,4 @@
-import { Listing } from "../../domain/entities/Listing";
+import { Listing } from "../../domain/entities/Listing.js";
 
 
 export class CreateListing {

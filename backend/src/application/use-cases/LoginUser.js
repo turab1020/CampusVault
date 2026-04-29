@@ -2,7 +2,7 @@
 
 
 
-import { DomainError } from "../../domain/errors/DomainError";
+import { DomainError } from "../../domain/errors/DomainError.js";
 
 export class LoginUser {
   constructor(

@@ -1,27 +1,27 @@
-import { MongoUserRepository } from "../../adapters/repositories/MongoUserRepository";
-import { MongoListingRepository } from "../../adapters/repositories/MongoListingRepository";
-import { MongoBookingRepository } from "../../adapters/repositories/MongoBookingRepository";
-import { MongoReviewRepository } from "../../adapters/repositories/MongoReviewRepository";
+import { MongoUserRepository } from "../../adapters/repositories/MongoUserRepository.js";
+import { MongoListingRepository } from "../../adapters/repositories/MongoListingRepository.js";
+import { MongoBookingRepository } from "../../adapters/repositories/MongoBookingRepository.js";
+import { MongoReviewRepository } from "../../adapters/repositories/MongoReviewRepository.js";
 
-import { BCryptAuthService } from "../../adapters/services/BCryptAuthService";
-import { JwtTokenService } from "../../adapters/services/JwtTokenService";
+import { BCryptAuthService } from "../../adapters/services/BCryptAuthService.js";
+import { JwtTokenService } from "../../adapters/services/JwtTokenService.js";
 
-import { RegisterUser } from "../../application/use-cases/RegisterUser";
-import { LoginUser } from "../../application/use-cases/LoginUser";
-import { CreateListing } from "../../application/use-cases/CreateListing";
-import { GetListings } from "../../application/use-cases/GetListings";
-import { GetUser } from "../../application/use-cases/GetUser";
-import { CreateBookingRequest } from "../../application/use-cases/CreateBookingRequest";
-import { ManageBooking } from "../../application/use-cases/ManageBooking";
-import { SuspendUser } from "../../application/use-cases/SuspendUser";
-import { FlagListing } from "../../application/use-cases/FlagListing";
-// import { CreateReview } from "../../application/use-cases/CreateReview";
+import { RegisterUser } from "../../application/use-cases/RegisterUser.js";
+import { LoginUser } from "../../application/use-cases/LoginUser.js";
+import { CreateListing } from "../../application/use-cases/CreateListing.js";
+import { GetListings } from "../../application/use-cases/GetListings.js";
+import { GetUser } from "../../application/use-cases/GetUser.js";
+import { CreateBookingRequest } from "../../application/use-cases/CreateBookingRequest.js";
+import { ManageBooking } from "../../application/use-cases/ManageBooking.js";
+import { SuspendUser } from "../../application/use-cases/SuspendUser.js";
+import { FlagListing } from "../../application/use-cases/FlagListing.js";
+// import { CreateReview } from "../../application/use-cases/CreateReview.js";
 
-import { AuthController } from "../../adapters/controllers/AuthController";
-import { ListingController } from "../../adapters/controllers/ListingController";
-import { BookingController } from "../../adapters/controllers/BookingController";
-import { UserController } from "../../adapters/controllers/UserController";
-import { AdminController } from "../../adapters/controllers/AdminController";
+import { AuthController } from "../../adapters/controllers/AuthController.js";
+import { ListingController } from "../../adapters/controllers/ListingController.js";
+import { BookingController } from "../../adapters/controllers/BookingController.js";
+import { UserController } from "../../adapters/controllers/UserController.js";
+import { AdminController } from "../../adapters/controllers/AdminController.js";
 
 class DIContainer {
 

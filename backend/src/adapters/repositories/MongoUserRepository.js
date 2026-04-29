@@ -1,6 +1,6 @@
-import { User } from "../../domain/entities/User";
+import { User } from "../../domain/entities/User.js";
 
-import { UserModel } from "./schemas/UserSchema";
+import { UserModel } from "./schemas/UserSchema.js";
 
 export class MongoUserRepository {
   async save(user) {

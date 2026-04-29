@@ -1,6 +1,6 @@
-import { Booking } from "../../domain/entities/Booking";
+import { Booking } from "../../domain/entities/Booking.js";
 
-import { BookingModel } from "./schemas/BookingSchema";
+import { BookingModel } from "./schemas/BookingSchema.js";
 
 export class MongoBookingRepository {
   async save(booking) {

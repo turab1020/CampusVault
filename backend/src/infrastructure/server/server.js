@@ -5,8 +5,8 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import { connectDB } from "../database/mongoose";
-import { router } from "./routes";
+import { connectDB } from "../database/mongoose.js";
+import { router } from "./routes.js";
 
 import path from "path";
 

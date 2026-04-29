@@ -1,7 +1,7 @@
-import { Review } from "../../domain/entities/Review";
+import { Review } from "../../domain/entities/Review.js";
 
 
-import { DomainError } from "../../domain/errors/DomainError";
+import { DomainError } from "../../domain/errors/DomainError.js";
 
 export class CreateReview {
   constructor(

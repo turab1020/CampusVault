@@ -9,7 +9,7 @@
 // I will inject Repo for reading here to save time on boilerplate Use Cases for simple reads, or make a simple Use Case.
 // I'll inject the Repo directly for reads to be pragmatic but keep writes strict.
 
-import { DomainError } from "../../domain/errors/DomainError";
+import { DomainError } from "../../domain/errors/DomainError.js";
 
 export class BookingController {
   constructor(

@@ -1,7 +1,7 @@
-import { User } from "../../domain/entities/User";
+import { User } from "../../domain/entities/User.js";
 
 
-import { DomainError } from "../../domain/errors/DomainError";
+import { DomainError } from "../../domain/errors/DomainError.js";
 
 export class RegisterUser {
   constructor(

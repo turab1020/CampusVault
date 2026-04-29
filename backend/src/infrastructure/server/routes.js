@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { di } from "../di/container";
-import { authMiddleware } from "../../adapters/middleware/AuthMiddleware";
+import { di } from "../di/container.js";
+import { authMiddleware } from "../../adapters/middleware/AuthMiddleware.js";
 
 export const router = Router();
 
