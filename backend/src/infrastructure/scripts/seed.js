@@ -21,6 +21,29 @@ const CATEGORIES = [
 "Computing",
 "Presentation Tools"];
 
+const PRODUCT_MAPPING = {
+  "arduino_mega_kit": { category: "Engineering Kits", basePrice: 500 },
+  "canon_eos_r6": { category: "Media Equipment", basePrice: 5000 },
+  "dji_rs3_gimbal": { category: "Media Equipment", basePrice: 3000 },
+  "drafting_table": { category: "Engineering Kits", basePrice: 800 },
+  "elegoo_3d_printer": { category: "Engineering Kits", basePrice: 2500 },
+  "hakko_soldering": { category: "Engineering Kits", basePrice: 400 },
+  "keychron_keyboard": { category: "Computing", basePrice: 600 },
+  "leica_disto_d2": { category: "Engineering Kits", basePrice: 1000 },
+  "lg_4k_monitor": { category: "Computing", basePrice: 1500 },
+  "meta_quest_3": { category: "Electronics", basePrice: 3000 },
+  "model_making_kit": { category: "Engineering Kits", basePrice: 300 },
+  "neewer_lighting_kit": { category: "Media Equipment", basePrice: 1200 },
+  "nintendo_switch_oled": { category: "Electronics", basePrice: 1500 },
+  "nvidia_jetson_orin": { category: "Computing", basePrice: 4000 },
+  "playstation_5": { category: "Electronics", basePrice: 2500 },
+  "raspberry_pi_5": { category: "Computing", basePrice: 800 },
+  "rigol_oscilloscope": { category: "Engineering Kits", basePrice: 2500 },
+  "rode_ntg5_mic": { category: "Media Equipment", basePrice: 1500 },
+  "rotring_pencil_set": { category: "Engineering Kits", basePrice: 200 },
+  "xbox_series_x": { category: "Electronics", basePrice: 2500 },
+};
+
 
 const seed = async () => {
   try {
@@ -82,23 +105,37 @@ const seed = async () => {
 
     if (imageFiles.length > 0) {
       for (const imageFile of imageFiles) {
-        const category = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+        const nameWithoutExt = path.parse(imageFile).name;
+        
+        // Fetch mapped data or fallback to random
+        const mapping = PRODUCT_MAPPING[nameWithoutExt] || {
+          category: CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)],
+          basePrice: Math.floor(Math.random() * 50) + 10
+        };
+
         const host = students[Math.floor(Math.random() * students.length)];
 
         // transform filename to title: "arduino_mega_kit.png" -> "Arduino Mega Kit"
-        const nameWithoutExt = path.parse(imageFile).name;
         const title = nameWithoutExt.
         split(/[_-]/).
         map((word) => word.charAt(0).toUpperCase() + word.slice(1)).
         join(" ");
 
+        const condition = ["NEW", "GOOD", "FAIR"][Math.floor(Math.random() * 3)];
+        
+        let multiplier = 1.0;
+        if (condition === "NEW") multiplier = 1.2;
+        if (condition === "FAIR") multiplier = 0.8;
+        
+        const dailyRate = Math.round(mapping.basePrice * multiplier);
+
         listings.push({
           hostId: host._id.toString(),
           title: title,
           description: `High quality ${title} available for rent. Perfect for your campus needs.`,
-          category,
-          dailyRate: Math.floor(Math.random() * 50) + 10,
-          condition: ["NEW", "GOOD", "FAIR"][Math.floor(Math.random() * 3)],
+          category: mapping.category,
+          dailyRate: dailyRate,
+          condition: condition,
           images: [`/images/${imageFile}`], // Path for frontend to access
           status: "ACTIVE"
         });
