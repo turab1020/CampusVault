@@ -16,7 +16,7 @@ export const ProductCard = ({ item }) => {
               if (!img) return 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';
               if (img.startsWith('http')) return img;
               const filename = img.split('/').pop();
-              const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5001/api').replace('/api', '');
+              const baseUrl = import.meta.env.VITE_API_URL;
               return `${baseUrl}/images/${filename}`;
             })()}
             alt={item.title}

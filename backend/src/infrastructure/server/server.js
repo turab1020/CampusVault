@@ -14,7 +14,15 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+// Set up strict CORS for production
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://campusvault-sight.vercel.app' // Replace with your exact Vercel domain
+    : 'http://localhost:5173', // Local Vite development
+  credentials: true, // Needed if you plan to use cookies/sessions later
+};
+
+app.use(cors(corsOptions));
 app.use(
   helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" }

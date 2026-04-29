@@ -120,7 +120,7 @@ export const ProductDetailsPage = () => {
               if (img.startsWith('http')) return img;
               // FORCE ABSOLUTE PATH: Extract filename and prepend backend URL
               const filename = img.split('/').pop();
-              const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5001/api').replace('/api', '');
+              const baseUrl = import.meta.env.VITE_API_URL;
               return `${baseUrl}/images/${filename}`;
             })(),
             alt: listing.title,
@@ -163,7 +163,7 @@ export const ProductDetailsPage = () => {
                   const avatar = host.profile.avatarRef;
                   if (!avatar) return `https://ui-avatars.com/api/?name=${host.profile.name}&background=random`;
                   if (avatar.startsWith('http')) return avatar;
-                  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5001/api').replace('/api', '');
+                  const baseUrl = import.meta.env.VITE_API_URL;
                   return `${baseUrl}/images/${avatar}`;
                 })(),
                 alt: host.profile.name,
@@ -254,7 +254,7 @@ export const ProductDetailsPage = () => {
                     if (!img) return 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';
                     if (img.startsWith('http')) return img;
                     const filename = img.split('/').pop();
-                    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5001/api').replace('/api', '');
+                    const baseUrl = import.meta.env.VITE_API_URL;
                     return `${baseUrl}/images/${filename}`;
                   })(),
                   alt: item.title,

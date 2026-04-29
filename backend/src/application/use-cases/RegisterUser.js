@@ -19,7 +19,7 @@ export class RegisterUser {
 
     // Create new User entity (Framework agnostic)
     const newUser = new User(
-      crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(), // Temp ID gen if not in Node 19+
+      crypto.randomUUID(),
       email,
       passwordHash,
       "STUDENT", // Default role

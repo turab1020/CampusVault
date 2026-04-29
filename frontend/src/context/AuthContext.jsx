@@ -37,36 +37,10 @@ export const AuthProvider = ({ children }) => {
       const storedToken = localStorage.getItem('token');
       if (storedToken) {
         try {
-          // Ideally we hav a /auth/me endpoint to validate token and get user.
-          // My backend spec had `GET /auth/me`. Did I implement it?
-          // Checking backend Implementation...
-          // Routes: `router.post("/auth/register"...)`, `router.post("/auth/login"...)`.
-          // I missed `/auth/me` in the routes implementation!
-          // I should add it or just persist user in localStorage too for now (less secure but works for prototype).
-          // Or I can just trust the token exists and decode it? No, need user data.
-          // I will persist user in localStorage for now to avoid modifying backend immediately,
-          // OR I can quickly add the valid endpoint if I was working on full stack.
-          // Constraint: "Do NOT modify backend."
-          // So I MUST rely on what I have.
-          // If I store user in localStorage, it might get out of sync.
-          // But without /me endpoint, I can't refresh user data easily on reload.
-          // Wait, I can decode the token if it has data.
-          // TokenPayload has `userId` and `role`. Not full profile.
-          // I can fetch user details via `GET /users/:id`?
-          // Backend routes: `router.get("/listings"...)`. `router.get("/bookings"...)`.
-          // User routes?
-          // Start of Phase 2 spec: "GET /users/:id/profile".
-          // Implementation routes.ts: Only Auth, Listing, Booking, Admin routes.
-          // I missed generic User routes!
-          // This is a gap.
-          // However, `AdminController` has suspend logic.
-          // I will store the user object in localStorage for Phase 3 to proceed without backend changes.
-          const storedUser = localStorage.getItem('user');
-          if (storedUser) {
-            setUser(JSON.parse(storedUser));
-          }
+          const res = await api.get('/auth/me');
+          setUser(res.data);
         } catch (error) {
-          console.error("Auth init error", error);
+          console.error("Auth session verification failed", error);
           logout();
         }
       }

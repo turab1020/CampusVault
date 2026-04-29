@@ -1,12 +1,14 @@
 import { Router } from "express";
 import { di } from "../di/container.js";
 import { authMiddleware } from "../../adapters/middleware/AuthMiddleware.js";
+import { validateRequest, registerSchema, loginSchema, createListingSchema } from "../../adapters/middleware/ValidationMiddleware.js";
 
 export const router = Router();
 
 // Auth Routes
-router.post("/auth/register", (req, res) => di.authController.register(req, res));
-router.post("/auth/login", (req, res) => di.authController.login(req, res));
+router.post("/auth/register", validateRequest(registerSchema), (req, res) => di.authController.register(req, res));
+router.post("/auth/login", validateRequest(loginSchema), (req, res) => di.authController.login(req, res));
+router.get("/auth/me", authMiddleware, (req, res) => di.authController.getMe(req, res));
 
 // User Routes
 router.get("/users/:id", (req, res) => di.userController.getById(req, res));
@@ -14,7 +16,7 @@ router.get("/users/:id", (req, res) => di.userController.getById(req, res));
 // Listing Routes
 router.get("/listings", (req, res) => di.listingController.getAll(req, res));
 router.get("/listings/:id", (req, res) => di.listingController.getById(req, res));
-router.post("/listings", authMiddleware, (req, res) => di.listingController.create(req, res));
+router.post("/listings", authMiddleware, validateRequest(createListingSchema), (req, res) => di.listingController.create(req, res));
 
 // Booking Routes
 router.post("/bookings", authMiddleware, (req, res) => di.bookingController.create(req, res));

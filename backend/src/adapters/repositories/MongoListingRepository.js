@@ -25,7 +25,14 @@ export class MongoListingRepository {
   }
 
   async findAll(filter) {
-    const { limit, offset, ...query } = filter || {};
+    const { limit, offset, category, status, hostId } = filter || {};
+    
+    // Whitelist allowed query parameters to prevent NoSQL injection
+    const query = {};
+    if (category) query.category = category;
+    if (status) query.status = status;
+    if (hostId) query.hostId = hostId;
+
     const queryBuilder = ListingModel.find(query);
 
     if (limit) {

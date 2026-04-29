@@ -56,7 +56,7 @@ class DIContainer {
     const flagListing = new FlagListing(listingRepo, userRepo);
 
     // 4. Controllers
-    this.authController = new AuthController(registerUser, loginUser);
+    this.authController = new AuthController(registerUser, loginUser, getUser);
     this.listingController = new ListingController(createListing, getListings);
     this.bookingController = new BookingController(createBookingRequest, manageBooking, bookingRepo);
     this.userController = new UserController(getUser);

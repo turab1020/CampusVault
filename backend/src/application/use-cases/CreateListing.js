@@ -14,7 +14,7 @@ export class CreateListing {
   images)
   {
     const listing = new Listing(
-      crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(),
+      crypto.randomUUID(),
       hostId,
       title,
       description,
