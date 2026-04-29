@@ -16,24 +16,27 @@ const app = express();
 
 // Set up strict CORS for production
 const allowedOrigins = [
-  'https://campusvault-eight.vercel.app', // Your actual Vercel URL
-  'https://campusvault-sight.vercel.app', // Just in case this was an old URL you still use
-  'http://localhost:5173'                 // Local Vite development
+  'https://campus-vault-eight.vercel.app', 
+  'https://campusvault-eight.vercel.app',
+  'https://campusvault-sight.vercel.app',
+  'http://localhost:5173'
 ];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+app.use(cors({
+  origin: function(origin, callback) {
+    // 1. Log the exact origin to the Railway console so we stop guessing
+    console.log("Incoming Request Origin:", origin); 
+    
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      // 2. Return false instead of throwing a new Error to prevent the 500 Crash
+      console.warn("CORS Blocked for origin:", origin);
+      callback(null, false); 
     }
   },
-  credentials: true, 
-};
-
-app.use(cors(corsOptions));
+  credentials: true
+}));
 app.use(
   helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" }
