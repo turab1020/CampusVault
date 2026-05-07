@@ -39,14 +39,14 @@ export const LandingPage = () => {
           <p className="text-lg sm:text-xl font-bold text-gray-300 max-w-lg">
             Peer-to-peer campus marketplace engineered for engineers. Stop buying expensive kit you'll use once.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link to="/marketplace" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full flex justify-center items-center gap-2">
-                Start Renting <ArrowRight size={20} />
+          <div className="flex flex-row flex-wrap gap-3 sm:gap-4">
+            <Link to="/marketplace" className="flex-1 min-w-fit">
+              <Button size="md" className="w-full flex justify-center items-center gap-2">
+                Start Renting <ArrowRight size={18} />
               </Button>
             </Link>
-            <Link to="/register" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" className="w-full">List Item</Button>
+            <Link to="/register" className="flex-1 min-w-fit">
+              <Button variant="secondary" size="md" className="w-full">List Item</Button>
             </Link>
           </div>
         </div>

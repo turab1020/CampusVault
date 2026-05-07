@@ -86,27 +86,27 @@ export const Layout = () => {
               <div className="flex flex-col gap-4">
                 {user.role === 'ADMIN' && (
                   <Link to="/admin" onClick={closeMobileMenu}>
-                    <Button variant="ghost" className="w-full justify-start bg-black text-white border-2 border-gray-600 text-lg py-4">
-                      <Shield size={24} className="mr-3" /> Admin Dashboard
+                    <Button variant="ghost" size="md" className="w-full justify-start bg-black text-white border-2 border-gray-600">
+                      <Shield size={20} className="mr-3" /> Admin Dashboard
                     </Button>
                   </Link>
                 )}
                 <Link to="/dashboard" onClick={closeMobileMenu}>
-                  <Button variant="secondary" className="w-full justify-start text-lg py-4">
-                    <User size={24} className="mr-3" /> My Vault (Dashboard)
+                  <Button variant="secondary" size="md" className="w-full justify-start">
+                    <User size={20} className="mr-3" /> My Vault (Dashboard)
                   </Button>
                 </Link>
-                <Button variant="outline" onClick={handleLogout} className="w-full justify-start text-lg py-4 border-2 border-black text-black">
-                  <LogOut size={24} className="mr-3" /> Logout
+                <Button variant="outline" size="md" onClick={handleLogout} className="w-full justify-start border-2 border-black text-black">
+                  <LogOut size={20} className="mr-3" /> Logout
                 </Button>
               </div>
             ) : (
               <div className="flex flex-col gap-4">
                 <Link to="/login" onClick={closeMobileMenu}>
-                  <Button variant="outline" className="w-full text-lg py-4">Login</Button>
+                  <Button variant="outline" size="md" className="w-full">Login</Button>
                 </Link>
                 <Link to="/register" onClick={closeMobileMenu}>
-                  <Button className="w-full text-lg py-4">Join Now</Button>
+                  <Button size="md" className="w-full">Join Now</Button>
                 </Link>
               </div>
             )}
