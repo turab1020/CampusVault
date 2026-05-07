@@ -117,9 +117,6 @@ export const Layout = () => {
                         <Shield size={20} className="text-black" /> Admin Command
                       </Link>
                     )}
-                    <Link to="#" onClick={closeDropdown} className="flex items-center gap-3 p-3 font-bold text-black hover:bg-secondary border-2 border-transparent hover:border-black rounded-md transition-all">
-                      <Settings size={20} /> Settings
-                    </Link>
                   </div>
                   
                   {/* Dropdown Footer */}
@@ -158,8 +155,8 @@ export const Layout = () => {
           <div>
             <h4 className="font-display text-lg mb-4 text-primary">Legal</h4>
             <ul className="space-y-2 font-bold text-gray-400">
-              <li><Link to="#" className="hover:text-white">Terms of Service</Link></li>
-              <li><Link to="#" className="hover:text-white">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-white">Terms of Service</Link></li>
+              <li><Link to="/privacy" className="hover:text-white">Privacy Policy</Link></li>
               <li><Link to="#" className="hover:text-white">Trust & Safety</Link></li>
             </ul>
           </div>

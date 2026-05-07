@@ -46,6 +46,16 @@ export const AdminPage = () => {
     }
   };
 
+  const handleUnflagListing = async (id) => {
+    try {
+      await api.patch(`/admin/listings/${id}/unflag`);
+      setMessage(`Listing ${id} unflagged.`);
+      fetchListings(); // Refresh
+    } catch (err) {
+      setMessage('Error: ' + (err.response?.data?.error || 'Failed'));
+    }
+  };
+
   if (user?.role !== 'ADMIN') {
     return <div className="text-white text-center py-20 text-2xl font-bold">Access Denied. Admins Only.</div>;
   }
@@ -116,9 +126,13 @@ export const AdminPage = () => {
                     </td>
                     <td className="p-4 uppercase text-xs sm:text-sm whitespace-nowrap">{item.condition}</td>
                     <td className="p-4 text-right whitespace-nowrap">
-                      {item.status !== 'SUSPENDED' && (
+                      {item.status !== 'SUSPENDED' ? (
                         <Button size="sm" variant="outline" onClick={() => handleFlagListing(item.id || item._id)}>
                           <Flag size={14} className="mr-1" /> Flag
+                        </Button>
+                      ) : (
+                        <Button size="sm" variant="primary" onClick={() => handleUnflagListing(item.id || item._id)}>
+                          <ShieldAlert size={14} className="mr-1" /> Unflag
                         </Button>
                       )}
                     </td>

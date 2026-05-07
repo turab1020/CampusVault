@@ -4,10 +4,11 @@
 import { DomainError } from "../../domain/errors/DomainError.js";
 
 export class AdminController {
-  constructor(
-  suspendUser,
-  flagListing)
-  {this.suspendUser = suspendUser;this.flagListing = flagListing;}
+  constructor(suspendUser, flagListing, unflagListing) {
+    this.suspendUser = suspendUser;
+    this.flagListing = flagListing;
+    this.unflagListing = unflagListing;
+  }
 
   async suspendUserAction(req, res) {
     try {
@@ -24,6 +25,16 @@ export class AdminController {
       const adminId = req.user?.userId;
       await this.flagListing.execute(adminId, req.params.id);
       res.status(200).json({ message: "Listing flagged/suspended" });
+    } catch (error) {
+      this.handleError(res, error);
+    }
+  }
+
+  async unflagListingAction(req, res) {
+    try {
+      const adminId = req.user?.userId;
+      await this.unflagListing.execute(adminId, req.params.id);
+      res.status(200).json({ message: "Listing unflagged and active" });
     } catch (error) {
       this.handleError(res, error);
     }

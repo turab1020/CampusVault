@@ -5,27 +5,40 @@ import api from '../services/api';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { Settings, Plus, Star } from 'lucide-react';
+import { Settings, Plus, Star, XCircle } from 'lucide-react';
 
 export const DashboardPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [myBookings, setMyBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState('');
+
+  const fetchBookings = async () => {
+    try {
+      const res = await api.get('/bookings/mine');
+      setMyBookings(res.data.asRenter || []);
+    } catch (err) {
+      console.error("Failed to load dashboard data", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await api.get('/bookings/mine');
-        setMyBookings(res.data.asRenter || []);
-      } catch (err) {
-        console.error("Failed to load dashboard data", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+    fetchBookings();
   }, []);
+
+  const handleCancelBooking = async (bookingId) => {
+    if (!window.confirm('Are you sure you want to cancel this booking?')) return;
+    try {
+      await api.patch(`/bookings/${bookingId}/cancel`);
+      setMessage('Booking cancelled successfully.');
+      fetchBookings(); // Refresh the list
+    } catch (err) {
+      setMessage('Error: ' + (err.response?.data?.error || 'Cancel failed'));
+    }
+  };
 
   if (!user) {
     navigate('/login');
@@ -49,6 +62,8 @@ export const DashboardPage = () => {
         </div>
       </div>
 
+      {message && <div className="bg-yellow-400 border-2 border-black p-4 font-bold text-center text-black">{message}</div>}
+
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Link to="/listings/new">
@@ -65,7 +80,9 @@ export const DashboardPage = () => {
         <Card className="flex flex-col justify-center items-center text-center py-6 bg-surface border-4">
           <Settings size={32} className="mb-2" />
           <h3 className="text-xl font-bold uppercase">Account Settings</h3>
-          <Button variant="ghost" size="sm" className="mt-2 text-xs">Manage</Button>
+          <Link to="/profile" className="mt-2">
+            <Button variant="primary" size="sm" className="text-xs px-6 border-2 border-black hover:scale-105 transition-transform">Manage</Button>
+          </Link>
         </Card>
       </div>
 
@@ -75,13 +92,14 @@ export const DashboardPage = () => {
         
         <Card className="p-0 overflow-hidden bg-white border-4">
           <div className="overflow-x-auto w-full">
-            <table className="w-full min-w-[600px] text-left border-collapse">
+            <table className="w-full min-w-[700px] text-left border-collapse">
               <thead className="bg-black text-white uppercase font-display text-sm">
                 <tr>
                   <th className="p-4 border-b-2 border-gray-800 whitespace-nowrap">Item ID</th>
                   <th className="p-4 border-b-2 border-gray-800 whitespace-nowrap">Dates</th>
                   <th className="p-4 border-b-2 border-gray-800 whitespace-nowrap">Status</th>
                   <th className="p-4 border-b-2 border-gray-800 text-right whitespace-nowrap">Total</th>
+                  <th className="p-4 border-b-2 border-gray-800 text-right whitespace-nowrap">Action</th>
                 </tr>
               </thead>
               <tbody className="font-bold text-gray-700">
@@ -96,23 +114,35 @@ export const DashboardPage = () => {
                       {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}
                     </td>
                     <td className="p-4 whitespace-nowrap">
-                      <Badge variant={booking.status === 'PENDING' ? 'warning' : booking.status === 'COMPLETED' ? 'success' : 'primary'}>
+                      <Badge variant={booking.status === 'PENDING' ? 'warning' : booking.status === 'COMPLETED' ? 'success' : booking.status === 'CANCELLED' ? 'primary' : 'primary'}>
                         {booking.status}
                       </Badge>
                     </td>
                     <td className="p-4 text-right font-display text-lg whitespace-nowrap">
                       Rs. {booking.totalPrice}
                     </td>
+                    <td className="p-4 text-right whitespace-nowrap">
+                      {!['COMPLETED', 'REJECTED', 'CANCELLED'].includes(booking.status) && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleCancelBooking(booking.id || booking._id)}
+                          className="text-xs"
+                        >
+                          <XCircle size={14} className="mr-1" /> Cancel
+                        </Button>
+                      )}
+                    </td>
                   </tr>
                 ))}
                 {myBookings.length === 0 && !loading && (
                   <tr>
-                    <td colSpan="4" className="p-8 text-center text-gray-500 italic">No rental history found. Get started!</td>
+                    <td colSpan="5" className="p-8 text-center text-gray-500 italic">No rental history found. Get started!</td>
                   </tr>
                 )}
                 {loading && (
                   <tr>
-                    <td colSpan="4" className="p-8 text-center text-gray-500">Loading history...</td>
+                    <td colSpan="5" className="p-8 text-center text-gray-500">Loading history...</td>
                   </tr>
                 )}
               </tbody>

@@ -5,7 +5,7 @@ import { ListingModel } from "./schemas/ListingSchema.js";
 export class MongoListingRepository {
   async save(listing) {
     const doc = new ListingModel({
-      _id: listing.id,
+      // Let Mongoose auto-generate _id (ObjectId)
       hostId: listing.hostId,
       title: listing.title,
       description: listing.description,

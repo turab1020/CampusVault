@@ -5,7 +5,7 @@ import { BookingModel } from "./schemas/BookingSchema.js";
 export class MongoBookingRepository {
   async save(booking) {
     const doc = new BookingModel({
-      _id: booking.id,
+      // Let Mongoose auto-generate _id (ObjectId)
       listingId: booking.listingId,
       renterId: booking.renterId,
       hostId: booking.hostId,

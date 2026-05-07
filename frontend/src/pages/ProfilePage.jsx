@@ -3,7 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { User, Shield, LogOut, Settings, LayoutDashboard, ChevronRight } from 'lucide-react';
+import { User, Shield, LogOut, LayoutDashboard, ChevronRight, UserMinus } from 'lucide-react';
+import api from '../services/api';
 
 export const ProfilePage = () => {
   const { user, logout } = useAuth();
@@ -17,6 +18,18 @@ export const ProfilePage = () => {
   const handleLogout = () => {
     logout();
     navigate('/login');
+  };
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm("Are you sure you want to delete your account? This action is permanent and cannot be undone.")) {
+      try {
+        await api.delete('/users/me');
+        logout();
+        navigate('/login');
+      } catch (err) {
+        alert(err.response?.data?.error || "Failed to delete account");
+      }
+    }
   };
 
   const avatarUrl = user.profile?.avatarRef 
@@ -95,21 +108,23 @@ export const ProfilePage = () => {
           </Link>
         )}
 
-        {/* Fixed Settings Button with properly matching vibrant colors */}
-        <Link to="#" className="w-full group">
-          <Card className="bg-white border-4 border-black group-hover:bg-warning group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
-            <div className="flex flex-row items-center gap-6">
-              <div className="w-12 h-12 bg-black text-warning flex items-center justify-center rounded-brutal border-2 border-black">
-                <Settings size={24} />
+        {/* Delete Account Button (Not for Admins) */}
+        {user.role !== 'ADMIN' && (
+          <button onClick={handleDeleteAccount} className="w-full group text-left">
+            <Card className="bg-white border-4 border-black group-hover:bg-warning group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+              <div className="flex flex-row items-center gap-6">
+                <div className="w-12 h-12 bg-black text-warning flex items-center justify-center rounded-brutal border-2 border-black">
+                  <UserMinus size={24} />
+                </div>
+                <div className="text-left">
+                  <h2 className="text-xl font-black uppercase tracking-wider text-black">Delete Account</h2>
+                  <p className="font-bold text-gray-600 text-sm hidden sm:block">Permanently remove your account and data.</p>
+                </div>
               </div>
-              <div className="text-left">
-                <h2 className="text-xl font-black uppercase tracking-wider text-black">Settings</h2>
-                <p className="font-bold text-gray-600 text-sm hidden sm:block">Update your password, preferences, and notifications.</p>
-              </div>
-            </div>
-            <ChevronRight size={32} className="text-black opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-transform" />
-          </Card>
-        </Link>
+              <ChevronRight size={32} className="text-black opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-transform" />
+            </Card>
+          </button>
+        )}
 
         {/* Logout Button */}
         <button onClick={handleLogout} className="w-full group mt-4">

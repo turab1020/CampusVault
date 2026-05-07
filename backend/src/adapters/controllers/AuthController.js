@@ -29,6 +29,7 @@ export class AuthController {
       if (error instanceof DomainError) {
         res.status(400).json({ error: error.message });
       } else {
+        console.error("Register Error:", error);
         res.status(500).json({ error: "Internal Server Error" });
       }
     }

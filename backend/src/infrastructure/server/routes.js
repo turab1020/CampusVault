@@ -12,6 +12,7 @@ router.get("/auth/me", authMiddleware, (req, res) => di.authController.getMe(req
 
 // User Routes
 router.get("/users/:id", (req, res) => di.userController.getById(req, res));
+router.delete("/users/me", authMiddleware, (req, res) => di.userController.deleteMyAccount(req, res));
 
 // Listing Routes
 router.get("/listings", (req, res) => di.listingController.getAll(req, res));
@@ -22,7 +23,9 @@ router.post("/listings", authMiddleware, validateRequest(createListingSchema), (
 router.post("/bookings", authMiddleware, (req, res) => di.bookingController.create(req, res));
 router.get("/bookings/mine", authMiddleware, (req, res) => di.bookingController.getMine(req, res));
 router.patch("/bookings/:id/approve", authMiddleware, (req, res) => di.bookingController.approve(req, res));
+router.patch("/bookings/:id/cancel", authMiddleware, (req, res) => di.bookingController.cancel(req, res));
 
 // Admin Routes
 router.patch("/admin/users/:id/suspend", authMiddleware, (req, res) => di.adminController.suspendUserAction(req, res));
 router.patch("/admin/listings/:id/flag", authMiddleware, (req, res) => di.adminController.flagListingAction(req, res));
+router.patch("/admin/listings/:id/unflag", authMiddleware, (req, res) => di.adminController.unflagListingAction(req, res));

@@ -67,8 +67,24 @@ export class BookingController {
   }
 
   async cancel(req, res) {
-    // Implement Cancel
-    res.status(501).json({ message: "Not Implemented" });
+    try {
+      const userId = req.user?.userId;
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
+
+      const booking = await this.bookingRepo.findById(req.params.id);
+      if (!booking) return res.status(404).json({ error: "Booking not found" });
+
+      // Allow either renter or host to cancel
+      if (booking.renterId !== userId && booking.hostId !== userId) {
+        return res.status(403).json({ error: "Unauthorized to cancel this booking" });
+      }
+
+      booking.cancel();
+      await this.bookingRepo.update(booking);
+      res.status(200).json({ message: "Booking cancelled" });
+    } catch (error) {
+      this.handleError(res, error);
+    }
   }
 
   handleError(res, error) {
