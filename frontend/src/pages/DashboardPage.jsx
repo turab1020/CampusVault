@@ -69,89 +69,55 @@ export const DashboardPage = () => {
         </Card>
       </div>
 
-      {/* Bookings Table (Desktop) & Cards (Mobile) */}
+      {/* Bookings Table (Scrollable on Mobile) */}
       <div>
         <h2 className="text-2xl sm:text-3xl text-white uppercase mb-6 pl-4 border-l-8 border-primary">Recent Activity</h2>
         
-        {/* Mobile View (< md) */}
-        <div className="flex flex-col gap-4 md:hidden">
-          {loading && (
-             <div className="p-8 text-center text-white bg-gray-900 border-4 border-black rounded-brutal">Loading history...</div>
-          )}
-          {!loading && myBookings.length === 0 && (
-             <div className="p-8 text-center text-white bg-gray-900 border-4 border-black rounded-brutal italic">No rental history found. Get started!</div>
-          )}
-          {myBookings.map((booking) => (
-            <Card key={booking.id || booking._id} className="bg-white border-4 border-black p-4 flex flex-col gap-3">
-              <div className="flex justify-between items-start border-b-2 border-gray-200 pb-2 mb-1">
-                 <div>
-                   <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Item ID</div>
-                   <Link to={`/listings/${booking.listingId}`} className="text-primary hover:underline font-black text-lg">
-                      {booking.listingId.substring(0, 8)}...
-                   </Link>
-                 </div>
-                 <Badge variant={booking.status === 'PENDING' ? 'warning' : booking.status === 'COMPLETED' ? 'success' : 'primary'}>
-                    {booking.status}
-                 </Badge>
-              </div>
-              <div>
-                 <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Dates</div>
-                 <div className="font-bold text-gray-800">
-                    {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}
-                 </div>
-              </div>
-              <div className="mt-2 pt-3 border-t-2 border-dashed border-gray-300 flex justify-between items-center">
-                 <div className="text-xs font-bold text-gray-500 uppercase tracking-wider">Total</div>
-                 <div className="font-display text-xl text-black">Rs. {booking.totalPrice}</div>
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        {/* Desktop View (>= md) */}
-        <Card className="hidden md:block p-0 overflow-hidden bg-white border-4">
-          <table className="w-full text-left border-collapse">
-            <thead className="bg-black text-white uppercase font-display text-sm">
-              <tr>
-                <th className="p-4 border-b-2 border-gray-800">Item ID</th>
-                <th className="p-4 border-b-2 border-gray-800">Dates</th>
-                <th className="p-4 border-b-2 border-gray-800">Status</th>
-                <th className="p-4 border-b-2 border-gray-800 text-right">Total</th>
-              </tr>
-            </thead>
-            <tbody className="font-bold text-gray-700">
-              {myBookings.map((booking) => (
-                <tr key={booking.id || booking._id} className="border-b-2 border-gray-200 hover:bg-gray-50 transition-colors">
-                  <td className="p-4">
-                    <Link to={`/listings/${booking.listingId}`} className="text-primary hover:underline">
-                      {booking.listingId.substring(0, 8)}...
-                    </Link>
-                  </td>
-                  <td className="p-4">
-                    {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}
-                  </td>
-                  <td className="p-4">
-                    <Badge variant={booking.status === 'PENDING' ? 'warning' : booking.status === 'COMPLETED' ? 'success' : 'primary'}>
-                      {booking.status}
-                    </Badge>
-                  </td>
-                  <td className="p-4 text-right font-display text-lg">
-                    Rs. {booking.totalPrice}
-                  </td>
-                </tr>
-              ))}
-              {myBookings.length === 0 && !loading && (
+        <Card className="p-0 overflow-hidden bg-white border-4">
+          <div className="overflow-x-auto w-full">
+            <table className="w-full min-w-[600px] text-left border-collapse">
+              <thead className="bg-black text-white uppercase font-display text-sm">
                 <tr>
-                  <td colSpan="4" className="p-8 text-center text-gray-500 italic">No rental history found. Get started!</td>
+                  <th className="p-4 border-b-2 border-gray-800 whitespace-nowrap">Item ID</th>
+                  <th className="p-4 border-b-2 border-gray-800 whitespace-nowrap">Dates</th>
+                  <th className="p-4 border-b-2 border-gray-800 whitespace-nowrap">Status</th>
+                  <th className="p-4 border-b-2 border-gray-800 text-right whitespace-nowrap">Total</th>
                 </tr>
-              )}
-              {loading && (
-                <tr>
-                  <td colSpan="4" className="p-8 text-center text-gray-500">Loading history...</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="font-bold text-gray-700">
+                {myBookings.map((booking) => (
+                  <tr key={booking.id || booking._id} className="border-b-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                    <td className="p-4 whitespace-nowrap">
+                      <Link to={`/listings/${booking.listingId}`} className="text-primary hover:underline">
+                        {booking.listingId.substring(0, 8)}...
+                      </Link>
+                    </td>
+                    <td className="p-4 whitespace-nowrap">
+                      {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}
+                    </td>
+                    <td className="p-4 whitespace-nowrap">
+                      <Badge variant={booking.status === 'PENDING' ? 'warning' : booking.status === 'COMPLETED' ? 'success' : 'primary'}>
+                        {booking.status}
+                      </Badge>
+                    </td>
+                    <td className="p-4 text-right font-display text-lg whitespace-nowrap">
+                      Rs. {booking.totalPrice}
+                    </td>
+                  </tr>
+                ))}
+                {myBookings.length === 0 && !loading && (
+                  <tr>
+                    <td colSpan="4" className="p-8 text-center text-gray-500 italic">No rental history found. Get started!</td>
+                  </tr>
+                )}
+                {loading && (
+                  <tr>
+                    <td colSpan="4" className="p-8 text-center text-gray-500">Loading history...</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </Card>
       </div>
     </div>

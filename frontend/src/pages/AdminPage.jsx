@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { ShieldAlert, Flag, Ban } from 'lucide-react';import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { ShieldAlert, Flag, Ban } from 'lucide-react';
 
 export const AdminPage = () => {
   const { user } = useAuth();
@@ -47,89 +47,93 @@ export const AdminPage = () => {
   };
 
   if (user?.role !== 'ADMIN') {
-    return /*#__PURE__*/_jsx("div", { className: "text-white text-center py-20 text-2xl font-bold", children: "Access Denied. Admins Only." });
+    return <div className="text-white text-center py-20 text-2xl font-bold">Access Denied. Admins Only.</div>;
   }
 
-  return (/*#__PURE__*/
-    _jsxs("div", { className: "flex flex-col gap-12", children: [/*#__PURE__*/
-      _jsxs("div", { className: "bg-primary text-white p-8 border-4 border-black rounded-brutal shadow-brutal", children: [/*#__PURE__*/
-        _jsx("h1", { className: "text-4xl uppercase mb-2", children: "Admin Command Center" }), /*#__PURE__*/
-        _jsx("p", { className: "font-bold", children: "Moderate the marketplace with absolute power." })] }
-      ),
+  return (
+    <div className="flex flex-col gap-8 sm:gap-12 py-6 sm:py-0">
+      <div className="bg-primary text-white p-6 sm:p-8 border-4 border-black rounded-brutal shadow-brutal">
+        <h1 className="text-3xl sm:text-4xl uppercase mb-2">Admin Command Center</h1>
+        <p className="font-bold">Moderate the marketplace with absolute power.</p>
+      </div>
 
-      message && /*#__PURE__*/_jsx("div", { className: "bg-yellow-400 border-2 border-black p-4 font-bold text-center", children: message }), /*#__PURE__*/
+      {message && <div className="bg-yellow-400 border-2 border-black p-4 font-bold text-center text-black">{message}</div>}
 
-      _jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8", children: [/*#__PURE__*/
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <Card className="border-4 bg-white p-6">
+          <div className="flex items-center gap-4 mb-4 sm:mb-6">
+            <ShieldAlert size={32} className="text-primary shrink-0" />
+            <h2 className="text-xl sm:text-2xl uppercase">User Suspension</h2>
+          </div>
+          <p className="mb-4 text-gray-600 font-bold text-sm sm:text-base">Enter User ID to instantly suspend from platform.</p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Input
+              placeholder="User ID..."
+              value={userIdToSuspend}
+              onChange={(e) => setUserIdToSuspend(e.target.value)}
+              className="w-full"
+            />
+            <Button onClick={handleSuspendUser} variant="primary" className="whitespace-nowrap w-full sm:w-auto">
+              <Ban size={18} className="mr-2" /> Suspend
+            </Button>
+          </div>
+        </Card>
 
-        _jsxs(Card, { className: "border-4 bg-white", children: [/*#__PURE__*/
-          _jsxs("div", { className: "flex items-center gap-4 mb-6", children: [/*#__PURE__*/
-            _jsx(ShieldAlert, { size: 32, className: "text-primary" }), /*#__PURE__*/
-            _jsx("h2", { className: "text-2xl uppercase", children: "User Suspension" })] }
-          ), /*#__PURE__*/
-          _jsx("p", { className: "mb-4 text-gray-600 font-bold", children: "Enter User ID to instantly suspend from platform." }), /*#__PURE__*/
-          _jsxs("div", { className: "flex gap-4", children: [/*#__PURE__*/
-            _jsx(Input, {
-              placeholder: "User ID...",
-              value: userIdToSuspend,
-              onChange: (e) => setUserIdToSuspend(e.target.value) }
-            ), /*#__PURE__*/
-            _jsxs(Button, { onClick: handleSuspendUser, variant: "primary", className: "whitespace-nowrap", children: [/*#__PURE__*/
-              _jsx(Ban, { size: 18, className: "mr-2" }), "Suspend"] }
+        <Card className="border-4 bg-black text-white p-6">
+          <h2 className="text-xl sm:text-2xl uppercase mb-4 text-secondary">System Pulse</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-gray-900 p-4 border border-gray-700 flex flex-col justify-center items-center text-center">
+              <span className="block text-3xl sm:text-4xl font-display text-primary">{listings.length}</span>
+              <span className="text-xs sm:text-sm font-bold text-gray-400 mt-1">Total Listings</span>
+            </div>
+            <div className="bg-gray-900 p-4 border border-gray-700 flex flex-col justify-center items-center text-center">
+              <span className="block text-3xl sm:text-4xl font-display text-secondary">{listings.filter((l) => l.status === 'ACTIVE').length}</span>
+              <span className="text-xs sm:text-sm font-bold text-gray-400 mt-1">Active Listings</span>
+            </div>
+          </div>
+        </Card>
+      </div>
 
-            )] }
-          )] }
-        ), /*#__PURE__*/
-
-
-        _jsxs(Card, { className: "border-4 bg-black text-white", children: [/*#__PURE__*/
-          _jsx("h2", { className: "text-2xl uppercase mb-4 text-secondary", children: "System Pulse" }), /*#__PURE__*/
-          _jsxs("div", { className: "grid grid-cols-2 gap-4", children: [/*#__PURE__*/
-            _jsxs("div", { className: "bg-gray-900 p-4 border border-gray-700", children: [/*#__PURE__*/
-              _jsx("span", { className: "block text-4xl font-display text-primary", children: listings.length }), /*#__PURE__*/
-              _jsx("span", { className: "text-sm font-bold text-gray-400", children: "Total Listings" })] }
-            ), /*#__PURE__*/
-            _jsxs("div", { className: "bg-gray-900 p-4 border border-gray-700", children: [/*#__PURE__*/
-              _jsx("span", { className: "block text-4xl font-display text-secondary", children: listings.filter((l) => l.status === 'ACTIVE').length }), /*#__PURE__*/
-              _jsx("span", { className: "text-sm font-bold text-gray-400", children: "Active Listings" })] }
-            )] }
-          )] }
-        )] }
-      ), /*#__PURE__*/
-
-
-      _jsxs("div", { children: [/*#__PURE__*/
-        _jsx("h2", { className: "text-3xl text-white uppercase mb-6 pl-4 border-l-8 border-secondary", children: "Listing Moderation" }), /*#__PURE__*/
-        _jsx("div", { className: "bg-white border-4 p-0 overflow-hidden", children: /*#__PURE__*/
-          _jsxs("table", { className: "w-full text-left", children: [/*#__PURE__*/
-            _jsx("thead", { className: "bg-black text-white uppercase font-display text-sm", children: /*#__PURE__*/
-              _jsxs("tr", { children: [/*#__PURE__*/
-                _jsx("th", { className: "p-4", children: "Title" }), /*#__PURE__*/
-                _jsx("th", { className: "p-4", children: "Status" }), /*#__PURE__*/
-                _jsx("th", { className: "p-4", children: "Condition" }), /*#__PURE__*/
-                _jsx("th", { className: "p-4 text-right", children: "Action" })] }
-              ) }
-            ), /*#__PURE__*/
-            _jsx("tbody", { className: "font-bold text-gray-700", children:
-              listings.map((item) => /*#__PURE__*/
-              _jsxs("tr", { className: "border-b hover:bg-gray-50", children: [/*#__PURE__*/
-                _jsx("td", { className: "p-4", children: item.title }), /*#__PURE__*/
-                _jsx("td", { className: "p-4", children: /*#__PURE__*/
-                  _jsx(Badge, { variant: item.status === 'ACTIVE' ? 'success' : 'warning', children: item.status }) }
-                ), /*#__PURE__*/
-                _jsx("td", { className: "p-4 uppercase text-sm", children: item.condition }), /*#__PURE__*/
-                _jsx("td", { className: "p-4 text-right", children:
-                  item.status !== 'SUSPENDED' && /*#__PURE__*/
-                  _jsxs(Button, { size: "sm", variant: "outline", onClick: () => handleFlagListing(item.id || item._id), children: [/*#__PURE__*/
-                    _jsx(Flag, { size: 14, className: "mr-1" }), " Flag"] }
-                  ) }
-
-                )] }, item.id || item._id
-              )
-              ) }
-            )] }
-          ) }
-        )] }
-      )] }
-    ));
-
+      <div>
+        <h2 className="text-2xl sm:text-3xl text-white uppercase mb-6 pl-4 border-l-8 border-secondary">Listing Moderation</h2>
+        <Card className="bg-white border-4 p-0 overflow-hidden">
+          <div className="overflow-x-auto w-full">
+            <table className="w-full min-w-[600px] text-left">
+              <thead className="bg-black text-white uppercase font-display text-sm">
+                <tr>
+                  <th className="p-4 whitespace-nowrap">Title</th>
+                  <th className="p-4 whitespace-nowrap">Status</th>
+                  <th className="p-4 whitespace-nowrap">Condition</th>
+                  <th className="p-4 text-right whitespace-nowrap">Action</th>
+                </tr>
+              </thead>
+              <tbody className="font-bold text-gray-700">
+                {listings.map((item) => (
+                  <tr key={item.id || item._id} className="border-b hover:bg-gray-50">
+                    <td className="p-4 whitespace-nowrap">{item.title}</td>
+                    <td className="p-4 whitespace-nowrap">
+                      <Badge variant={item.status === 'ACTIVE' ? 'success' : 'warning'}>{item.status}</Badge>
+                    </td>
+                    <td className="p-4 uppercase text-xs sm:text-sm whitespace-nowrap">{item.condition}</td>
+                    <td className="p-4 text-right whitespace-nowrap">
+                      {item.status !== 'SUSPENDED' && (
+                        <Button size="sm" variant="outline" onClick={() => handleFlagListing(item.id || item._id)}>
+                          <Flag size={14} className="mr-1" /> Flag
+                        </Button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+                {listings.length === 0 && (
+                  <tr>
+                    <td colSpan="4" className="p-8 text-center text-gray-500 italic">No listings in the system.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
 };

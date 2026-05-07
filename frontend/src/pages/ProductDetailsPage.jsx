@@ -141,9 +141,9 @@ export const ProductDetailsPage = () => {
 
         {/* Host Profile Card */}
         {host && (
-          <Card className="bg-white text-black border-4 p-4 sm:p-6">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4 sm:mb-6">
-              <div className="w-16 h-16 rounded-full border-4 border-black overflow-hidden bg-gray-200 shrink-0">
+          <Card className="bg-white text-black border-4 p-3 sm:p-4">
+            <div className="flex flex-row items-center gap-3 mb-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-black overflow-hidden bg-gray-200 shrink-0">
                 <img
                   src={(() => {
                     const avatar = host.profile?.avatarRef;
@@ -157,19 +157,19 @@ export const ProductDetailsPage = () => {
                 />
               </div>
               <div className="w-full">
-                <h3 className="text-xl sm:text-2xl font-black uppercase leading-none break-all">{host.profile?.name}</h3>
-                <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-gray-500 mt-2 sm:mt-1">
-                  <Shield size={16} className="text-secondary" />
+                <h3 className="text-base sm:text-lg font-black uppercase leading-tight truncate">{host.profile?.name}</h3>
+                <div className="flex items-center gap-1 text-[10px] sm:text-xs font-bold text-gray-500">
+                  <Shield size={12} className="text-secondary" />
                   <span>Verified Host</span>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <Button variant="outline" size="sm" className="w-full font-bold">
+            <div className="flex flex-row gap-2 sm:gap-3">
+              <Button variant="outline" size="sm" className="w-full font-bold px-2 py-1 text-xs sm:text-sm">
                 Open Profile
               </Button>
-              <Button variant="secondary" size="sm" className="w-full font-bold">
+              <Button variant="secondary" size="sm" className="w-full font-bold px-2 py-1 text-xs sm:text-sm">
                 Show More
               </Button>
             </div>
@@ -206,7 +206,7 @@ export const ProductDetailsPage = () => {
                     className="bg-gray-100 w-full"
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full text-base sm:text-lg">
+                <Button type="submit" size="md" className="w-full text-sm sm:text-base">
                   Request Booking
                 </Button>
                 <p className="text-xs text-center font-bold text-gray-400 mt-1">
