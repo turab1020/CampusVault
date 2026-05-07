@@ -1,0 +1,132 @@
+import { useAuth } from '../context/AuthContext';
+import { useNavigate, Link } from 'react-router-dom';
+import { Button } from '../components/ui/Button';
+import { Card } from '../components/ui/Card';
+import { Badge } from '../components/ui/Badge';
+import { User, Shield, LogOut, Settings, LayoutDashboard, ChevronRight } from 'lucide-react';
+
+export const ProfilePage = () => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate('/login');
+    return null;
+  }
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  const avatarUrl = user.profile?.avatarRef 
+    ? (user.profile.avatarRef.startsWith('http') ? user.profile.avatarRef : `${import.meta.env.VITE_API_URL}/images/${user.profile.avatarRef}`)
+    : null;
+
+  return (
+    <div className="flex flex-col gap-8 max-w-3xl mx-auto py-8">
+      {/* Header Profile Section */}
+      <div className="bg-white border-4 border-black p-6 sm:p-10 rounded-brutal shadow-[8px_8px_0px_0px_#000] flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
+        <div className="relative">
+          <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-black overflow-hidden bg-gray-200 shrink-0">
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="Profile" className="w-full h-full object-cover" />
+            ) : (
+              <User size={64} className="w-full h-full p-6 text-gray-500" />
+            )}
+          </div>
+          {user.role === 'ADMIN' && (
+            <div className="absolute top-0 right-0 bg-secondary text-black border-4 border-black rounded-full w-12 h-12 flex items-center justify-center z-10 shadow-[4px_4px_0px_0px_#000]" title="Admin">
+              <Shield size={24} className="fill-current" />
+            </div>
+          )}
+        </div>
+        
+        <div className="flex-1 w-full">
+          <h1 className="text-3xl sm:text-5xl font-black uppercase mb-2 leading-tight break-all">
+            {user.profile?.name || user.email.split('@')[0]}
+          </h1>
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-6">
+            <span className="font-bold text-gray-500 border-2 border-gray-200 px-3 py-1 rounded-md text-sm">{user.email}</span>
+            <Badge variant={user.role === 'ADMIN' ? 'warning' : 'primary'}>{user.role}</Badge>
+          </div>
+          
+          <div className="flex items-center justify-center sm:justify-start gap-4">
+            <div className="bg-black text-white px-6 py-3 border-2 border-black flex flex-col items-center">
+              <span className="font-display text-4xl leading-none text-primary">{user.trustScore}</span>
+              <span className="font-bold uppercase text-xs tracking-widest text-gray-400 mt-1">Trust Score</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Proper Action List Menu */}
+      <div className="flex flex-col gap-4">
+        
+        <Link to="/dashboard" className="w-full group">
+          <Card className="bg-white border-4 border-black group-hover:bg-secondary group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+            <div className="flex flex-row items-center gap-6">
+              <div className="w-12 h-12 bg-black text-secondary flex items-center justify-center rounded-brutal border-2 border-black">
+                <LayoutDashboard size={24} />
+              </div>
+              <div className="text-left">
+                <h2 className="text-xl font-black uppercase tracking-wider text-black">My Vault</h2>
+                <p className="font-bold text-gray-600 text-sm hidden sm:block">Manage your rentals, listings, and active bookings.</p>
+              </div>
+            </div>
+            <ChevronRight size={32} className="text-black opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-transform" />
+          </Card>
+        </Link>
+
+        {user.role === 'ADMIN' && (
+          <Link to="/admin" className="w-full group">
+            <Card className="bg-white border-4 border-black group-hover:bg-primary group-hover:text-white group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+              <div className="flex flex-row items-center gap-6">
+                <div className="w-12 h-12 bg-black text-primary flex items-center justify-center rounded-brutal border-2 border-black">
+                  <Shield size={24} />
+                </div>
+                <div className="text-left">
+                  <h2 className="text-xl font-black uppercase tracking-wider">Admin Command</h2>
+                  <p className="font-bold text-gray-600 group-hover:text-gray-200 text-sm hidden sm:block">Moderate marketplace listings and manage users.</p>
+                </div>
+              </div>
+              <ChevronRight size={32} className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-transform" />
+            </Card>
+          </Link>
+        )}
+
+        {/* Fixed Settings Button with properly matching vibrant colors */}
+        <Link to="#" className="w-full group">
+          <Card className="bg-white border-4 border-black group-hover:bg-warning group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+            <div className="flex flex-row items-center gap-6">
+              <div className="w-12 h-12 bg-black text-warning flex items-center justify-center rounded-brutal border-2 border-black">
+                <Settings size={24} />
+              </div>
+              <div className="text-left">
+                <h2 className="text-xl font-black uppercase tracking-wider text-black">Settings</h2>
+                <p className="font-bold text-gray-600 text-sm hidden sm:block">Update your password, preferences, and notifications.</p>
+              </div>
+            </div>
+            <ChevronRight size={32} className="text-black opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-transform" />
+          </Card>
+        </Link>
+
+        {/* Logout Button */}
+        <button onClick={handleLogout} className="w-full group mt-4">
+          <Card className="bg-primary text-white border-4 border-black group-hover:bg-red-600 group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+            <div className="flex flex-row items-center gap-6">
+              <div className="w-12 h-12 bg-white text-primary border-2 border-black flex items-center justify-center rounded-brutal">
+                <LogOut size={24} />
+              </div>
+              <div className="text-left">
+                <h2 className="text-xl font-black uppercase tracking-wider">Sign Out</h2>
+              </div>
+            </div>
+            <ChevronRight size={32} className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-transform" />
+          </Card>
+        </button>
+
+      </div>
+    </div>
+  );
+};

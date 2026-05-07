@@ -1,117 +1,138 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Button } from '../ui/Button';
-import { ShoppingBag, User, LogOut, Shield, Menu, X } from 'lucide-react';
+import { ShoppingBag, User, Shield, LogOut, Settings, LayoutDashboard } from 'lucide-react';
 
 export const Layout = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleLogout = () => {
     logout();
-    setIsMobileMenuOpen(false);
+    setIsDropdownOpen(false);
     navigate('/login');
   };
 
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const closeDropdown = () => setIsDropdownOpen(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-bg-main text-white font-body selection:bg-secondary selection:text-black">
-      <nav className="border-b-brutal border-black bg-white px-6 py-4 sticky top-0 z-50">
+      <nav className="border-b-brutal border-black bg-white px-4 sm:px-6 py-4 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 group" onClick={closeMobileMenu}>
-            <div className="w-10 h-10 bg-primary border-2 border-black flex items-center justify-center shadow-[4px_4px_0px_0px_#000] group-hover:translate-y-[-2px] transition-transform">
-              <ShoppingBag className="text-white w-6 h-6" />
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary border-2 border-black flex items-center justify-center shadow-[4px_4px_0px_0px_#000] group-hover:translate-y-[-2px] transition-transform shrink-0">
+              <ShoppingBag className="text-white w-4 h-4 sm:w-6 sm:h-6" />
             </div>
-            <span className="font-display font-black text-2xl tracking-tighter text-black uppercase">
+            <span className="font-display font-black text-xl sm:text-2xl tracking-tighter text-black uppercase">
               Campus<span className="text-primary">Vault</span>
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
-            <Link to="/marketplace" className="font-bold text-black uppercase hover:text-primary transition-colors">Marketplace</Link>
-            <Link to="/about" className="font-bold text-black uppercase hover:text-primary transition-colors">About</Link>
+          {/* Navigation Links & Profile */}
+          <div className="flex items-center gap-3 sm:gap-6">
+            <Link to="/marketplace" className="max-[580px]:hidden font-bold text-black text-sm sm:text-base uppercase hover:text-primary transition-colors">Marketplace</Link>
+            <Link to="/about" className="max-[580px]:hidden font-bold text-black text-sm sm:text-base uppercase hover:text-primary transition-colors">About</Link>
 
-            {user ? (
-              <div className="flex items-center gap-4">
-                {user.role === 'ADMIN' && (
-                  <Link to="/admin">
-                    <Button variant="ghost" size="sm" className="bg-black text-white hover:bg-gray-800 border-2 border-gray-600">
-                      <Shield size={18} className="mr-2" /> Admin
-                    </Button>
-                  </Link>
-                )}
-                <Link to="/dashboard">
-                  <Button variant="secondary" size="sm" className="flex items-center gap-2">
-                    <User size={18} /> Dashboard
-                  </Button>
+            {/* Profile Icon Hub */}
+            <div className="relative" ref={dropdownRef}>
+              {user ? (
+                <button 
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-4 border-black bg-gray-200 flex items-center justify-center hover:scale-105 transition-transform shrink-0 outline-none"
+                >
+                  <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center">
+                    {user.profile?.avatarRef ? (
+                      <img 
+                        src={user.profile.avatarRef.startsWith('http') ? user.profile.avatarRef : `${import.meta.env.VITE_API_URL}/images/${user.profile.avatarRef}`} 
+                        alt="Profile" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <User size={24} className="text-gray-600" />
+                    )}
+                  </div>
+                  
+                  {/* Admin Badge Superscript (Outside Circle) */}
+                  {user.role === 'ADMIN' && (
+                    <div className="absolute -top-2 -right-2 bg-secondary text-black border-2 border-black rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center z-10 shadow-brutal-sm" title="Admin">
+                      <Shield size={12} className="sm:w-[14px] sm:h-[14px] fill-current" />
+                    </div>
+                  )}
+                </button>
+              ) : (
+                <Link 
+                  to="/login"
+                  className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-4 border-black bg-gray-200 flex items-center justify-center overflow-hidden hover:scale-105 transition-transform shrink-0"
+                >
+                  <User size={24} className="text-gray-600" />
                 </Link>
-                <Button variant="ghost" size="sm" onClick={handleLogout} className="border-2 border-black text-black">
-                  <LogOut size={18} />
-                </Button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-4">
-                <Link to="/login">
-                  <Button variant="outline" size="sm">Login</Button>
-                </Link>
-                <Link to="/register">
-                  <Button size="sm">Join Now</Button>
-                </Link>
-              </div>
-            )}
+              )}
+
+              {/* Profile Dropdown Menu */}
+              {isDropdownOpen && user && (
+                <div className="absolute top-14 right-0 w-64 sm:w-72 bg-white border-4 border-black shadow-[8px_8px_0px_0px_#000] flex flex-col z-50 rounded-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                  {/* Dropdown Header */}
+                  <div className="p-4 border-b-4 border-black bg-gray-100 flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full border-2 border-black overflow-hidden bg-gray-200 shrink-0">
+                      {user.profile?.avatarRef ? (
+                        <img 
+                          src={user.profile.avatarRef.startsWith('http') ? user.profile.avatarRef : `${import.meta.env.VITE_API_URL}/images/${user.profile.avatarRef}`} 
+                          alt="Profile" 
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <User size={24} className="w-full h-full p-2 text-gray-500" />
+                      )}
+                    </div>
+                    <div className="overflow-hidden">
+                      <h4 className="font-black text-black uppercase truncate text-sm sm:text-base">{user.profile?.name || user.email.split('@')[0]}</h4>
+                      <p className="text-xs font-bold text-gray-500 truncate">{user.email}</p>
+                    </div>
+                  </div>
+                  
+                  {/* Dropdown Links */}
+                  <div className="flex flex-col p-3 gap-1">
+                    <Link to="/profile" onClick={closeDropdown} className="flex items-center gap-3 p-3 font-bold text-black hover:bg-secondary border-2 border-transparent hover:border-black rounded-md transition-all">
+                      <User size={20} /> My Profile
+                    </Link>
+                    <Link to="/dashboard" onClick={closeDropdown} className="flex items-center gap-3 p-3 font-bold text-black hover:bg-secondary border-2 border-transparent hover:border-black rounded-md transition-all">
+                      <LayoutDashboard size={20} /> My Vault
+                    </Link>
+                    {user.role === 'ADMIN' && (
+                      <Link to="/admin" onClick={closeDropdown} className="flex items-center gap-3 p-3 font-bold text-black hover:bg-secondary border-2 border-transparent hover:border-black rounded-md transition-all">
+                        <Shield size={20} className="text-black" /> Admin Command
+                      </Link>
+                    )}
+                    <Link to="#" onClick={closeDropdown} className="flex items-center gap-3 p-3 font-bold text-black hover:bg-secondary border-2 border-transparent hover:border-black rounded-md transition-all">
+                      <Settings size={20} /> Settings
+                    </Link>
+                  </div>
+                  
+                  {/* Dropdown Footer */}
+                  <div className="border-t-4 border-black p-3 bg-gray-50">
+                    <button onClick={handleLogout} className="flex items-center gap-3 p-3 w-full font-bold text-white bg-primary hover:bg-red-600 border-2 border-black rounded-md transition-all">
+                      <LogOut size={20} /> Sign-out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-
-          {/* Mobile Hamburger Button */}
-          <button 
-            className="md:hidden text-black p-2 border-2 border-transparent hover:border-black rounded-brutal transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={28} strokeWidth={2.5} /> : <Menu size={28} strokeWidth={2.5} />}
-          </button>
         </div>
-
-        {/* Mobile Navigation Dropdown */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden absolute left-0 right-0 top-full bg-white border-b-4 border-black p-6 flex flex-col gap-6 shadow-brutal z-40">
-            <Link to="/marketplace" onClick={closeMobileMenu} className="font-black text-2xl text-black uppercase hover:text-primary transition-colors">Marketplace</Link>
-            <Link to="/about" onClick={closeMobileMenu} className="font-black text-2xl text-black uppercase hover:text-primary transition-colors">About</Link>
-            
-            <div className="h-1 w-full bg-black my-2"></div>
-            
-            {user ? (
-              <div className="flex flex-col gap-4">
-                {user.role === 'ADMIN' && (
-                  <Link to="/admin" onClick={closeMobileMenu}>
-                    <Button variant="ghost" size="md" className="w-full justify-start bg-black text-white border-2 border-gray-600">
-                      <Shield size={20} className="mr-3" /> Admin Dashboard
-                    </Button>
-                  </Link>
-                )}
-                <Link to="/dashboard" onClick={closeMobileMenu}>
-                  <Button variant="secondary" size="md" className="w-full justify-start">
-                    <User size={20} className="mr-3" /> My Vault (Dashboard)
-                  </Button>
-                </Link>
-                <Button variant="outline" size="md" onClick={handleLogout} className="w-full justify-start border-2 border-black text-black">
-                  <LogOut size={20} className="mr-3" /> Logout
-                </Button>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-4">
-                <Link to="/login" onClick={closeMobileMenu}>
-                  <Button variant="outline" size="md" className="w-full">Login</Button>
-                </Link>
-                <Link to="/register" onClick={closeMobileMenu}>
-                  <Button size="md" className="w-full">Join Now</Button>
-                </Link>
-              </div>
-            )}
-          </div>
-        )}
       </nav>
 
       <main className="flex-grow p-4 sm:p-6 w-full">

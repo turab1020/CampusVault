@@ -7,6 +7,88 @@ import { Badge } from '../components/ui/Badge';
 import { ArrowRight, Star } from 'lucide-react';
 import { ProductCard } from '../components/ui/ProductCard';
 
+const HeroDeck = ({ featured }) => {
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [topZIndex, setTopZIndex] = useState(1); // Middle card on top by default
+
+  if (!featured || featured.length === 0) {
+    return (
+      <div className="hidden lg:flex relative mt-8 lg:mt-0 w-full min-h-[550px] items-center justify-center border-4 border-dashed border-gray-600 rounded-brutal">
+        <p className="text-gray-400 font-bold text-xl uppercase tracking-widest">Loading Deck...</p>
+      </div>
+    );
+  }
+
+  // Base deck positions for indices 0, 1, 2
+  const deckTransforms = [
+    "rotate-[-12deg] -translate-x-36 translate-y-6",
+    "rotate-0",
+    "rotate-[12deg] translate-x-36 translate-y-6",
+  ];
+
+  return (
+    <div className="hidden lg:flex relative mt-8 lg:mt-0 w-full min-h-[550px] items-center justify-center">
+      {featured.slice(0, 3).map((item, index) => {
+        const isActive = index === activeIndex;
+        const isTop = index === topZIndex;
+        
+        const baseTransform = deckTransforms[index] || "hidden";
+        
+        // Z-Index hierarchy: Hovered card is absolute top (50). Last hovered is second (40). Default middle is (20), default sides are (10).
+        const zClass = isActive ? "z-50" : (isTop ? "z-40" : (index === 1 ? "z-20" : "z-10"));
+        
+        // Wrapper handles Translation, Rotation, Scale, and Z-index
+        const wrapperClass = isActive 
+          ? `${baseTransform} scale-[1.10] ${zClass}` 
+          : `${baseTransform} ${zClass}`;
+          
+        // Inner handles the shadow and the continuous shake animation (which stops on hover)
+        const innerClass = isActive 
+          ? `shadow-[16px_16px_0px_0px_#E63946]` 
+          : `shadow-[8px_8px_0px_0px_#000] animate-float-shake`;
+        
+        const imageUrl = (() => {
+          const img = item.images && item.images[0];
+          if (!img) return 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';
+          if (img.startsWith('http')) return img;
+          return `${import.meta.env.VITE_API_URL}/images/${img.split('/').pop()}`;
+        })();
+
+        return (
+          <div 
+            key={item.id || item._id} 
+            onMouseEnter={() => { setActiveIndex(index); setTopZIndex(index); }}
+            onMouseLeave={() => setActiveIndex(null)}
+            className={`absolute transition-all duration-500 ease-out ${wrapperClass}`}
+          >
+            <div 
+              className={`relative w-[320px] h-[460px] rounded-xl border-4 border-black bg-white overflow-hidden cursor-pointer transition-shadow duration-500 ${innerClass}`}
+              style={{ animationDelay: `${index * -1.5}s` }}
+            >
+              {/* Image */}
+              <img src={imageUrl} alt={item.title} className={`w-full h-full object-cover transition-transform duration-700 ${isActive ? 'scale-110' : 'scale-100'}`} />
+              
+              {/* Permanent Gradient Overlay for readability of possible tags */}
+              <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 pointer-events-none ${isActive ? 'opacity-0' : 'opacity-100'}`} />
+              
+              {/* Hover Details Panel */}
+              <div className={`absolute inset-x-0 bottom-0 bg-white border-t-4 border-black p-4 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex flex-col gap-2 ${isActive ? 'translate-y-0' : 'translate-y-[101%]'}`}>
+                <h3 className="font-black text-lg text-black uppercase truncate leading-tight">{item.title}</h3>
+                <p className="font-display font-black text-primary text-xl leading-none">Rs. {item.dailyRate}<span className="text-xs text-gray-500 font-bold uppercase ml-1 tracking-widest">/day</span></p>
+                <p className="text-xs font-bold text-gray-600 line-clamp-2 leading-tight mt-1">{item.description}</p>
+                
+                <Link to={`/listings/${item.id || item._id}`} className="mt-3 block w-full" onClick={(e) => e.stopPropagation()}>
+                  <Button size="sm" className="w-full">View Details</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 export const LandingPage = () => {
   const [featured, setFeatured] = useState([]);
 
@@ -51,36 +133,20 @@ export const LandingPage = () => {
           </div>
         </div>
 
-        <div className="relative mt-8 lg:mt-0 w-full max-w-lg mx-auto lg:max-w-none">
-          <div className="absolute top-0 right-0 w-full h-full bg-primary border-4 border-black translate-x-4 translate-y-4 rounded-brutal"></div>
-          <Card className="relative bg-surface p-0 overflow-hidden min-h-[300px] sm:min-h-[500px] flex items-center justify-center border-4">
-            <div className="text-center p-6 sm:p-8">
-              <Star className="w-16 h-16 sm:w-24 sm:h-24 text-black mx-auto mb-4" />
-              <h2 className="text-3xl sm:text-4xl uppercase mb-2">CampusVault</h2>
-              <p className="font-bold text-xl sm:text-2xl bg-secondary inline-block px-2 border-2 border-black">EST. 2026</p>
-            </div>
-          </Card>
-        </div>
+        <HeroDeck featured={featured} />
       </section>
 
-      {/* Categories Marquee (Wrap on mobile since horizontal scroll is forbidden) */}
-      <section className="border-y-4 border-black bg-secondary py-6 -mx-4 sm:-mx-6 flex flex-col items-center">
-        {/* On desktop we can keep the wide marquee, but user explicitly said NO horizontal scrolling and if it feels odd on mobile redesign it. 
-            A Marquee inherently requires scrolling/moving. We'll make it a flex-wrap static grid on mobile! */}
-        <div className="hidden md:flex overflow-hidden whitespace-nowrap w-full">
-          <div className="flex gap-12 font-display text-2xl font-black uppercase tracking-widest text-black animate-marquee min-w-max px-6">
+      {/* Categories Marquee */}
+      <section className="border-y-4 border-black bg-secondary py-6 -mx-4 sm:-mx-6 flex flex-col items-center overflow-hidden">
+        <div className="flex overflow-hidden whitespace-nowrap w-full">
+          <div className="flex gap-12 font-display text-2xl sm:text-4xl font-black uppercase tracking-widest text-black animate-marquee min-w-max px-6">
             <span>Electronics</span> ✦ <span>Engineering</span> ✦ <span>Media</span> ✦ <span>Computing</span> ✦ <span>Events</span> ✦ <span>Textbooks</span> ✦
             <span>Electronics</span> ✦ <span>Engineering</span> ✦ <span>Media</span> ✦ <span>Computing</span> ✦ <span>Events</span> ✦ <span>Textbooks</span>
           </div>
-          <div className="flex gap-12 font-display text-2xl font-black uppercase tracking-widest text-black animate-marquee min-w-max px-6" aria-hidden="true">
+          <div className="flex gap-12 font-display text-2xl sm:text-4xl font-black uppercase tracking-widest text-black animate-marquee min-w-max px-6" aria-hidden="true">
             <span>Electronics</span> ✦ <span>Engineering</span> ✦ <span>Media</span> ✦ <span>Computing</span> ✦ <span>Events</span> ✦ <span>Textbooks</span> ✦
             <span>Electronics</span> ✦ <span>Engineering</span> ✦ <span>Media</span> ✦ <span>Computing</span> ✦ <span>Events</span> ✦ <span>Textbooks</span>
           </div>
-        </div>
-        
-        {/* Mobile Static Wrap */}
-        <div className="flex md:hidden flex-wrap justify-center gap-x-4 gap-y-2 px-4 font-display text-lg sm:text-xl font-black uppercase tracking-widest text-black">
-            <span>Electronics</span> <span className="text-white">✦</span> <span>Engineering</span> <span className="text-white">✦</span> <span>Media</span> <span className="text-white">✦</span> <span>Computing</span> <span className="text-white">✦</span> <span>Events</span> <span className="text-white">✦</span> <span>Textbooks</span>
         </div>
       </section>
 
