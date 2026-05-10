@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
@@ -91,6 +92,19 @@ const HeroDeck = ({ featured }) => {
 
 export const LandingPage = () => {
   const [featured, setFeatured] = useState([]);
+  const { user, isLoading } = useAuth();
+  const navigate = useNavigate();
+
+  // Auto-redirect unauthenticated visitors to login after 3 seconds (once per session)
+  useEffect(() => {
+    if (isLoading) return;
+    if (user) return;
+    if (sessionStorage.getItem('loginDismissed')) return;
+    const timer = setTimeout(() => {
+      navigate('/login', { state: { from: { pathname: '/' } } });
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [user, isLoading, navigate]);
 
   useEffect(() => {
     const fetchFeatured = async () => {

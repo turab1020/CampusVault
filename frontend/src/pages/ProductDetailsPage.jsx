@@ -69,7 +69,7 @@ export const ProductDetailsPage = () => {
     e.preventDefault();
     setError('');
     if (!user) {
-      navigate('/login');
+      navigate('/login', { state: { from: { pathname: `/listings/${id}` } } });
       return;
     }
     try {

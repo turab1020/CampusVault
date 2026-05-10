@@ -18,6 +18,7 @@ export const LoginPage = () => {
   const from = location.state?.from?.pathname || '/dashboard';
 
   const handleClose = () => {
+    sessionStorage.setItem('loginDismissed', 'true');
     if (window.history.state && window.history.state.idx > 0) {
       navigate(-1);
     } else {

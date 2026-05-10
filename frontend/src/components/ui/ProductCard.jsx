@@ -6,19 +6,21 @@ import { Button } from './Button';
 import { ArrowRight } from 'lucide-react';
 
 export const ProductCard = ({ item }) => {
+  const imageUrl = (() => {
+    const img = item.images?.[0];
+    if (!img) return 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';
+    if (img.startsWith('http')) return img;
+    const filename = img.split('/').pop();
+    return `${import.meta.env.VITE_API_URL}/images/${filename}`;
+  })();
+
   return (
     <Link to={`/listings/${item.id || item._id}`}>
-      <Card hoverEffect className="h-full flex flex-col p-0 overflow-hidden bg-white border-4 border-black">
+      {/* ===== DESKTOP / TABLET: Vertical card (hidden on mobile) ===== */}
+      <Card hoverEffect className="hidden sm:flex h-full flex-col p-0 overflow-hidden bg-white border-4 border-black">
         <div className="aspect-square overflow-hidden border-b-4 border-black bg-gray-100 relative group">
           <img
-            src={(() => {
-              const img = item.images[0];
-              if (!img) return 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image';
-              if (img.startsWith('http')) return img;
-              const filename = img.split('/').pop();
-              const baseUrl = import.meta.env.VITE_API_URL;
-              return `${baseUrl}/images/${filename}`;
-            })()}
+            src={imageUrl}
             alt={item.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             onError={(e) => { e.target.src = 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image'; }}
@@ -41,6 +43,39 @@ export const ProductCard = ({ item }) => {
             </div>
             <Button size="sm" variant="secondary" className="px-4 py-1 whitespace-nowrap min-w-[100px] flex justify-center items-center">
               Rent <ArrowRight size={14} className="ml-1" />
+            </Button>
+          </div>
+        </div>
+      </Card>
+
+      {/* ===== MOBILE: Compact horizontal card (hidden on sm+) ===== */}
+      <Card hoverEffect className="flex sm:hidden p-0 overflow-hidden bg-white border-4 border-black">
+        {/* Thumbnail */}
+        <div className="w-[120px] shrink-0 bg-gray-100 relative overflow-hidden border-r-4 border-black">
+          <img
+            src={imageUrl}
+            alt={item.title}
+            className="w-full h-full object-cover"
+            onError={(e) => { e.target.src = 'https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image'; }}
+          />
+          <Badge variant={item.status === 'ACTIVE' ? 'success' : 'warning'} className="absolute top-2 left-2 text-[10px] px-1.5 py-0.5">
+            {item.status}
+          </Badge>
+        </div>
+
+        {/* Details */}
+        <div className="flex-1 p-3 flex flex-col justify-between min-w-0">
+          <div>
+            <h3 className="text-sm font-display font-bold uppercase truncate leading-tight">{item.title}</h3>
+            <p className="text-xs text-gray-500 font-bold mt-0.5">{item.category} · {item.condition}</p>
+          </div>
+          <div className="flex items-end justify-between mt-2 border-t-2 border-dashed border-gray-300 pt-2">
+            <div>
+              <span className="text-primary font-black text-lg leading-none">Rs. {item.dailyRate}</span>
+              <span className="text-[10px] font-bold text-gray-400 ml-0.5">/day</span>
+            </div>
+            <Button size="sm" variant="secondary" className="px-3 py-1 text-xs whitespace-nowrap flex items-center gap-1">
+              Rent <ArrowRight size={12} />
             </Button>
           </div>
         </div>

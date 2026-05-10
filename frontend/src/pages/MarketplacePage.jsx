@@ -96,7 +96,7 @@ export const MarketplacePage = () => {
           Loading Vault Inventory...
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-8">
           {filtered.map((item) => (
             <ProductCard key={item.id || item._id} item={item} />
           ))}
