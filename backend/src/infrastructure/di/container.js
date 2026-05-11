@@ -52,7 +52,7 @@ class DIContainer {
     const getListings = new GetListings(listingRepo);
     const getUser = new GetUser(userRepo);
     const deleteUser = new DeleteUser(userRepo);
-    const updateProfile = new UpdateProfile(userRepo);
+    const updateProfile = new UpdateProfile(userRepo, authService);
 
     const createBookingRequest = new CreateBookingRequest(bookingRepo, listingRepo);
     const manageBooking = new ManageBooking(bookingRepo);

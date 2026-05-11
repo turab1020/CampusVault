@@ -54,9 +54,9 @@ export class UserController {
   async updateProfile(req, res) {
     try {
       const userId = req.user.userId;
-      const { name, avatarRef } = req.body;
+      const { name, avatarRef, password } = req.body;
       
-      const updatedUser = await this.updateProfileUC.execute(userId, { name, avatarRef });
+      const updatedUser = await this.updateProfileUC.execute(userId, { name, avatarRef, password });
       
       const { passwordHash, ...publicData } = updatedUser;
       return res.json(publicData);

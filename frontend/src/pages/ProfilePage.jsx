@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { User, Shield, LogOut, LayoutDashboard, ChevronRight, UserMinus, Camera, Pencil } from 'lucide-react';
+import { User, Shield, LogOut, LayoutDashboard, ChevronRight, UserMinus, Camera, Pencil, Lock, Save } from 'lucide-react';
 import api from '../services/api';
 import { ImageCropper } from '../components/profile/ImageCropper';
 
@@ -14,6 +14,10 @@ export const ProfilePage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showCropper, setShowCropper] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
 
   const getInitials = (name) => {
     if (!name) return 'U';
@@ -65,6 +69,32 @@ export const ProfilePage = () => {
     } finally {
       setIsUploading(false);
       setSelectedImage(null);
+    }
+  };
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    if (newPassword.length < 8) {
+      alert("Password must be at least 8 characters");
+      return;
+    }
+
+    setIsUpdatingPassword(true);
+    try {
+      await api.patch('/users/profile', { password: newPassword });
+      alert('Password updated successfully!');
+      setShowPasswordModal(false);
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to update password');
+    } finally {
+      setIsUpdatingPassword(false);
     }
   };
 
@@ -163,6 +193,22 @@ export const ProfilePage = () => {
           </Card>
         </Link>
 
+        {/* Change Password Card */}
+        <button onClick={() => setShowPasswordModal(true)} className="w-full group text-left">
+          <Card className="bg-white border-4 border-black group-hover:bg-secondary group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+            <div className="flex flex-row items-center gap-6">
+              <div className="w-12 h-12 bg-black text-secondary flex items-center justify-center rounded-brutal border-2 border-black">
+                <Lock size={24} />
+              </div>
+              <div className="text-left">
+                <h2 className="text-xl font-black uppercase tracking-wider text-black">Change Password</h2>
+                <p className="font-bold text-gray-600 text-sm hidden sm:block">Update your account password for better security.</p>
+              </div>
+            </div>
+            <ChevronRight size={32} className="text-black opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-transform" />
+          </Card>
+        </button>
+
         {user.role === 'ADMIN' && (
           <Link to="/admin" className="w-full group">
             <Card className="bg-white border-4 border-black group-hover:bg-primary group-hover:text-white group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
@@ -223,7 +269,63 @@ export const ProfilePage = () => {
             setShowCropper(false);
             setSelectedImage(null);
           }} 
-        />
+      {/* Change Password Modal */}
+      {showPasswordModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="bg-white border-4 border-black w-full max-w-md relative flex flex-col shadow-[8px_8px_0px_0px_#000] rounded-lg">
+            <div className="p-4 border-b-4 border-black flex justify-between items-center bg-secondary">
+              <h3 className="font-display text-xl uppercase text-black">Change Password</h3>
+              <button onClick={() => setShowPasswordModal(false)} className="text-black hover:scale-110 transition-transform">
+                <X size={24} />
+              </button>
+            </div>
+            
+            <form onSubmit={handlePasswordChange} className="p-6 flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <label className="font-display font-bold text-sm uppercase text-black">New Password</label>
+                <input
+                  type="password"
+                  required
+                  placeholder="At least 8 characters"
+                  className="w-full px-4 py-3 bg-white border-4 border-black shadow-brutal-sm focus:outline-none focus:bg-secondary transition-colors font-bold text-black"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="font-display font-bold text-sm uppercase text-black">Confirm Password</label>
+                <input
+                  type="password"
+                  required
+                  placeholder="Repeat new password"
+                  className="w-full px-4 py-3 bg-white border-4 border-black shadow-brutal-sm focus:outline-none focus:bg-secondary transition-colors font-bold text-black"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </div>
+
+              <div className="flex gap-4 mt-2">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  className="flex-1" 
+                  onClick={() => setShowPasswordModal(false)}
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  type="submit" 
+                  variant="primary" 
+                  className="flex-1"
+                  disabled={isUpdatingPassword}
+                >
+                  {isUpdatingPassword ? 'Updating...' : 'Update'}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
       )}
     </div>
   );
