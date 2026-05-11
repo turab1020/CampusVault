@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { di } from "../di/container.js";
 import { authMiddleware } from "../../adapters/middleware/AuthMiddleware.js";
+import { upload } from "../../adapters/middleware/UploadMiddleware.js";
 import { validateRequest, registerSchema, loginSchema, createListingSchema } from "../../adapters/middleware/ValidationMiddleware.js";
 
 export const router = Router();
@@ -12,6 +13,8 @@ router.get("/auth/me", authMiddleware, (req, res) => di.authController.getMe(req
 
 // User Routes
 router.get("/users/:id", (req, res) => di.userController.getById(req, res));
+router.patch("/users/profile", authMiddleware, (req, res) => di.userController.updateProfile(req, res));
+router.post("/users/avatar", authMiddleware, upload.single('avatar'), (req, res) => di.userController.uploadAvatar(req, res));
 router.delete("/users/me", authMiddleware, (req, res) => di.userController.deleteMyAccount(req, res));
 
 // Listing Routes

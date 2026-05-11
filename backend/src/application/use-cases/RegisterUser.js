@@ -1,4 +1,5 @@
 import { User } from "../../domain/entities/User.js";
+import crypto from 'crypto';
 
 
 import { DomainError } from "../../domain/errors/DomainError.js";

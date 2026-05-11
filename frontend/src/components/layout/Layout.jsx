@@ -15,6 +15,16 @@ export const Layout = () => {
     navigate('/login');
   };
 
+  const getInitials = (name) => {
+    if (!name) return 'U';
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  };
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -62,7 +72,7 @@ export const Layout = () => {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <User size={24} className="text-gray-600" />
+                      <span className="font-display font-black text-lg text-black">{getInitials(user.profile?.name)}</span>
                     )}
                   </div>
                   
@@ -95,7 +105,9 @@ export const Layout = () => {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <User size={24} className="w-full h-full p-2 text-gray-500" />
+                        <div className="w-full h-full flex items-center justify-center font-display font-black text-xl text-black">
+                          {getInitials(user.profile?.name)}
+                        </div>
                       )}
                     </div>
                     <div className="overflow-hidden">

@@ -2,9 +2,10 @@
 
 
 export class UserController {
-  constructor(getUser, deleteUser) {
+  constructor(getUser, deleteUser, updateProfile) {
     this.getUser = getUser;
     this.deleteUser = deleteUser;
+    this.updateProfile = updateProfile;
   }
 
   async getById(req, res) {
@@ -46,6 +47,38 @@ export class UserController {
       }
     } catch (err) {
       console.error("Delete User Error:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  }
+
+  async updateProfile(req, res) {
+    try {
+      const userId = req.user.userId;
+      const { name, avatarRef } = req.body;
+      
+      const updatedUser = await this.updateProfile.execute(userId, { name, avatarRef });
+      
+      const { passwordHash, ...publicData } = updatedUser;
+      return res.json(publicData);
+    } catch (err) {
+      console.error("Update Profile Error:", err);
+      return res.status(500).json({ error: err.message || "Internal server error" });
+    }
+  }
+
+  async uploadAvatar(req, res) {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+
+      // Return the filename to be stored in the user profile
+      return res.json({ 
+        avatarRef: req.file.filename,
+        url: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      });
+    } catch (err) {
+      console.error("Upload Avatar Error:", err);
       return res.status(500).json({ error: "Internal server error" });
     }
   }

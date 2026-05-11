@@ -1,4 +1,5 @@
 import { Listing } from "../../domain/entities/Listing.js";
+import crypto from 'crypto';
 
 
 export class CreateListing {

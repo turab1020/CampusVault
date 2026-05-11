@@ -12,6 +12,7 @@ import { CreateListing } from "../../application/use-cases/CreateListing.js";
 import { GetListings } from "../../application/use-cases/GetListings.js";
 import { GetUser } from "../../application/use-cases/GetUser.js";
 import { DeleteUser } from "../../application/use-cases/DeleteUser.js";
+import { UpdateProfile } from "../../application/use-cases/UpdateProfile.js";
 import { CreateBookingRequest } from "../../application/use-cases/CreateBookingRequest.js";
 import { ManageBooking } from "../../application/use-cases/ManageBooking.js";
 import { SuspendUser } from "../../application/use-cases/SuspendUser.js";
@@ -51,6 +52,7 @@ class DIContainer {
     const getListings = new GetListings(listingRepo);
     const getUser = new GetUser(userRepo);
     const deleteUser = new DeleteUser(userRepo);
+    const updateProfile = new UpdateProfile(userRepo);
 
     const createBookingRequest = new CreateBookingRequest(bookingRepo, listingRepo);
     const manageBooking = new ManageBooking(bookingRepo);
@@ -63,7 +65,7 @@ class DIContainer {
     this.authController = new AuthController(registerUser, loginUser, getUser);
     this.listingController = new ListingController(createListing, getListings);
     this.bookingController = new BookingController(createBookingRequest, manageBooking, bookingRepo);
-    this.userController = new UserController(getUser, deleteUser);
+    this.userController = new UserController(getUser, deleteUser, updateProfile);
     this.adminController = new AdminController(suspendUser, flagListing, unflagListing);
   }
 }

@@ -1,4 +1,5 @@
 import { Booking } from "../../domain/entities/Booking.js";
+import crypto from 'crypto';
 
 
 import { DomainError } from "../../domain/errors/DomainError.js";
