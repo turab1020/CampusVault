@@ -269,6 +269,8 @@ export const ProfilePage = () => {
             setShowCropper(false);
             setSelectedImage(null);
           }} 
+        />
+      )}
       {/* Change Password Modal */}
       {showPasswordModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
