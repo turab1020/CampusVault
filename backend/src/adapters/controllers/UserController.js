@@ -2,10 +2,10 @@
 
 
 export class UserController {
-  constructor(getUser, deleteUser, updateProfile) {
+  constructor(getUser, deleteUser, updateProfileUC) {
     this.getUser = getUser;
     this.deleteUser = deleteUser;
-    this.updateProfile = updateProfile;
+    this.updateProfileUC = updateProfileUC;
   }
 
   async getById(req, res) {
@@ -56,7 +56,7 @@ export class UserController {
       const userId = req.user.userId;
       const { name, avatarRef } = req.body;
       
-      const updatedUser = await this.updateProfile.execute(userId, { name, avatarRef });
+      const updatedUser = await this.updateProfileUC.execute(userId, { name, avatarRef });
       
       const { passwordHash, ...publicData } = updatedUser;
       return res.json(publicData);
