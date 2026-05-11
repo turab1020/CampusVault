@@ -82,8 +82,19 @@ async function getCroppedImg(imageSrc, pixelCrop) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
-  canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height;
+  const maxSize = 400;
+  let width = pixelCrop.width;
+  let height = pixelCrop.height;
+
+  // Scale down if larger than maxSize
+  if (width > maxSize || height > maxSize) {
+    const scale = Math.min(maxSize / width, maxSize / height);
+    width *= scale;
+    height *= scale;
+  }
+
+  canvas.width = width;
+  canvas.height = height;
 
   ctx.drawImage(
     image,
@@ -93,14 +104,14 @@ async function getCroppedImg(imageSrc, pixelCrop) {
     pixelCrop.height,
     0,
     0,
-    pixelCrop.width,
-    pixelCrop.height
+    width,
+    height
   );
 
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       resolve(blob);
-    }, 'image/jpeg');
+    }, 'image/jpeg', 0.8);
   });
 }
 

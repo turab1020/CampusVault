@@ -62,7 +62,7 @@ export const Layout = () => {
               {user ? (
                 <button 
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-4 border-black bg-gray-200 flex items-center justify-center hover:scale-105 transition-transform shrink-0 outline-none"
+                  className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-[3px] border-black bg-gray-200 flex items-center justify-center hover:scale-105 transition-transform shrink-0 outline-none"
                 >
                   <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center">
                     {user.profile?.avatarRef ? (
@@ -86,7 +86,7 @@ export const Layout = () => {
               ) : (
                 <Link 
                   to="/login"
-                  className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-4 border-black bg-gray-200 flex items-center justify-center overflow-hidden hover:scale-105 transition-transform shrink-0"
+                  className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-[3px] border-black bg-gray-200 flex items-center justify-center overflow-hidden hover:scale-105 transition-transform shrink-0"
                 >
                   <User size={24} className="text-gray-600" />
                 </Link>

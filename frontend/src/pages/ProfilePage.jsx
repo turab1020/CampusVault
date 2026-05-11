@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { User, Shield, LogOut, LayoutDashboard, ChevronRight, UserMinus, Camera, Pencil, Lock, Save } from 'lucide-react';
+import { User, Shield, LogOut, LayoutDashboard, ChevronRight, UserMinus, Camera, Pencil, Lock, Save, X } from 'lucide-react';
 import api from '../services/api';
 import { ImageCropper } from '../components/profile/ImageCropper';
 
@@ -127,9 +127,9 @@ export const ProfilePage = () => {
   return (
     <div className="flex flex-col gap-8 max-w-3xl mx-auto py-8">
       {/* Header Profile Section */}
-      <div className="bg-white border-4 border-black p-6 sm:p-10 rounded-brutal shadow-[8px_8px_0px_0px_#000] flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
+      <div className="bg-white border-[3px] border-black p-6 sm:p-10 rounded-brutal shadow-[8px_8px_0px_0px_#000] flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
         <div className="relative group">
-          <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-black overflow-hidden bg-gray-200 shrink-0 flex items-center justify-center relative">
+          <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-[3px] border-black overflow-hidden bg-gray-200 shrink-0 flex items-center justify-center relative">
             {avatarUrl ? (
               <img src={avatarUrl} alt="Profile" className="w-full h-full object-cover" />
             ) : (
@@ -151,7 +151,7 @@ export const ProfilePage = () => {
             <Pencil size={18} className="fill-current" />
           </label>
           {user.role === 'ADMIN' && (
-            <div className="absolute top-0 right-0 bg-secondary text-black border-4 border-black rounded-full w-12 h-12 flex items-center justify-center z-10 shadow-[4px_4px_0px_0px_#000]" title="Admin">
+            <div className="absolute top-0 right-0 bg-secondary text-black border-[3px] border-black rounded-full w-12 h-12 flex items-center justify-center z-10 shadow-[4px_4px_0px_0px_#000]" title="Admin">
               <Shield size={24} className="fill-current" />
             </div>
           )}
@@ -179,7 +179,7 @@ export const ProfilePage = () => {
       <div className="flex flex-col gap-4">
         
         <Link to="/dashboard" className="w-full group">
-          <Card className="bg-white border-4 border-black group-hover:bg-secondary group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+          <Card className="bg-white border-[3px] border-black group-hover:bg-secondary group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
             <div className="flex flex-row items-center gap-6">
               <div className="w-12 h-12 bg-black text-secondary flex items-center justify-center rounded-brutal border-2 border-black">
                 <LayoutDashboard size={24} />
@@ -195,7 +195,7 @@ export const ProfilePage = () => {
 
         {/* Change Password Card */}
         <button onClick={() => setShowPasswordModal(true)} className="w-full group text-left">
-          <Card className="bg-white border-4 border-black group-hover:bg-secondary group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+          <Card className="bg-white border-[3px] border-black group-hover:bg-secondary group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
             <div className="flex flex-row items-center gap-6">
               <div className="w-12 h-12 bg-black text-secondary flex items-center justify-center rounded-brutal border-2 border-black">
                 <Lock size={24} />
@@ -211,7 +211,7 @@ export const ProfilePage = () => {
 
         {user.role === 'ADMIN' && (
           <Link to="/admin" className="w-full group">
-            <Card className="bg-white border-4 border-black group-hover:bg-primary group-hover:text-white group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+            <Card className="bg-white border-[3px] border-black group-hover:bg-primary group-hover:text-white group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
               <div className="flex flex-row items-center gap-6">
                 <div className="w-12 h-12 bg-black text-primary flex items-center justify-center rounded-brutal border-2 border-black">
                   <Shield size={24} />
@@ -229,7 +229,7 @@ export const ProfilePage = () => {
         {/* Delete Account Button (Not for Admins) */}
         {user.role !== 'ADMIN' && (
           <button onClick={handleDeleteAccount} className="w-full group text-left">
-            <Card className="bg-white border-4 border-black group-hover:bg-warning group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+            <Card className="bg-white border-[3px] border-black group-hover:bg-warning group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
               <div className="flex flex-row items-center gap-6">
                 <div className="w-12 h-12 bg-black text-warning flex items-center justify-center rounded-brutal border-2 border-black">
                   <UserMinus size={24} />
@@ -246,7 +246,7 @@ export const ProfilePage = () => {
 
         {/* Logout Button */}
         <button onClick={handleLogout} className="w-full group mt-4">
-          <Card className="bg-primary text-white border-4 border-black group-hover:bg-red-600 group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
+          <Card className="bg-primary text-white border-[3px] border-black group-hover:bg-red-600 group-hover:translate-x-2 transition-all cursor-pointer flex flex-row items-center justify-between p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000]">
             <div className="flex flex-row items-center gap-6">
               <div className="w-12 h-12 bg-white text-primary border-2 border-black flex items-center justify-center rounded-brutal">
                 <LogOut size={24} />
@@ -274,7 +274,7 @@ export const ProfilePage = () => {
       {/* Change Password Modal */}
       {showPasswordModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-white border-4 border-black w-full max-w-md relative flex flex-col shadow-[8px_8px_0px_0px_#000] rounded-lg">
+          <div className="bg-white border-[3px] border-black w-full max-w-md relative flex flex-col shadow-[8px_8px_0px_0px_#000] rounded-lg">
             <div className="p-4 border-b-4 border-black flex justify-between items-center bg-secondary">
               <h3 className="font-display text-xl uppercase text-black">Change Password</h3>
               <button onClick={() => setShowPasswordModal(false)} className="text-black hover:scale-110 transition-transform">
@@ -289,7 +289,7 @@ export const ProfilePage = () => {
                   type="password"
                   required
                   placeholder="At least 8 characters"
-                  className="w-full px-4 py-3 bg-white border-4 border-black shadow-brutal-sm focus:outline-none focus:bg-secondary transition-colors font-bold text-black"
+                  className="w-full px-4 py-3 bg-white border-[3px] border-black shadow-brutal-sm focus:outline-none focus:bg-secondary transition-colors font-bold text-black"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                 />
@@ -301,7 +301,7 @@ export const ProfilePage = () => {
                   type="password"
                   required
                   placeholder="Repeat new password"
-                  className="w-full px-4 py-3 bg-white border-4 border-black shadow-brutal-sm focus:outline-none focus:bg-secondary transition-colors font-bold text-black"
+                  className="w-full px-4 py-3 bg-white border-[3px] border-black shadow-brutal-sm focus:outline-none focus:bg-secondary transition-colors font-bold text-black"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />

@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { DomainError } from "../../domain/errors/DomainError.js";
 
 export class UpdateProfile {
@@ -12,6 +14,8 @@ export class UpdateProfile {
       throw new DomainError("User not found");
     }
 
+    const oldAvatarRef = user.profile.avatarRef;
+
     // Update profile fields
     if (profileData.name) {
       user.profile.name = profileData.name;
@@ -19,6 +23,14 @@ export class UpdateProfile {
     
     if (profileData.avatarRef !== undefined) {
       user.profile.avatarRef = profileData.avatarRef;
+
+      // Delete old local avatar if changed and it exists
+      if (oldAvatarRef && oldAvatarRef !== profileData.avatarRef && !oldAvatarRef.startsWith('http')) {
+        const filePath = path.join(process.cwd(), 'images', oldAvatarRef);
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+        }
+      }
     }
 
     // Update password if provided
