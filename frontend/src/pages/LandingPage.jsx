@@ -35,8 +35,8 @@ const HeroDeck = ({ featured }) => {
         
         const baseTransform = deckTransforms[index] || "hidden";
         
-        // Z-Index hierarchy: Hovered card is absolute top (50). Last hovered is second (40). Default middle is (20), default sides are (10).
-        const zClass = isActive ? "z-50" : (isTop ? "z-40" : (index === 1 ? "z-20" : "z-10"));
+        // Z-Index hierarchy: All cards capped below navbar (z-50). Hovered=z-40, last hovered=z-30, default middle=z-20, sides=z-10.
+        const zClass = isActive ? "z-40" : (isTop ? "z-30" : (index === 1 ? "z-20" : "z-10"));
         
         // Wrapper handles Translation, Rotation, Scale, and Z-index
         const wrapperClass = isActive 
