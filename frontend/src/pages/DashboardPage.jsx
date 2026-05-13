@@ -11,6 +11,7 @@ export const DashboardPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [myBookings, setMyBookings] = useState([]);
+  const [listingMap, setListingMap] = useState({});
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
 
@@ -27,6 +28,12 @@ export const DashboardPage = () => {
 
   useEffect(() => {
     fetchBookings();
+    // Build a title map from all listings for display in the table
+    api.get('/listings').then(res => {
+      const map = {};
+      (res.data || []).forEach(l => { map[l._id || l.id] = l.title; });
+      setListingMap(map);
+    }).catch(() => {});
   }, []);
 
   const handleCancelBooking = async (bookingId) => {
@@ -95,7 +102,7 @@ export const DashboardPage = () => {
             <table className="w-full min-w-[700px] text-left border-collapse">
               <thead className="bg-black text-white uppercase font-display text-sm">
                 <tr>
-                  <th className="p-4 border-b-2 border-gray-800 whitespace-nowrap">Item ID</th>
+                  <th className="p-4 border-b-2 border-gray-800 whitespace-nowrap">Item</th>
                   <th className="p-4 border-b-2 border-gray-800 whitespace-nowrap">Dates</th>
                   <th className="p-4 border-b-2 border-gray-800 whitespace-nowrap">Status</th>
                   <th className="p-4 border-b-2 border-gray-800 text-right whitespace-nowrap">Total</th>
@@ -105,9 +112,9 @@ export const DashboardPage = () => {
               <tbody className="font-bold text-gray-700">
                 {myBookings.map((booking) => (
                   <tr key={booking.id || booking._id} className="border-b-2 border-gray-200 hover:bg-gray-50 transition-colors">
-                    <td className="p-4 whitespace-nowrap">
+                    <td className="p-4 whitespace-nowrap max-w-[200px] truncate">
                       <Link to={`/listings/${booking.listingId}`} className="text-primary hover:underline">
-                        {booking.listingId.substring(0, 8)}...
+                        {listingMap[booking.listingId] || `${String(booking.listingId).substring(0, 8)}...`}
                       </Link>
                     </td>
                     <td className="p-4 whitespace-nowrap">
