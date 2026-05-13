@@ -171,7 +171,7 @@ export const ProductDetailsPage = () => {
     if (isMobile) {
       // Minimalist clickable card for mobile
       return (
-        <div className="bg-white text-black border-4 border-black p-3 rounded-brutal flex items-center justify-between active:translate-y-1 transition-transform cursor-pointer">
+        <Link to={`/users/${host.id || host._id}`} className="bg-white text-black border-4 border-black p-3 rounded-brutal flex items-center justify-between active:translate-y-1 transition-transform cursor-pointer block">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full border-2 border-black overflow-hidden bg-gray-200 shrink-0">
               <img src={avatarUrl} alt={host.profile?.name} className="w-full h-full object-cover" />
@@ -185,7 +185,7 @@ export const ProductDetailsPage = () => {
             </div>
           </div>
           <ChevronRight size={20} className="text-gray-400" />
-        </div>
+        </Link>
       );
     }
 
@@ -205,7 +205,9 @@ export const ProductDetailsPage = () => {
           </div>
         </div>
         <div className="flex flex-row gap-3">
-          <Button variant="outline" size="sm" className="w-full font-bold">Open Profile</Button>
+          <Link to={`/users/${host.id || host._id}`} className="w-full">
+            <Button variant="outline" size="sm" className="w-full font-bold">Open Profile</Button>
+          </Link>
           <Button variant="secondary" size="sm" className="w-full font-bold">Show More</Button>
         </div>
       </Card>

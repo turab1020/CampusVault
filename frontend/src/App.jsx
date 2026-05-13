@@ -15,6 +15,7 @@ import { AboutPage } from './pages/AboutPage';
 import { FAQPage } from './pages/FAQPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsPage } from './pages/TermsPage';
+import { PublicProfilePage } from './pages/PublicProfilePage';
 
 const ProtectedRoute = ({ children }) => {
   const { user, isLoading } = useAuth();
@@ -46,6 +47,7 @@ function App() {
             <Route path="terms" element={<TermsPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
+            <Route path="users/:id" element={<PublicProfilePage />} />
             
             <Route path="profile" element={
               <ProtectedRoute>
