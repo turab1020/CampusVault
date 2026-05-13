@@ -210,10 +210,10 @@ export const ProductDetailsPage = () => {
         {hasExisting && (
           <div className="mb-4 flex flex-col gap-2">
             {activeBookings.map((b) => (
-              <div key={b.id || b._id} className="flex items-start gap-3 bg-secondary/20 border-2 border-secondary rounded-lg p-3">
+              <Link to="/dashboard" key={b.id || b._id} className="flex items-start gap-3 bg-secondary/20 border-2 border-secondary rounded-lg p-3 hover:bg-secondary/40 transition-colors cursor-pointer">
                 <CalendarCheck size={18} className="text-secondary shrink-0 mt-0.5" />
                 <div className="flex-1 min-w-0">
-                  <p className="font-black text-black text-xs uppercase tracking-wide">Booking Already Made</p>
+                  <p className="font-black text-black text-xs uppercase tracking-wide">Booking Already Made — View in My Vault →</p>
                   <p className="font-bold text-gray-700 text-xs mt-0.5">
                     {new Date(b.startDate).toLocaleDateString()} → {new Date(b.endDate).toLocaleDateString()}
                   </p>
@@ -223,7 +223,7 @@ export const ProductDetailsPage = () => {
                     'bg-gray-100 text-gray-600'
                   }`}>{b.status}</span>
                 </div>
-              </div>
+              </Link>
             ))}
 
             {!showNewBookingForm && !bookingSuccess && (
