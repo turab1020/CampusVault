@@ -191,26 +191,23 @@ export const ProductDetailsPage = () => {
 
     // Standard Desktop Card
     return (
-      <Card className="bg-white text-black border-4 p-4">
-        <div className="flex flex-row items-center gap-4 mb-4">
-          <div className="w-14 h-14 rounded-full border-2 border-black overflow-hidden bg-gray-200 shrink-0">
-            <img src={avatarUrl} alt={host.profile?.name} className="w-full h-full object-cover" />
-          </div>
-          <div className="w-full">
-            <h3 className="text-lg font-black uppercase leading-tight truncate">{host.profile?.name}</h3>
-            <div className="flex items-center gap-1 text-xs font-bold text-gray-500 mt-1">
-              <Shield size={14} className="text-secondary" />
-              <span>Verified Host</span>
+      <Link to={`/users/${host.id || host._id}`} className="block group">
+        <Card className="bg-white text-black border-4 p-4 flex items-center justify-between group-hover:-translate-y-1 group-hover:shadow-brutal transition-all cursor-pointer">
+          <div className="flex flex-row items-center gap-4">
+            <div className="w-14 h-14 rounded-full border-2 border-black overflow-hidden bg-gray-200 shrink-0">
+              <img src={avatarUrl} alt={host.profile?.name} className="w-full h-full object-cover" />
+            </div>
+            <div className="w-full">
+              <h3 className="text-lg font-black uppercase leading-tight truncate">{host.profile?.name}</h3>
+              <div className="flex items-center gap-1 text-xs font-bold text-gray-500 mt-1">
+                <Shield size={14} className="text-secondary" />
+                <span>Verified Host</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="flex flex-row gap-3">
-          <Link to={`/users/${host.id || host._id}`} className="w-full">
-            <Button variant="outline" size="sm" className="w-full font-bold">Open Profile</Button>
-          </Link>
-          <Button variant="secondary" size="sm" className="w-full font-bold">Show More</Button>
-        </div>
-      </Card>
+          <ChevronRight size={28} className="text-gray-400 group-hover:text-primary transition-colors" />
+        </Card>
+      </Link>
     );
   };
 
