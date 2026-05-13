@@ -87,6 +87,20 @@ export const ProductDetailsPage = () => {
       navigate('/login', { state: { from: { pathname: `/listings/${id}` } } });
       return;
     }
+
+    // Client-side duplicate/overlap guard
+    const newStart = new Date(startDate);
+    const newEnd = new Date(endDate);
+    const hasOverlap = existingBookings.some(b => {
+      const bStart = new Date(b.startDate);
+      const bEnd = new Date(b.endDate);
+      return newStart <= bEnd && newEnd >= bStart;
+    });
+    if (hasOverlap) {
+      setError('You already have a booking for this item on overlapping dates.');
+      return;
+    }
+
     try {
       await api.post('/bookings', { listingId: id, startDate, endDate });
       setBookingSuccess(true);

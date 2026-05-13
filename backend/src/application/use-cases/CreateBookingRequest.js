@@ -42,13 +42,21 @@ export class CreateBookingRequest {
     // Let's assume we check for confirmed overlaps.
 
     const conflicts = await this.bookingRepo.findOverlapping(listingId, startDate, endDate);
-    // Filter for blocking statuses
-    const blockingConflicts = conflicts.filter((b) =>
-    ["APPROVED", "PickedUp", "Returned", "COMPLETED"].includes(b.status)
-    );
 
+    // 1. Block if another renter's APPROVED/active booking exists for these dates
+    const blockingConflicts = conflicts.filter((b) =>
+      ["APPROVED", "PickedUp", "Returned", "COMPLETED"].includes(b.status)
+    );
     if (blockingConflicts.length > 0) {
       throw new DomainError("Listing is already booked for these dates");
+    }
+
+    // 2. Block if THIS renter already has any non-cancelled booking for the same listing on overlapping dates
+    const renterDuplicate = conflicts.filter((b) =>
+      b.renterId === renterId && b.status !== "CANCELLED"
+    );
+    if (renterDuplicate.length > 0) {
+      throw new DomainError("You already have a booking for this item on these dates");
     }
 
     const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
