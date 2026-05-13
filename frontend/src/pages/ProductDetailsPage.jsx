@@ -6,7 +6,7 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { Input } from '../components/ui/Input';
-import { Shield, CheckCircle, ArrowRight, ChevronRight, CalendarCheck, PlusCircle } from 'lucide-react';
+import { Shield, CheckCircle, ArrowRight, ChevronRight, CalendarCheck, PlusCircle, ShieldCheck, Clock, CreditCard } from 'lucide-react';
 import { ProductCard } from '../components/ui/ProductCard';
 
 export const ProductDetailsPage = () => {
@@ -211,6 +211,32 @@ export const ProductDetailsPage = () => {
     );
   };
 
+  const VaultPromisesComponent = () => (
+    <div className="hidden lg:flex flex-col gap-3 my-2 text-gray-300">
+      <div className="flex items-center gap-3 bg-bg-main p-3 rounded-lg border-2 border-gray-700">
+        <ShieldCheck size={24} className="text-primary shrink-0" />
+        <div>
+          <h4 className="text-sm font-black uppercase text-white">Quality Guarantee</h4>
+          <p className="text-xs font-bold text-gray-400 mt-0.5">Report any issues within 24 hours.</p>
+        </div>
+      </div>
+      <div className="flex items-center gap-3 bg-bg-main p-3 rounded-lg border-2 border-gray-700">
+        <CreditCard size={24} className="text-secondary shrink-0" />
+        <div>
+          <h4 className="text-sm font-black uppercase text-white">Secure Payments</h4>
+          <p className="text-xs font-bold text-gray-400 mt-0.5">Your money is safe until you confirm.</p>
+        </div>
+      </div>
+      <div className="flex items-center gap-3 bg-bg-main p-3 rounded-lg border-2 border-gray-700">
+        <Clock size={24} className="text-success shrink-0" />
+        <div>
+          <h4 className="text-sm font-black uppercase text-white">Flexible Returns</h4>
+          <p className="text-xs font-bold text-gray-400 mt-0.5">Coordinate drop-offs directly with hosts.</p>
+        </div>
+      </div>
+    </div>
+  );
+
   const BookingComponent = () => {
     const activeBookings = existingBookings.filter(b => b.status !== 'CANCELLED');
     const hasExisting = activeBookings.length > 0;
@@ -303,9 +329,10 @@ export const ProductDetailsPage = () => {
           <ImageComponent />
           <DescriptionComponent />
         </div>
-        <div className="flex flex-col gap-8 text-white">
+        <div className="flex flex-col gap-6 text-white h-full">
           <TitleComponent />
           <HostComponent isMobile={false} />
+          <VaultPromisesComponent />
           <BookingComponent />
         </div>
       </div>
